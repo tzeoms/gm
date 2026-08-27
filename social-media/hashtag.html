@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Hashtag Generator — Gamermaid Social Media Studio</title>
+  <meta name="description" content="Find trending, relevant hashtags for Instagram, TikTok, YouTube, and more — instantly.">
+  <link rel="canonical" href="https://gamermaid.site/social-media/hashtag.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Hashtag Generator — Gamermaid">
+  <meta property="og:description" content="Find trending, relevant hashtags for Instagram, TikTok, YouTube, and more — instantly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gamermaid.site/social-media/hashtag.html">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Hashtag Generator — Gamermaid">
+  <meta name="twitter:description" content="Find trending, relevant hashtags for Instagram, TikTok, YouTube, and more — instantly.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-depth="1">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="position: relative; overflow: hidden;">
+      <div class="bg-glow" aria-hidden="true"></div>
+      <div class="container" style="max-width: 760px;">
+        <div class="tool-page-head">
+          <div>
+            <span class="tool-category">Social Media Studio</span>
+            <h1>AI Hashtag Generator</h1>
+          </div>
+          <button type="button" class="btn-icon favorite-toggle" data-favorite-toggle
+            data-tool-title="AI Hashtag Generator" data-tool-url="social-media/hashtag.html"
+            aria-label="Add to favorites" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3z"/>
+            </svg>
+          </button>
+        </div>
+        <p class="lead" style="margin-top: var(--space-3);">Stop guessing which hashtags actually work. Describe your post topic and Gamermaid will suggest a relevant hashtag set tuned to your platform and tone.</p>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container" style="max-width: 760px; display: flex; flex-direction: column; gap: var(--space-6);">
+
+        <form id="social-form" class="generator-form card" novalidate>
+          <div class="field">
+            <label for="topic">Topic</label>
+            <input type="text" id="topic" name="topic" class="input" placeholder="e.g. a new sneaker drop for runners" required>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="platform">Platform</label>
+              <select id="platform" name="platform" class="select">
+                <option value="Instagram">Instagram</option>
+                <option value="TikTok">TikTok</option>
+                <option value="YouTube">YouTube</option>
+                <option value="Facebook">Facebook</option>
+                <option value="X">X</option>
+                <option value="LinkedIn">LinkedIn</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="tone">Tone</label>
+              <select id="tone" name="tone" class="select">
+                <option value="Professional">Professional</option>
+                <option value="Exciting">Exciting</option>
+                <option value="Funny">Funny</option>
+                <option value="Viral">Viral</option>
+                <option value="Educational">Educational</option>
+                <option value="Casual">Casual</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="language">Language</label>
+              <select id="language" name="language" class="select">
+                <option value="English">English</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Japanese">Japanese</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="form-error" class="form-error" role="alert" aria-live="polite"></div>
+
+          <button type="submit" id="generate-btn" class="btn btn-primary">Generate Content</button>
+        </form>
+
+        <div id="result-box" class="result-box" hidden aria-live="polite">
+          <div class="result-box-head">
+            <h2>Generated Hashtags</h2>
+          </div>
+          <div id="result-text" class="result-content"></div>
+          <div class="result-actions">
+            <button type="button" id="copy-btn" class="btn btn-secondary btn-sm">Copy</button>
+            <button type="button" id="regenerate-btn" class="btn btn-secondary btn-sm">Regenerate</button>
+            <button type="button" id="clear-btn" class="btn btn-ghost btn-sm">Clear</button>
+          </div>
+        </div>
+
+        <div class="tips-card">
+          <h2>Tips for the AI Hashtag Generator</h2>
+          <ul>
+          <li>Mix broad and niche hashtags for the best discoverability.</li>
+          <li>Re-run Generate for a fresh set if the first batch feels too generic.</li>
+          <li>Copy the list straight into your caption or first comment.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/search-index.js"></script>
+  <script src="../assets/js/dropdown.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/social-ai.js"></script>
+  <script>
+    window.GM_INIT_SOCIAL_TOOL({
+      tool: "hashtag",
+      resultLabel: "Generated Hashtags"
+    });
+  </script>
+</body>
+</html>

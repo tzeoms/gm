@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Gamermaid</title>
+  <meta name="description" content="Gamermaid's privacy policy — how image tools process files locally in your browser, what data social AI tools send, and how sign-in and localStorage are used.">
+  <link rel="canonical" href="https://gamermaid.site/privacy/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Privacy Policy | Gamermaid">
+  <meta property="og:description" content="How Gamermaid's tools handle your data — client-side image processing, third-party AI text generation, and optional sign-in.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gamermaid.site/privacy/">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy | Gamermaid">
+  <meta name="twitter:description" content="How Gamermaid's tools handle your data — client-side image processing, third-party AI text generation, and optional sign-in.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-depth="1">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="position: relative; overflow: hidden;">
+      <div class="bg-glow" aria-hidden="true"></div>
+      <div class="container" style="max-width: 780px;">
+        <h1>Privacy Policy</h1>
+        <p class="text-muted" style="margin-top: var(--space-3);">Last updated: August 2026</p>
+
+        <div class="card" style="margin-top: var(--space-6);">
+          <p style="margin:0;">
+            This policy explains what happens to your data when you use Gamermaid's tools. We try to
+            keep things simple: most tools run entirely in your browser, and we only send data to a
+            third party where that is genuinely required for the tool to work.
+          </p>
+        </div>
+
+        <section class="section-tight">
+          <h2>Image Studio tools</h2>
+          <p>
+            The Image Studio tools (upscaler, converter, resizer, compressor, cropper) process your
+            images entirely client-side, in your browser. Your images are never uploaded to a
+            Gamermaid server or any third party — all processing happens locally on your device using
+            your browser's own capabilities.
+          </p>
+        </section>
+
+        <section class="section-tight">
+          <h2>Social Media Studio tools</h2>
+          <p>
+            The Social Media Studio tools (caption, hashtag, bio, script, and similar generators) send
+            only the text you enter into the relevant form fields to a third-party AI API endpoint in
+            order to generate the requested content. We do not attach any additional personal
+            information to these requests beyond what you type into the form.
+          </p>
+        </section>
+
+        <section class="section-tight">
+          <h2>Account sign-in</h2>
+          <p>
+            If you choose to create an account or sign in, authentication is handled by Firebase
+            Authentication (including "Continue with Google"). Firebase manages your credentials and
+            session on our behalf — we do not store passwords ourselves. If authentication is not
+            configured on a given deployment of this site, sign-in is disabled and no account data is
+            collected.
+          </p>
+        </section>
+
+        <section class="section-tight">
+          <h2>Local storage</h2>
+          <p>
+            Gamermaid uses your browser's <code>localStorage</code> to remember preferences (such as
+            reduced motion or theme settings), recently used tools, and favorite tools. This
+            information stays on your device and is not transmitted to our servers. Clearing your
+            browser data or using a different browser/device will reset it.
+          </p>
+        </section>
+
+        <section class="section-tight">
+          <h2>Cookies and tracking</h2>
+          <p>
+            Gamermaid does not use advertising trackers or third-party analytics cookies. Any cookies
+            set are limited to what is required for Firebase Authentication to function when you are
+            signed in.
+          </p>
+        </section>
+
+        <section class="section-tight">
+          <h2>Changes to this policy</h2>
+          <p>
+            We may update this privacy policy from time to time as the site's features change. The
+            "Last updated" date at the top of this page reflects the most recent revision.
+          </p>
+        </section>
+
+        <section class="section-tight">
+          <h2>Contact</h2>
+          <p>
+            Questions about this policy can be sent to
+            <a href="mailto:hello@gamermaid.site">hello@gamermaid.site</a>.
+          </p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/search-index.js"></script>
+  <script src="../assets/js/dropdown.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/auth.js"></script>
+</body>
+</html>

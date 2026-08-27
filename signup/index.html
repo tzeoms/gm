@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Your Account | Gamermaid</title>
+  <meta name="description" content="Create a free Gamermaid account to save your favorite AI tools and track recently used tools from your dashboard.">
+  <link rel="canonical" href="https://gamermaid.site/signup/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Create Your Account | Gamermaid">
+  <meta property="og:description" content="Create a free Gamermaid account to save your favorite AI tools and track recently used tools from your dashboard.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gamermaid.site/signup/">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Create Your Account | Gamermaid">
+  <meta name="twitter:description" content="Create a free Gamermaid account to save your favorite AI tools and track recently used tools from your dashboard.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-depth="1">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="position: relative; overflow: hidden;">
+      <div class="bg-glow" aria-hidden="true"></div>
+      <div class="container" style="max-width: 480px;">
+        <h1>Create Your Account</h1>
+        <p class="lead" style="margin-top: var(--space-4);">
+          Sign up for free to save favorite tools and pick up where you left off.
+        </p>
+
+        <div id="auth-config-banner" class="card" hidden style="margin-top: var(--space-6); border-color: rgba(255,179,64,0.4); background: rgba(255,179,64,0.07);">
+          <p style="margin: 0;">
+            <strong>Authentication is not configured yet.</strong> Account creation is disabled on
+            this deployment until Firebase Authentication is set up.
+          </p>
+        </div>
+
+        <div class="card" style="margin-top: var(--space-6);">
+          <form id="signup-form" novalidate>
+            <div class="field">
+              <label for="signup-email">Email</label>
+              <input class="input" type="email" id="signup-email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="signup-password">Password</label>
+              <input class="input" type="password" id="signup-password" name="password" autocomplete="new-password" minlength="6" required>
+            </div>
+
+            <p class="form-error" id="signup-error" role="alert" aria-live="polite"></p>
+
+            <button class="btn btn-primary" type="submit" id="signup-submit" style="width:100%; justify-content:center;">Create Account</button>
+          </form>
+
+          <div class="flex items-center gap-3" style="margin: var(--space-5) 0;" aria-hidden="true">
+            <div style="flex:1; height:1px; background: var(--color-border);"></div>
+            <span class="text-muted" style="font-size:0.85rem;">or</span>
+            <div style="flex:1; height:1px; background: var(--color-border);"></div>
+          </div>
+
+          <button class="btn btn-secondary" type="button" id="google-signin-btn" style="width:100%; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path fill="#EA4335" d="M12 10.8v3.7h5.2c-.2 1.3-1.6 3.9-5.2 3.9-3.1 0-5.7-2.6-5.7-5.8s2.6-5.8 5.7-5.8c1.8 0 3 .7 3.7 1.4l2.5-2.4C16.6 4.4 14.5 3.4 12 3.4 6.9 3.4 2.8 7.5 2.8 12.6S6.9 21.8 12 21.8c6.9 0 9.2-4.8 9.2-7.3 0-.5-.1-.9-.1-1.3H12z"/>
+            </svg>
+            Continue with Google
+          </button>
+        </div>
+
+        <p class="text-muted" style="margin-top: var(--space-5); text-align:center;">
+          Already have an account? <a href="../login/">Sign in</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/search-index.js"></script>
+  <script src="../assets/js/dropdown.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      const banner = document.getElementById("auth-config-banner");
+      const form = document.getElementById("signup-form");
+      const errorEl = document.getElementById("signup-error");
+      const submitBtn = document.getElementById("signup-submit");
+      const googleBtn = document.getElementById("google-signin-btn");
+
+      const NOT_CONFIGURED_MSG = "Authentication is not configured yet.";
+
+      function showNotConfigured() {
+        banner.hidden = false;
+        errorEl.textContent = NOT_CONFIGURED_MSG;
+        submitBtn.disabled = true;
+        googleBtn.disabled = true;
+      }
+
+      if (!window.GM_AUTH_CONFIGURED) {
+        showNotConfigured();
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        errorEl.textContent = "";
+
+        if (!window.GM_AUTH_CONFIGURED) {
+          errorEl.textContent = NOT_CONFIGURED_MSG;
+          return;
+        }
+
+        const email = document.getElementById("signup-email").value.trim();
+        const password = document.getElementById("signup-password").value;
+
+        submitBtn.disabled = true;
+        window.GM_AUTH.registerWithEmail(email, password)
+          .then(function () {
+            window.location.href = "../dashboard/";
+          })
+          .catch(function (error) {
+            errorEl.textContent = error && error.message ? error.message : "Account creation failed. Please try again.";
+            submitBtn.disabled = false;
+          });
+      });
+
+      googleBtn.addEventListener("click", function () {
+        errorEl.textContent = "";
+
+        if (!window.GM_AUTH_CONFIGURED) {
+          errorEl.textContent = NOT_CONFIGURED_MSG;
+          return;
+        }
+
+        window.GM_AUTH.signInWithGoogle()
+          .then(function () {
+            window.location.href = "../dashboard/";
+          })
+          .catch(function (error) {
+            errorEl.textContent = error && error.message ? error.message : "Sign-in failed. Please try again.";
+          });
+      });
+    })();
+  </script>
+</body>
+</html>

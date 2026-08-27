@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Cropper — Free Online Tool | Gamermaid</title>
+  <meta name="description" content="Crop images with a draggable, resizable crop box and aspect ratio presets, directly in your browser. Free and private.">
+  <link rel="canonical" href="https://gamermaid.site/image-studio/cropper.html">
+
+  <meta property="og:title" content="Image Cropper — Free Online Tool | Gamermaid">
+  <meta property="og:description" content="Crop images with a draggable, resizable crop box and aspect ratio presets, directly in your browser. Free and private.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gamermaid.site/image-studio/cropper.html">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Image Cropper — Free Online Tool | Gamermaid">
+  <meta name="twitter:description" content="Crop images with a draggable, resizable crop box and aspect ratio presets, directly in your browser. Free and private.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-depth="1">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section">
+      <div class="container tool-page-layout" style="max-width: 900px;">
+
+        <div class="tool-page-header">
+          <div>
+            <h1>Image Cropper</h1>
+            <p class="lead" style="margin-top: var(--space-3);">
+              Drag and resize a crop box to select exactly the region you want, right in your browser.
+            </p>
+          </div>
+          <button type="button" class="btn-icon tool-fav-btn" id="fav-btn" aria-label="Add to favorites" aria-pressed="false">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 17.3l-6.16 3.73 1.64-7.03L2 9.24l7.19-.61L12 2l2.81 6.63 7.19.61-5.48 4.76 1.64 7.03z"/></svg>
+          </button>
+        </div>
+
+        <div id="upload-step">
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload an image by clicking or dropping a file">
+            <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+            <p><strong>Drag and drop</strong> an image here, or click to browse</p>
+            <p class="dropzone-hint">JPG, PNG, or WEBP — up to 25MB</p>
+          </div>
+          <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="visually-hidden">
+          <p id="upload-error" class="text-muted" role="alert" style="color: var(--color-danger); margin-top: var(--space-3); display:none;"></p>
+        </div>
+
+        <div id="edit-step" style="display:none;">
+          <div class="field">
+            <label>Aspect ratio</label>
+            <div class="aspect-toggle-group" role="group" aria-label="Crop aspect ratio">
+              <button type="button" class="toggle-chip" data-ratio="1">1:1</button>
+              <button type="button" class="toggle-chip" data-ratio="0.8">4:5</button>
+              <button type="button" class="toggle-chip" data-ratio="1.7778">16:9</button>
+              <button type="button" class="toggle-chip is-active" data-ratio="free">Free</button>
+            </div>
+          </div>
+
+          <div class="crop-stage" id="crop-stage">
+            <img id="source-image" alt="Uploaded image to crop">
+            <div class="crop-overlay is-interactive" id="crop-box">
+              <div class="crop-handle nw" data-handle="nw"></div>
+              <div class="crop-handle ne" data-handle="ne"></div>
+              <div class="crop-handle sw" data-handle="sw"></div>
+              <div class="crop-handle se" data-handle="se"></div>
+            </div>
+          </div>
+
+          <div class="flex gap-3" style="margin: var(--space-5) 0; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary" id="process-btn">
+              <span id="process-btn-label">Apply Crop</span>
+              <span class="spinner" id="process-spinner" style="display:none;" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="reset-btn">Reset</button>
+          </div>
+
+          <div class="tool-preview-pane" id="result-pane" style="display:none; max-width: 480px; margin-inline:auto;">
+            <h3>Cropped result</h3>
+            <canvas id="result-canvas"></canvas>
+            <p class="file-meta" id="result-meta"></p>
+          </div>
+
+          <div class="result-actions">
+            <button type="button" class="btn btn-secondary" id="download-btn" disabled>Download Result</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/search-index.js"></script>
+  <script src="../assets/js/dropdown.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/image-tools.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      const SLUG = "cropper";
+      const TITLE = "Image Cropper";
+      const URL = "image-studio/cropper.html";
+
+      if (window.GM_TRACK_TOOL_USE) window.GM_TRACK_TOOL_USE(SLUG, TITLE, URL);
+
+      const favBtn = document.getElementById("fav-btn");
+      function refreshFav() {
+        const isFav = window.GM_IS_FAVORITE ? window.GM_IS_FAVORITE(SLUG) : false;
+        favBtn.setAttribute("aria-pressed", String(isFav));
+        favBtn.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
+      }
+      favBtn.addEventListener("click", function () {
+        if (window.GM_TOGGLE_FAVORITE) window.GM_TOGGLE_FAVORITE(SLUG, TITLE, URL);
+        refreshFav();
+      });
+      refreshFav();
+
+      const dropzone = document.getElementById("dropzone");
+      const fileInput = document.getElementById("file-input");
+      const uploadStep = document.getElementById("upload-step");
+      const editStep = document.getElementById("edit-step");
+      const uploadError = document.getElementById("upload-error");
+      const sourceImage = document.getElementById("source-image");
+      const cropStage = document.getElementById("crop-stage");
+      const cropBox = document.getElementById("crop-box");
+      const ratioButtons = document.querySelectorAll("[data-ratio]");
+      const processBtn = document.getElementById("process-btn");
+      const processLabel = document.getElementById("process-btn-label");
+      const processSpinner = document.getElementById("process-spinner");
+      const resultPane = document.getElementById("result-pane");
+      const resultCanvas = document.getElementById("result-canvas");
+      const resultMeta = document.getElementById("result-meta");
+      const downloadBtn = document.getElementById("download-btn");
+      const resetBtn = document.getElementById("reset-btn");
+
+      let currentImage = null;
+      let currentRatio = null; // null = free
+      let box = { x: 0, y: 0, w: 100, h: 100 }; // in displayed (on-screen) pixels
+      let hasResult = false;
+
+      window.GMImageTools.wireDropzone(dropzone, fileInput, handleFile);
+
+      function handleFile(file) {
+        const check = window.GMImageTools.validateImageFile(file);
+        if (!check.valid) {
+          uploadError.textContent = check.error;
+          uploadError.style.display = "block";
+          return;
+        }
+        uploadError.style.display = "none";
+
+        window.GMImageTools.readImageFile(file).then((img) => {
+          currentImage = img;
+          sourceImage.src = img.src;
+          uploadStep.style.display = "none";
+          editStep.style.display = "block";
+          resultPane.style.display = "none";
+          downloadBtn.disabled = true;
+          hasResult = false;
+
+          // Wait for the displayed <img> to lay out before positioning the box.
+          requestAnimationFrame(() => {
+            initCropBox();
+          });
+        }).catch((err) => {
+          uploadError.textContent = err.message;
+          uploadError.style.display = "block";
+        });
+      }
+
+      function initCropBox() {
+        const rect = sourceImage.getBoundingClientRect();
+        const w = rect.width * 0.6;
+        const h = currentRatio ? w / currentRatio : rect.height * 0.6;
+        box = {
+          x: (rect.width - w) / 2,
+          y: (rect.height - h) / 2,
+          w: w,
+          h: h,
+        };
+        clampBox();
+        renderBox();
+      }
+
+      function clampBox() {
+        const rect = sourceImage.getBoundingClientRect();
+        box.w = Math.max(20, Math.min(box.w, rect.width));
+        box.h = Math.max(20, Math.min(box.h, rect.height));
+        box.x = Math.max(0, Math.min(box.x, rect.width - box.w));
+        box.y = Math.max(0, Math.min(box.y, rect.height - box.h));
+      }
+
+      function renderBox() {
+        cropBox.style.left = box.x + "px";
+        cropBox.style.top = box.y + "px";
+        cropBox.style.width = box.w + "px";
+        cropBox.style.height = box.h + "px";
+      }
+
+      ratioButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          ratioButtons.forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+          const val = btn.getAttribute("data-ratio");
+          currentRatio = val === "free" ? null : Number(val);
+
+          if (currentRatio && currentImage) {
+            const rect = sourceImage.getBoundingClientRect();
+            const cx = box.x + box.w / 2;
+            const cy = box.y + box.h / 2;
+            let newW = box.w;
+            let newH = newW / currentRatio;
+            if (newH > rect.height) {
+              newH = rect.height;
+              newW = newH * currentRatio;
+            }
+            box = { x: cx - newW / 2, y: cy - newH / 2, w: newW, h: newH };
+            clampBox();
+            renderBox();
+          }
+        });
+      });
+
+      /* ---- Drag to move, drag handles to resize ---- */
+      let activeAction = null; // "move" | "nw" | "ne" | "sw" | "se"
+      let startPointer = { x: 0, y: 0 };
+      let startBox = null;
+
+      cropBox.addEventListener("pointerdown", (e) => {
+        const handle = e.target.getAttribute && e.target.getAttribute("data-handle");
+        activeAction = handle || "move";
+        startPointer = { x: e.clientX, y: e.clientY };
+        startBox = { ...box };
+        e.preventDefault();
+        cropBox.setPointerCapture(e.pointerId);
+      });
+
+      cropBox.addEventListener("pointermove", (e) => {
+        if (!activeAction) return;
+        const dx = e.clientX - startPointer.x;
+        const dy = e.clientY - startPointer.y;
+        const rect = sourceImage.getBoundingClientRect();
+
+        if (activeAction === "move") {
+          box.x = Math.max(0, Math.min(startBox.x + dx, rect.width - box.w));
+          box.y = Math.max(0, Math.min(startBox.y + dy, rect.height - box.h));
+        } else {
+          let { x, y, w, h } = startBox;
+          if (activeAction === "se") { w = startBox.w + dx; h = currentRatio ? w / currentRatio : startBox.h + dy; }
+          if (activeAction === "sw") { w = startBox.w - dx; x = startBox.x + dx; h = currentRatio ? w / currentRatio : startBox.h + dy; }
+          if (activeAction === "ne") { w = startBox.w + dx; h = currentRatio ? w / currentRatio : startBox.h - dy; y = currentRatio ? startBox.y + (startBox.h - h) : startBox.y + dy; }
+          if (activeAction === "nw") { w = startBox.w - dx; x = startBox.x + dx; h = currentRatio ? w / currentRatio : startBox.h - dy; y = currentRatio ? startBox.y + (startBox.h - h) : startBox.y + dy; }
+
+          w = Math.max(20, w);
+          h = Math.max(20, h);
+          box = { x, y, w, h };
+        }
+        clampBox();
+        renderBox();
+      });
+
+      ["pointerup", "pointercancel"].forEach((evt) => {
+        cropBox.addEventListener(evt, () => { activeAction = null; startBox = null; });
+      });
+
+      processBtn.addEventListener("click", () => {
+        if (!currentImage) return;
+        processLabel.textContent = "Cropping…";
+        processSpinner.style.display = "inline-block";
+        processBtn.disabled = true;
+
+        setTimeout(() => {
+          const rect = sourceImage.getBoundingClientRect();
+          const scaleX = currentImage.naturalWidth / rect.width;
+          const scaleY = currentImage.naturalHeight / rect.height;
+
+          const sx = box.x * scaleX;
+          const sy = box.y * scaleY;
+          const sw = box.w * scaleX;
+          const sh = box.h * scaleY;
+
+          resultCanvas.width = Math.round(sw);
+          resultCanvas.height = Math.round(sh);
+          const ctx = resultCanvas.getContext("2d");
+          ctx.drawImage(currentImage, sx, sy, sw, sh, 0, 0, sw, sh);
+
+          resultPane.style.display = "block";
+          resultMeta.textContent = Math.round(sw) + " × " + Math.round(sh) + " px";
+          downloadBtn.disabled = false;
+          hasResult = true;
+
+          processLabel.textContent = "Apply Crop";
+          processSpinner.style.display = "none";
+          processBtn.disabled = false;
+        }, 350 + Math.random() * 250);
+      });
+
+      downloadBtn.addEventListener("click", () => {
+        if (!hasResult) return;
+        window.GMImageTools.downloadResult(resultCanvas, "gamermaid-cropped.png");
+      });
+
+      resetBtn.addEventListener("click", () => {
+        currentImage = null;
+        hasResult = false;
+        currentRatio = null;
+        fileInput.value = "";
+        uploadStep.style.display = "block";
+        editStep.style.display = "none";
+        uploadError.style.display = "none";
+        ratioButtons.forEach((b) => b.classList.remove("is-active"));
+        document.querySelector('[data-ratio="free"]').classList.add("is-active");
+      });
+
+      window.addEventListener("resize", () => {
+        if (currentImage && editStep.style.display !== "none") {
+          initCropBox();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

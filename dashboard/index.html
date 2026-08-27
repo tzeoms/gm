@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Gamermaid</title>
+  <meta name="description" content="Your Gamermaid dashboard — recently used tools, favorite tools, account details, and settings.">
+  <link rel="canonical" href="https://gamermaid.site/dashboard/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dashboard | Gamermaid">
+  <meta property="og:description" content="Your Gamermaid dashboard — recently used tools, favorite tools, account details, and settings.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gamermaid.site/dashboard/">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dashboard | Gamermaid">
+  <meta name="twitter:description" content="Your Gamermaid dashboard — recently used tools, favorite tools, account details, and settings.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-depth="1">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="position: relative; overflow: hidden;">
+      <div class="bg-glow" aria-hidden="true"></div>
+      <div class="container" style="max-width: 900px;">
+
+        <div id="dashboard-not-configured" class="card" hidden style="margin-bottom: var(--space-6); border-color: rgba(255,179,64,0.4); background: rgba(255,179,64,0.07);">
+          <p style="margin: 0;">
+            <strong>Authentication is not configured yet.</strong> You're viewing a generic dashboard
+            preview. Sign-in, personalized data, and account details will be available once Firebase
+            Authentication is set up on this deployment.
+          </p>
+        </div>
+
+        <h1 id="dashboard-heading">Dashboard</h1>
+        <p class="lead" id="dashboard-subheading" style="margin-top: var(--space-4);">
+          A quick look at your recent activity, favorites, and account settings.
+        </p>
+
+        <!-- ============ Recently Used Tools ============ -->
+        <section class="section-tight" aria-labelledby="recent-tools-heading">
+          <h2 id="recent-tools-heading">Recently Used Tools</h2>
+          <div id="recent-tools-list" style="margin-top: var(--space-4);"></div>
+        </section>
+
+        <!-- ============ Favorite Tools ============ -->
+        <section class="section-tight" aria-labelledby="favorite-tools-heading">
+          <h2 id="favorite-tools-heading">Favorite Tools</h2>
+          <div id="favorite-tools-list" style="margin-top: var(--space-4);"></div>
+        </section>
+
+        <!-- ============ Account ============ -->
+        <section class="section-tight" aria-labelledby="account-heading">
+          <h2 id="account-heading">Account</h2>
+          <div class="card" id="account-card" style="margin-top: var(--space-4);">
+            <p class="text-muted" style="margin: 0;">Account details require authentication to be configured.</p>
+          </div>
+        </section>
+
+        <!-- ============ Usage ============ -->
+        <section class="section-tight" aria-labelledby="usage-heading">
+          <h2 id="usage-heading">Usage</h2>
+          <div class="card" style="margin-top: var(--space-4);">
+            <p class="text-muted" style="margin: 0;">Usage tracking is not implemented yet.</p>
+          </div>
+        </section>
+
+        <!-- ============ Settings ============ -->
+        <section class="section-tight" aria-labelledby="settings-heading">
+          <h2 id="settings-heading">Settings</h2>
+          <div class="card" style="margin-top: var(--space-4);">
+            <div class="flex items-center gap-3" style="justify-content: space-between; padding-block: var(--space-3); border-bottom: 1px solid var(--color-border);">
+              <div>
+                <p style="margin:0; font-weight:600;">Reduced motion</p>
+                <p class="text-muted" style="margin:0; font-size:0.875rem;">Disables the animated background blobs across the site.</p>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="reduced-motion-toggle" aria-label="Reduced motion">
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="flex items-center gap-3" style="justify-content: space-between; padding-top: var(--space-3);">
+              <div>
+                <p style="margin:0; font-weight:600;">Dark mode (experimental)</p>
+                <p class="text-muted" style="margin:0; font-size:0.875rem;">Applies a dark theme preference for supported pages.</p>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="dark-mode-toggle" aria-label="Dark mode (experimental)">
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-6);">
+            <button class="btn btn-secondary" id="sign-out-btn">Sign Out</button>
+          </div>
+        </section>
+
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/search-index.js"></script>
+  <script src="../assets/js/dropdown.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      const RECENT_KEY = "gm_recent_tools";
+      const FAV_KEY = "gm_favorite_tools";
+      const REDUCED_MOTION_PREF_KEY = "gm_pref_reduced_motion";
+      const DARK_MODE_PREF_KEY = "gm_pref_dark_mode";
+
+      function emptyState(message) {
+        const p = document.createElement("p");
+        p.className = "text-muted";
+        p.textContent = message;
+        return p;
+      }
+
+      function renderToolList(container, items, options) {
+        container.innerHTML = "";
+        if (!items.length) {
+          container.appendChild(emptyState(options.emptyMessage));
+          return;
+        }
+        const grid = document.createElement("div");
+        grid.className = "tools-grid";
+        items.forEach(function (item) {
+          const card = document.createElement("div");
+          card.className = "card tool-card";
+
+          const link = document.createElement("a");
+          link.href = "../" + item.url;
+          link.textContent = item.title;
+          link.style.fontWeight = "700";
+          card.appendChild(link);
+
+          if (options.removable) {
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "btn btn-ghost btn-sm";
+            removeBtn.type = "button";
+            removeBtn.style.marginTop = "var(--space-3)";
+            removeBtn.style.alignSelf = "flex-start";
+            removeBtn.setAttribute("aria-label", "Remove " + item.title + " from favorites");
+            removeBtn.textContent = "Remove from favorites";
+            removeBtn.addEventListener("click", function () {
+              window.GM_TOGGLE_FAVORITE(item.slug, item.title, item.url);
+              renderFavorites();
+            });
+            card.appendChild(removeBtn);
+          }
+
+          grid.appendChild(card);
+        });
+        container.appendChild(grid);
+      }
+
+      function renderRecent() {
+        const container = document.getElementById("recent-tools-list");
+        const list = window.GM_STORAGE.get(RECENT_KEY, []);
+        renderToolList(container, Array.isArray(list) ? list : [], {
+          emptyMessage: "You haven't used any tools yet.",
+          removable: false,
+        });
+      }
+
+      function renderFavorites() {
+        const container = document.getElementById("favorite-tools-list");
+        const list = window.GM_STORAGE.get(FAV_KEY, []);
+        renderToolList(container, Array.isArray(list) ? list : [], {
+          emptyMessage: "You haven't favorited any tools yet.",
+          removable: true,
+        });
+      }
+
+      function initSettings() {
+        const reducedMotionToggle = document.getElementById("reduced-motion-toggle");
+        const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+        reducedMotionToggle.checked = window.GM_STORAGE.get(REDUCED_MOTION_PREF_KEY, false) === true;
+        darkModeToggle.checked = window.GM_STORAGE.get(DARK_MODE_PREF_KEY, false) === true;
+
+        applyDarkMode(darkModeToggle.checked);
+
+        reducedMotionToggle.addEventListener("change", function () {
+          const enabled = reducedMotionToggle.checked;
+          window.GM_STORAGE.set(REDUCED_MOTION_PREF_KEY, enabled);
+          document.documentElement.classList.toggle("reduced-motion", enabled);
+        });
+
+        darkModeToggle.addEventListener("change", function () {
+          const enabled = darkModeToggle.checked;
+          window.GM_STORAGE.set(DARK_MODE_PREF_KEY, enabled);
+          applyDarkMode(enabled);
+        });
+      }
+
+      function applyDarkMode(enabled) {
+        document.documentElement.classList.toggle("gm-dark-mode", enabled);
+      }
+
+      function initSignOut() {
+        document.getElementById("sign-out-btn").addEventListener("click", function () {
+          if (window.GM_AUTH_CONFIGURED) {
+            window.GM_AUTH.signOut().finally(function () {
+              window.location.href = "../login/";
+            });
+          } else {
+            window.location.href = "../index.html";
+          }
+        });
+      }
+
+      function renderAccount(user) {
+        const card = document.getElementById("account-card");
+        card.innerHTML = "";
+        const emailP = document.createElement("p");
+        emailP.style.margin = "0 0 var(--space-2) 0";
+        emailP.innerHTML = "<strong>Email:</strong> " + (user.email || "—");
+        const nameP = document.createElement("p");
+        nameP.style.margin = "0";
+        nameP.innerHTML = "<strong>Name:</strong> " + (user.displayName || "—");
+        card.appendChild(emailP);
+        card.appendChild(nameP);
+      }
+
+      function setWelcome(user) {
+        const heading = document.getElementById("dashboard-heading");
+        const sub = document.getElementById("dashboard-subheading");
+        if (user) {
+          const name = user.displayName || user.email || "there";
+          heading.textContent = "Welcome back, " + name;
+          sub.textContent = "Here's what's new in your Gamermaid account.";
+        } else {
+          heading.textContent = "Dashboard";
+        }
+      }
+
+      renderRecent();
+      renderFavorites();
+      initSettings();
+      initSignOut();
+
+      if (!window.GM_AUTH_CONFIGURED) {
+        document.getElementById("dashboard-not-configured").hidden = false;
+      } else {
+        let firstCallback = true;
+        window.GM_AUTH.onAuthStateChanged(function (user) {
+          if (!user) {
+            if (firstCallback) {
+              window.location.href = "../login/";
+              return;
+            }
+            firstCallback = false;
+            return;
+          }
+          firstCallback = false;
+          setWelcome(user);
+          renderAccount(user);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Resizer — Free Online Tool | Gamermaid</title>
+  <meta name="description" content="Resize images to exact pixel dimensions in your browser, with optional aspect ratio locking. Free and private.">
+  <link rel="canonical" href="https://gamermaid.site/image-studio/resizer.html">
+
+  <meta property="og:title" content="Image Resizer — Free Online Tool | Gamermaid">
+  <meta property="og:description" content="Resize images to exact pixel dimensions in your browser, with optional aspect ratio locking. Free and private.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gamermaid.site/image-studio/resizer.html">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Image Resizer — Free Online Tool | Gamermaid">
+  <meta name="twitter:description" content="Resize images to exact pixel dimensions in your browser, with optional aspect ratio locking. Free and private.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-depth="1">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section">
+      <div class="container tool-page-layout" style="max-width: 900px;">
+
+        <div class="tool-page-header">
+          <div>
+            <h1>Image Resizer</h1>
+            <p class="lead" style="margin-top: var(--space-3);">
+              Resize your image to exact pixel dimensions, right in your browser.
+            </p>
+          </div>
+          <button type="button" class="btn-icon tool-fav-btn" id="fav-btn" aria-label="Add to favorites" aria-pressed="false">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 17.3l-6.16 3.73 1.64-7.03L2 9.24l7.19-.61L12 2l2.81 6.63 7.19.61-5.48 4.76 1.64 7.03z"/></svg>
+          </button>
+        </div>
+
+        <div id="upload-step">
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload an image by clicking or dropping a file">
+            <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+            <p><strong>Drag and drop</strong> an image here, or click to browse</p>
+            <p class="dropzone-hint">JPG, PNG, or WEBP — up to 25MB</p>
+          </div>
+          <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="visually-hidden">
+          <p id="upload-error" class="text-muted" role="alert" style="color: var(--color-danger); margin-top: var(--space-3); display:none;"></p>
+        </div>
+
+        <div id="edit-step" style="display:none;">
+          <div class="flex gap-4" style="flex-wrap: wrap;">
+            <div class="field" style="min-width: 140px;">
+              <label for="width-input">Width (px)</label>
+              <input type="number" id="width-input" class="input" min="1" max="10000">
+            </div>
+            <div class="field" style="min-width: 140px;">
+              <label for="height-input">Height (px)</label>
+              <input type="number" id="height-input" class="input" min="1" max="10000">
+            </div>
+            <div class="field" style="align-self: center;">
+              <label style="display:flex; align-items:center; gap: var(--space-2); font-weight: 600;">
+                <input type="checkbox" id="aspect-lock" checked>
+                Maintain aspect ratio
+              </label>
+            </div>
+          </div>
+
+          <div class="flex gap-3" style="margin: var(--space-5) 0; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary" id="process-btn">
+              <span id="process-btn-label">Resize</span>
+              <span class="spinner" id="process-spinner" style="display:none;" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="reset-btn">Reset</button>
+          </div>
+
+          <div class="tool-preview-grid">
+            <div class="tool-preview-pane">
+              <h3>Original</h3>
+              <img id="original-preview" alt="Original uploaded image">
+              <p class="file-meta" id="original-meta"></p>
+            </div>
+            <div class="tool-preview-pane">
+              <h3>Resized result</h3>
+              <canvas id="result-canvas" style="display:none;"></canvas>
+              <p class="file-meta" id="result-meta">Click Resize to generate the result.</p>
+            </div>
+          </div>
+
+          <div class="result-actions">
+            <button type="button" class="btn btn-secondary" id="download-btn" disabled>Download Result</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/search-index.js"></script>
+  <script src="../assets/js/dropdown.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/image-tools.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      const SLUG = "resizer";
+      const TITLE = "Image Resizer";
+      const URL = "image-studio/resizer.html";
+
+      if (window.GM_TRACK_TOOL_USE) window.GM_TRACK_TOOL_USE(SLUG, TITLE, URL);
+
+      const favBtn = document.getElementById("fav-btn");
+      function refreshFav() {
+        const isFav = window.GM_IS_FAVORITE ? window.GM_IS_FAVORITE(SLUG) : false;
+        favBtn.setAttribute("aria-pressed", String(isFav));
+        favBtn.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
+      }
+      favBtn.addEventListener("click", function () {
+        if (window.GM_TOGGLE_FAVORITE) window.GM_TOGGLE_FAVORITE(SLUG, TITLE, URL);
+        refreshFav();
+      });
+      refreshFav();
+
+      const dropzone = document.getElementById("dropzone");
+      const fileInput = document.getElementById("file-input");
+      const uploadStep = document.getElementById("upload-step");
+      const editStep = document.getElementById("edit-step");
+      const uploadError = document.getElementById("upload-error");
+      const originalPreview = document.getElementById("original-preview");
+      const originalMeta = document.getElementById("original-meta");
+      const resultCanvas = document.getElementById("result-canvas");
+      const resultMeta = document.getElementById("result-meta");
+      const processBtn = document.getElementById("process-btn");
+      const processLabel = document.getElementById("process-btn-label");
+      const processSpinner = document.getElementById("process-spinner");
+      const downloadBtn = document.getElementById("download-btn");
+      const resetBtn = document.getElementById("reset-btn");
+      const widthInput = document.getElementById("width-input");
+      const heightInput = document.getElementById("height-input");
+      const aspectLock = document.getElementById("aspect-lock");
+
+      let currentImage = null;
+      let aspectRatio = 1;
+      let hasResult = false;
+
+      window.GMImageTools.wireDropzone(dropzone, fileInput, handleFile);
+
+      function handleFile(file) {
+        const check = window.GMImageTools.validateImageFile(file);
+        if (!check.valid) {
+          uploadError.textContent = check.error;
+          uploadError.style.display = "block";
+          return;
+        }
+        uploadError.style.display = "none";
+
+        window.GMImageTools.readImageFile(file).then((img) => {
+          currentImage = img;
+          aspectRatio = img.naturalWidth / img.naturalHeight;
+          widthInput.value = img.naturalWidth;
+          heightInput.value = img.naturalHeight;
+          originalPreview.src = img.src;
+          originalMeta.textContent = img.naturalWidth + " × " + img.naturalHeight + " px — " + window.GMImageTools.formatFileSize(file.size);
+          uploadStep.style.display = "none";
+          editStep.style.display = "block";
+          resultCanvas.style.display = "none";
+          resultMeta.textContent = "Click Resize to generate the result.";
+          downloadBtn.disabled = true;
+          hasResult = false;
+        }).catch((err) => {
+          uploadError.textContent = err.message;
+          uploadError.style.display = "block";
+        });
+      }
+
+      widthInput.addEventListener("input", () => {
+        if (aspectLock.checked && aspectRatio) {
+          const w = Number(widthInput.value);
+          if (w > 0) heightInput.value = Math.round(w / aspectRatio);
+        }
+      });
+
+      heightInput.addEventListener("input", () => {
+        if (aspectLock.checked && aspectRatio) {
+          const h = Number(heightInput.value);
+          if (h > 0) widthInput.value = Math.round(h * aspectRatio);
+        }
+      });
+
+      processBtn.addEventListener("click", () => {
+        if (!currentImage) return;
+        const newW = Math.max(1, Number(widthInput.value) || currentImage.naturalWidth);
+        const newH = Math.max(1, Number(heightInput.value) || currentImage.naturalHeight);
+
+        processLabel.textContent = "Resizing…";
+        processSpinner.style.display = "inline-block";
+        processBtn.disabled = true;
+
+        setTimeout(() => {
+          resultCanvas.width = newW;
+          resultCanvas.height = newH;
+          const ctx = resultCanvas.getContext("2d");
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(currentImage, 0, 0, newW, newH);
+
+          resultCanvas.style.display = "inline-block";
+          resultMeta.textContent = newW + " × " + newH + " px";
+          downloadBtn.disabled = false;
+          hasResult = true;
+
+          processLabel.textContent = "Resize";
+          processSpinner.style.display = "none";
+          processBtn.disabled = false;
+        }, 350 + Math.random() * 250);
+      });
+
+      downloadBtn.addEventListener("click", () => {
+        if (!hasResult) return;
+        window.GMImageTools.downloadResult(resultCanvas, "gamermaid-resized.png");
+      });
+
+      resetBtn.addEventListener("click", () => {
+        currentImage = null;
+        hasResult = false;
+        fileInput.value = "";
+        uploadStep.style.display = "block";
+        editStep.style.display = "none";
+        uploadError.style.display = "none";
+      });
+    })();
+  </script>
+</body>
+</html>

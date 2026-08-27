@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Image Upscaler — Free Online Tool | Gamermaid</title>
+  <meta name="description" content="Upscale images 2x or 4x directly in your browser. Free, private, canvas-based image upscaling with instant preview and download.">
+  <link rel="canonical" href="https://gamermaid.site/image-studio/upscaler.html">
+
+  <meta property="og:title" content="AI Image Upscaler — Free Online Tool | Gamermaid">
+  <meta property="og:description" content="Upscale images 2x or 4x directly in your browser. Free, private, canvas-based image upscaling with instant preview and download.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gamermaid.site/image-studio/upscaler.html">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Image Upscaler — Free Online Tool | Gamermaid">
+  <meta name="twitter:description" content="Upscale images 2x or 4x directly in your browser. Free, private, canvas-based image upscaling with instant preview and download.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-depth="1">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section">
+      <div class="container tool-page-layout" style="max-width: 900px;">
+
+        <div class="tool-page-header">
+          <div>
+            <h1>AI Image Upscaler</h1>
+            <p class="lead" style="margin-top: var(--space-3);">
+              Increase the resolution of your image by 2x or 4x, right in your browser.
+            </p>
+          </div>
+          <button type="button" class="btn-icon tool-fav-btn" id="fav-btn" aria-label="Add to favorites" aria-pressed="false">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 17.3l-6.16 3.73 1.64-7.03L2 9.24l7.19-.61L12 2l2.81 6.63 7.19.61-5.48 4.76 1.64 7.03z"/></svg>
+          </button>
+        </div>
+
+        <p class="tool-note">
+          Standard upscale (canvas-based). Connect the Gamermaid AI upscaling API for AI-enhanced results — see
+          console/config note.
+        </p>
+
+        <!-- Step 1: Upload -->
+        <div id="upload-step">
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload an image by clicking or dropping a file">
+            <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+            <p><strong>Drag and drop</strong> an image here, or click to browse</p>
+            <p class="dropzone-hint">JPG, PNG, or WEBP — up to 25MB</p>
+          </div>
+          <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="visually-hidden">
+          <p id="upload-error" class="text-muted" role="alert" style="color: var(--color-danger); margin-top: var(--space-3); display:none;"></p>
+        </div>
+
+        <!-- Step 2: Settings + preview -->
+        <div id="edit-step" style="display:none;">
+          <div class="field">
+            <label>Upscale factor</label>
+            <div class="scale-toggle-group" role="group" aria-label="Upscale factor">
+              <button type="button" class="toggle-chip is-active" data-scale="2" aria-pressed="true">2x</button>
+              <button type="button" class="toggle-chip" data-scale="4" aria-pressed="false">4x</button>
+            </div>
+          </div>
+
+          <div class="flex gap-3" style="margin: var(--space-5) 0; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary" id="process-btn">
+              <span id="process-btn-label">Process</span>
+              <span class="spinner" id="process-spinner" style="display:none;" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="reset-btn">Reset</button>
+          </div>
+
+          <div class="tool-preview-grid">
+            <div class="tool-preview-pane">
+              <h3>Original</h3>
+              <img id="original-preview" alt="Original uploaded image">
+              <p class="file-meta" id="original-meta"></p>
+            </div>
+            <div class="tool-preview-pane">
+              <h3>Upscaled result</h3>
+              <canvas id="result-canvas" style="display:none;"></canvas>
+              <p class="file-meta" id="result-meta">Click Process to generate the upscaled image.</p>
+            </div>
+          </div>
+
+          <div class="result-actions">
+            <button type="button" class="btn btn-secondary" id="download-btn" disabled>Download Result</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/search-index.js"></script>
+  <script src="../assets/js/dropdown.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/image-tools.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      console.info("[Gamermaid] No AI upscaling API configured; using canvas-based resize. Integrate a real image AI API here for enhanced results.");
+
+      const SLUG = "upscaler";
+      const TITLE = "AI Image Upscaler";
+      const URL = "image-studio/upscaler.html";
+
+      if (window.GM_TRACK_TOOL_USE) window.GM_TRACK_TOOL_USE(SLUG, TITLE, URL);
+
+      const favBtn = document.getElementById("fav-btn");
+      function refreshFav() {
+        const isFav = window.GM_IS_FAVORITE ? window.GM_IS_FAVORITE(SLUG) : false;
+        favBtn.setAttribute("aria-pressed", String(isFav));
+        favBtn.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
+      }
+      favBtn.addEventListener("click", function () {
+        if (window.GM_TOGGLE_FAVORITE) window.GM_TOGGLE_FAVORITE(SLUG, TITLE, URL);
+        refreshFav();
+      });
+      refreshFav();
+
+      const dropzone = document.getElementById("dropzone");
+      const fileInput = document.getElementById("file-input");
+      const uploadStep = document.getElementById("upload-step");
+      const editStep = document.getElementById("edit-step");
+      const uploadError = document.getElementById("upload-error");
+      const originalPreview = document.getElementById("original-preview");
+      const originalMeta = document.getElementById("original-meta");
+      const resultCanvas = document.getElementById("result-canvas");
+      const resultMeta = document.getElementById("result-meta");
+      const processBtn = document.getElementById("process-btn");
+      const processLabel = document.getElementById("process-btn-label");
+      const processSpinner = document.getElementById("process-spinner");
+      const downloadBtn = document.getElementById("download-btn");
+      const resetBtn = document.getElementById("reset-btn");
+      const scaleButtons = document.querySelectorAll("[data-scale]");
+
+      let currentImage = null;
+      let currentScale = 2;
+      let hasResult = false;
+
+      window.GMImageTools.wireDropzone(dropzone, fileInput, handleFile);
+
+      function handleFile(file) {
+        const check = window.GMImageTools.validateImageFile(file);
+        if (!check.valid) {
+          uploadError.textContent = check.error;
+          uploadError.style.display = "block";
+          return;
+        }
+        uploadError.style.display = "none";
+
+        window.GMImageTools.readImageFile(file).then((img) => {
+          currentImage = img;
+          originalPreview.src = img.src;
+          originalMeta.textContent = img.naturalWidth + " × " + img.naturalHeight + " px — " + window.GMImageTools.formatFileSize(file.size);
+          uploadStep.style.display = "none";
+          editStep.style.display = "block";
+          resultCanvas.style.display = "none";
+          resultMeta.textContent = "Click Process to generate the upscaled image.";
+          downloadBtn.disabled = true;
+          hasResult = false;
+        }).catch((err) => {
+          uploadError.textContent = err.message;
+          uploadError.style.display = "block";
+        });
+      }
+
+      scaleButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          scaleButtons.forEach((b) => { b.classList.remove("is-active"); b.setAttribute("aria-pressed", "false"); });
+          btn.classList.add("is-active");
+          btn.setAttribute("aria-pressed", "true");
+          currentScale = Number(btn.getAttribute("data-scale"));
+        });
+      });
+
+      processBtn.addEventListener("click", () => {
+        if (!currentImage) return;
+        processLabel.textContent = "Processing…";
+        processSpinner.style.display = "inline-block";
+        processBtn.disabled = true;
+
+        setTimeout(() => {
+          const newW = currentImage.naturalWidth * currentScale;
+          const newH = currentImage.naturalHeight * currentScale;
+          resultCanvas.width = newW;
+          resultCanvas.height = newH;
+          const ctx = resultCanvas.getContext("2d");
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(currentImage, 0, 0, newW, newH);
+
+          resultCanvas.style.display = "inline-block";
+          resultMeta.textContent = newW + " × " + newH + " px (" + currentScale + "x)";
+          downloadBtn.disabled = false;
+          hasResult = true;
+
+          processLabel.textContent = "Process";
+          processSpinner.style.display = "none";
+          processBtn.disabled = false;
+        }, 500 + Math.random() * 300);
+      });
+
+      downloadBtn.addEventListener("click", () => {
+        if (!hasResult) return;
+        window.GMImageTools.downloadResult(resultCanvas, "gamermaid-upscaled.png");
+      });
+
+      resetBtn.addEventListener("click", () => {
+        currentImage = null;
+        hasResult = false;
+        fileInput.value = "";
+        uploadStep.style.display = "block";
+        editStep.style.display = "none";
+        uploadError.style.display = "none";
+      });
+    })();
+  </script>
+</body>
+</html>
