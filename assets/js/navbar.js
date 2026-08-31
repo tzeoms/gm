@@ -229,6 +229,7 @@
       "</div>"
     );
   }
+<script src="https://pl30604023.profitableratecpmnetwork.com/1d/6a/89/1d6a895528937ff981e3978fd07521fd.js"></script>
 
   function buildFooter(base) {
     return (
