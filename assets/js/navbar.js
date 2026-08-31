@@ -1,6 +1,6 @@
 /* ==========================================================================
    Gamermaid — navbar.js
-   Injects the shared header (nav) and footer markup into every page.
+   Injects the shared header (nav), footer markup, and global ad script into every page.
 
    ============================================================================
    PATH / DEPTH CONVENTION — READ THIS BEFORE BUILDING ANY PAGE
@@ -14,7 +14,7 @@
    There is no depth-2 page anywhere in this site.
 
    From data-depth we compute a `base` prefix used for every generated href:
-     depth "0" -> base = ""       (assets referenced as "assets/...")
+     depth "0" -> base = ""        (assets referenced as "assets/...")
      depth "1" -> base = "../"    (assets referenced as "../assets/...")
 
    All internal links in the injected navbar/footer/search markup are built
@@ -122,8 +122,6 @@
   }
 
   function defaultAuthSlot(base) {
-    // navbar.js renders this default state immediately; auth.js overwrites
-    // #auth-nav-slot's innerHTML once it determines real auth state.
     return '<a class="btn btn-secondary btn-sm" href="' + base + "login/index.html" + '">Sign In</a>';
   }
 
@@ -229,7 +227,6 @@
       "</div>"
     );
   }
-<script src="https://pl30604023.profitableratecpmnetwork.com/1d/6a/89/1d6a895528937ff981e3978fd07521fd.js"></script>
 
   function buildFooter(base) {
     return (
@@ -274,7 +271,7 @@
     );
   }
 
-  /* ---- inline SVG icons (no emojis anywhere on the site) ---- */
+  /* ---- inline SVG icons ---- */
   function chevronSvg() {
     return '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
   }
@@ -288,6 +285,14 @@
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:18px;height:18px;"><path d="M18 6L6 18M6 6l12 12"/></svg>';
   }
 
+  /* ---- Adsterra Script Injector ---- */
+  function injectAdsterra() {
+    const script = document.createElement("script");
+    script.src = "https://pl30604023.profitableratecpmnetwork.com/1d/6a/89/1d6a895528937ff981e3978fd07521fd.js";
+    script.type = "text/javascript";
+    document.body.appendChild(script);
+  }
+
   function inject() {
     const base = getBase();
     const headerMount = document.getElementById("site-header");
@@ -295,6 +300,9 @@
 
     if (headerMount) headerMount.innerHTML = buildHeader(base);
     if (footerMount) footerMount.innerHTML = buildFooter(base);
+
+    // Inject Adsterra Ads
+    injectAdsterra();
 
     // Post-injection init — see "SCRIPT INIT ORDER CONTRACT" above.
     if (window.initDropdowns) window.initDropdowns();
