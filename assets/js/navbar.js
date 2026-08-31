@@ -1,6 +1,6 @@
 /* ==========================================================================
    Gamermaid — navbar.js
-   Injects the shared header (nav), footer markup, and global ad script into every page.
+   Injects the shared header (nav), footer markup, and global ad scripts.
 
    ============================================================================
    PATH / DEPTH CONVENTION — READ THIS BEFORE BUILDING ANY PAGE
@@ -285,12 +285,81 @@
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:18px;height:18px;"><path d="M18 6L6 18M6 6l12 12"/></svg>';
   }
 
-  /* ---- Adsterra Script Injector ---- */
-  function injectAdsterra() {
-    const script = document.createElement("script");
-    script.src = "https://pl30604023.profitableratecpmnetwork.com/1d/6a/89/1d6a895528937ff981e3978fd07521fd.js";
-    script.type = "text/javascript";
-    document.body.appendChild(script);
+  /* ---- Adsterra & Network Ads Injector ---- */
+  function injectAdIframe(key, width, height) {
+    const iframe = document.createElement("iframe");
+    iframe.width = width;
+    iframe.height = height;
+    iframe.style.border = "none";
+    iframe.style.overflow = "hidden";
+    iframe.style.margin = "10px auto";
+    iframe.style.display = "block";
+    
+    document.body.appendChild(iframe);
+
+    const iframeDoc = iframe.contentWindow.document;
+    iframeDoc.open();
+    iframeDoc.write(`
+      <!DOCTYPE html>
+      <html>
+      <head><style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}</style></head>
+      <body>
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '${key}',
+            'format' : 'iframe',
+            'height' : ${height},
+            'width' : ${width},
+            'params' : {}
+          };
+        <\/script>
+        <script type="text/javascript" src="https://www.highrevenueformat.com/${key}/invoke.js"><\/script>
+      </body>
+      </html>
+    `);
+    iframeDoc.close();
+  }
+
+  function injectAllAds() {
+    // 1. Popunder Ad (Head)
+    const headPop = document.createElement("script");
+    headPop.src = "https://pl30604020.profitableratecpmnetwork.com/4f/f4/51/4ff45191ad64afdf198f4e37d001070b.js";
+    document.head.appendChild(headPop);
+
+    // 2. Standard Script (Body)
+    const bodyScript = document.createElement("script");
+    bodyScript.src = "https://pl30604023.profitableratecpmnetwork.com/1d/6a/89/1d6a895528937ff981e3978fd07521fd.js";
+    document.body.appendChild(bodyScript);
+
+    // 3. Container-based Native Ad
+    const nativeContainer = document.createElement("div");
+    nativeContainer.id = "container-b23a9e0c532c073df2550cd5d99d5b89";
+    nativeContainer.style.margin = "15px auto";
+    nativeContainer.style.textAlign = "center";
+    document.body.appendChild(nativeContainer);
+
+    const nativeScript = document.createElement("script");
+    nativeScript.async = true;
+    nativeScript.setAttribute("data-cfasync", "false");
+    nativeScript.src = "https://pl30604021.profitableratecpmnetwork.com/b23a9e0c532c073df2550cd5d99d5b89/invoke.js";
+    document.body.appendChild(nativeScript);
+
+    // 4. Direct CPM Link Ping/Prefetch
+    const directLinkPrefetch = document.createElement("link");
+    directLinkPrefetch.rel = "prefetch";
+    directLinkPrefetch.href = "https://www.profitableratecpmnetwork.com/fh622rqqe3?key=405f78f1412b34dac25bf6a5f3eb084d";
+    document.head.appendChild(directLinkPrefetch);
+
+    // 5. HighRevenueFormat Banner Ads (Isolated via IFrames)
+    const bannerUnits = [
+      { key: "5a4284ad2c68d09782ca0eb3666bb2db", width: 320, height: 50 },
+      { key: "0d9859415b8476d5f0faa09f3f0c0cff", width: 728, height: 90 },
+      { key: "8e2afdd656e5aeed8a711129d9324eee", width: 468, height: 60 },
+      { key: "844738a2d0bd3fc8e262c40bd7dc9215", width: 300, height: 250 },
+      { key: "f32189c595db80c37926257e36d7886e", width: 160, height: 300 }
+    ];
+
+    bannerUnits.forEach(unit => injectAdIframe(unit.key, unit.width, unit.height));
   }
 
   function inject() {
@@ -301,8 +370,8 @@
     if (headerMount) headerMount.innerHTML = buildHeader(base);
     if (footerMount) footerMount.innerHTML = buildFooter(base);
 
-    // Inject Adsterra Ads
-    injectAdsterra();
+    // Inject all ad formats dynamically
+    injectAllAds();
 
     // Post-injection init — see "SCRIPT INIT ORDER CONTRACT" above.
     if (window.initDropdowns) window.initDropdowns();
