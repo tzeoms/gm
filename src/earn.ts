@@ -4,7 +4,7 @@ import { getFirestore, doc, onSnapshot } from "firebase/firestore";
 
 // Your Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSyADS_V_yByD6H5KX-cFOJOlpcj6wgwK7es",
   authDomain: "gamermaid-f205d.firebaseapp.com",
   projectId: "gamermaid-f205d",
   // ... rest of your config
