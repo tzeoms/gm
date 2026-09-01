@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamermaid - Referral Program</title>
+</head>
+<body>
+    <div id="earn-dashboard">
+        <h2>Your Referral Dashboard</h2>
+        
+        <!-- Displays the user's USDT Balance -->
+        <p>Earnings: <strong id="usdt-display">0.00 USDT</strong></p>
+        <p><span id="referral-counter">0</span> successful referrals</p>
+        
+        <!-- Referral Link Generator -->
+        <h3>Your Referral Link</h3>
+        <input type="text" id="referral-link" readonly value="Loading...">
+        <button onclick="copyLink()">Copy Link</button>
+    </div>
+
+    <script type="module">
+        // Import Firebase Auth based on your local build or script setup
+        import { getAuth, onAuthStateChanged } from "./auth-config.js"; 
+        
+        const auth = getAuth();
+        
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Generate their unique referral link using their UID
+                const refLink = `https://gamermaid.site/earn?ref=${user.uid}`;
+                document.getElementById("referral-link").value = refLink;
+                
+                // Call your real-time USDT dashboard listener here!
+            } else {
+                // Redirect to login if they aren't signed in
+                window.location.href = "/login.html";
+            }
+        });
+
+        // Easy copy-to-clipboard function
+        window.copyLink = function() {
+            const copyText = document.getElementById("referral-link");
+            copyText.select();
+            navigator.clipboard.writeText(copyText.value);
+            alert("Referral link copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
