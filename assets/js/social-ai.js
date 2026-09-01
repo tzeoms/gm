@@ -1,287 +1,115 @@
-/* ==========================================================================
-   Gamermaid — social-ai.js
-   Shared logic for all 9 Social Media Studio tool pages (caption, hashtag,
-   youtube-title, youtube-description, bio, post-ideas, script,
-   comment-reply, content-calendar).
-
-   Each tool page includes this script AFTER the standard script order
-   (main.js, search-index.js, dropdown.js, navbar.js, firebase-config.js,
-   auth.js) and then calls, in its own trailing inline <script>:
-
-     window.GM_INIT_SOCIAL_TOOL({
-       tool: "caption",              // one of the 9 tool slugs
-       resultLabel: "Generated Caption"
-     });
-
-   ----------------------------------------------------------------------
-   REQUIRED DOM CONTRACT — every tool page must render this exact markup
-   (ids matter, classes can be styled but ids must match):
-
-     <form id="social-form">
-       <input id="topic">
-       <select id="platform">...</select>
-       <select id="tone">...</select>
-       <select id="language">...</select>
-       <div id="form-error" aria-live="polite"></div>
-       <button id="generate-btn" type="submit">Generate Content</button>
-     </form>
-
-     <div id="result-box" hidden>
-       <div id="result-text"></div>
-       <button id="copy-btn">Copy</button>
-       <button id="regenerate-btn">Regenerate</button>
-       <button id="clear-btn">Clear</button>
-     </div>
-
-   API contract:
-     POST https://gamermaid-social-ai-api.tze-oms.workers.dev/
-     body: { tool, topic, platform, tone, language }
-     No Authorization header / API key — the worker is public.
-   ========================================================================== */
-
 (function () {
   "use strict";
 
-  const API_URL = "https://gamermaid-social-ai-api.tze-oms.workers.dev/";
+  const KEY = "6LfZcKItAAAAAMqw7z5Dxm7eioGfUTlk17V_iaGZ";
+  let lastPayload = null, config = null;
 
-  let lastPayload = null;
-  let config = null;
+  const $ = id => document.getElementById(id);
 
-  function $(id) {
-    return document.getElementById(id);
-  }
-
-  function setFormError(message) {
-    const el = $("form-error");
-    if (!el) return;
-    el.textContent = message || "";
-  }
+  const setFormError = msg => { if ($("form-error")) $("form-error").textContent = msg || ""; };
 
   function setLoading(isLoading) {
-    const btn = $("generate-btn");
-    const resultBox = $("result-box");
-    const resultText = $("result-text");
-
-    if (btn) {
-      btn.disabled = isLoading;
-      btn.setAttribute("aria-busy", isLoading ? "true" : "false");
-    }
-
-    if (isLoading && resultBox && resultText) {
-      resultBox.hidden = false;
-      resultBox.setAttribute("aria-busy", "true");
-      resultText.innerHTML =
-        '<div class="flex items-center gap-2" role="status" aria-live="polite">' +
-        '<span class="spinner" aria-hidden="true"></span>' +
-        "<span>Generating…</span>" +
-        "</div>";
-    } else if (resultBox) {
-      resultBox.removeAttribute("aria-busy");
-    }
+    const btn = $("generate-btn"), box = $("result-box"), txt = $("result-text");
+    if (btn) { btn.disabled = isLoading; btn.setAttribute("aria-busy", isLoading ? "true" : "false"); }
+    if (isLoading && box && txt) {
+      box.hidden = false; box.setAttribute("aria-busy", "true");
+      txt.innerHTML = '<div class="flex items-center gap-2" role="status"><span class="spinner"></span><span>Generating…</span></div>';
+    } else if (box) { box.removeAttribute("aria-busy"); }
   }
 
   function showResultText(text) {
-    const resultBox = $("result-box");
-    const resultText = $("result-text");
-    if (!resultBox || !resultText) return;
-    resultText.textContent = text;
-    resultBox.hidden = false;
+    if ($("result-box") && $("result-text")) { $("result-text").textContent = text; $("result-box").hidden = false; }
   }
 
-  function extractResultText(data) {
-    if (data == null) return null;
-    if (typeof data === "string") {
-      const trimmed = data.trim();
-      return trimmed.length ? trimmed : null;
+  function generatePrompt(p) {
+    const sys = "You are Gamermaid AI, a specialized social media assistant. ";
+    switch(p.tool) {
+      case "caption": return `${sys}Write an engaging social caption about "${p.topic}". Platform: ${p.platform}. Tone: ${p.tone}. Language: ${p.language}. Include emojis and a CTA.`;
+      case "hashtag": return `${sys}Find trending and relevant hashtags for: "${p.topic}". Language: ${p.language}.`;
+      case "youtube-title": return `${sys}Generate 5 catchy, SEO-friendly YouTube titles for: "${p.topic}". Tone: ${p.tone}. Language: ${p.language}.`;
+      case "youtube-description": return `${sys}Write a full YouTube description for: "${p.topic}". Tone: ${p.tone}. Language: ${p.language}.`;
+      case "bio": return `${sys}Craft a brief profile bio about: "${p.topic}". Platform: ${p.platform}. Tone: ${p.tone}. Language: ${p.language}.`;
+      case "post-ideas": return `${sys}Brainstorm 5 high-engagement post ideas for: "${p.topic}". Tone: ${p.tone}. Language: ${p.language}.`;
+      case "script": return `${sys}Write a short-form video script (under 60s) about: "${p.topic}". Include visual cues in brackets. Tone: ${p.tone}. Language: ${p.language}.`;
+      case "comment-reply": return `${sys}Write an on-brand reply to this social comment/topic: "${p.topic}". Tone: ${p.tone}. Language: ${p.language}.`;
+      case "content-calendar": return `${sys}Create a detailed 7-day social media content calendar table for: "${p.topic}". Tone: ${p.tone}. Language: ${p.language}.`;
+      default: return `Write content about "${p.topic}".`;
     }
-    if (typeof data !== "object") return null;
-
-    const candidates = [
-      data.result,
-      data.text,
-      data.output,
-      data.content,
-      data.message,
-      data.caption,
-      data.data,
-    ];
-
-    for (const candidate of candidates) {
-      if (typeof candidate === "string" && candidate.trim().length) {
-        return candidate.trim();
-      }
-    }
-
-    return null;
-  }
-
-  function extractErrorMessage(data) {
-    if (data && typeof data === "object") {
-      if (typeof data.error === "string" && data.error.trim()) return data.error.trim();
-      if (typeof data.message === "string" && data.message.trim()) return data.message.trim();
-    }
-    return null;
   }
 
   async function runRequest(payload) {
-    lastPayload = payload;
-    setFormError("");
-    setLoading(true);
-
-    let response;
+    lastPayload = payload; setFormError(""); setLoading(true);
     try {
-      response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-    } catch (networkError) {
-      setLoading(false);
-      showResultText("Network error, please try again.");
-      return;
+      const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js");
+      const { initializeAppCheck, ReCaptchaEnterpriseProvider } = await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-app-check.js");
+      const { getAI, getGenerativeModel, GoogleAIBackend } = await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-ai.js");
+
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1") self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+
+      const app = getApps().length ? getApps()[0] : initializeApp(window.__FIREBASE_CONFIG__);
+
+      try {
+        initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(KEY), isTokenAutoRefreshEnabled: true });
+      } catch (e) {}
+
+      const ai = getAI(app, { backend: new GoogleAIBackend() });
+      const model = getGenerativeModel(ai, { model: "gemini-3.7-flash" });
+
+      const result = await model.generateContent(generatePrompt(payload));
+      setLoading(false); showResultText(result.response.text());
+    } catch (err) {
+      setLoading(false); console.error(err); showResultText("Error generating: " + (err.message || err));
     }
-
-    let data = null;
-    let rawText = null;
-    try {
-      rawText = await response.text();
-      data = rawText ? JSON.parse(rawText) : null;
-    } catch (parseError) {
-      data = null;
-    }
-
-    setLoading(false);
-
-    if (!response.ok) {
-      const errMessage = extractErrorMessage(data) || "Something went wrong. Please try again.";
-      showResultText(errMessage);
-      return;
-    }
-
-    const resultText = extractResultText(data) || (typeof rawText === "string" && rawText.trim().length ? rawText.trim() : null);
-
-    if (!resultText) {
-      showResultText("Gamermaid received an unexpected response. Please try again.");
-      return;
-    }
-
-    showResultText(resultText);
   }
 
-  function readFormPayload() {
-    const topicEl = $("topic");
-    const platformEl = $("platform");
-    const toneEl = $("tone");
-    const languageEl = $("language");
-
-    return {
+  function handleSubmit(e) {
+    e.preventDefault();
+    const payload = {
       tool: config.tool,
-      topic: topicEl ? topicEl.value.trim() : "",
-      platform: platformEl ? platformEl.value : "",
-      tone: toneEl ? toneEl.value : "",
-      language: languageEl ? languageEl.value : "",
+      topic: $("topic") ? $("topic").value.trim() : "",
+      platform: $("platform") ? $("platform").value : "",
+      tone: $("tone") ? $("tone").value : "",
+      language: $("language") ? $("language").value : "",
     };
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const payload = readFormPayload();
-
-    if (!payload.topic) {
-      setFormError("Please enter a topic before generating.");
-      const topicEl = $("topic");
-      if (topicEl) topicEl.focus();
-      return;
-    }
-
-    setFormError("");
-    runRequest(payload);
+    if (!payload.topic) { setFormError("Please enter a topic."); if ($("topic")) $("topic").focus(); return; }
+    setFormError(""); runRequest(payload);
   }
 
   function handleCopy() {
-    const resultText = $("result-text");
-    const copyBtn = $("copy-btn");
-    if (!resultText || !copyBtn) return;
-
-    const text = resultText.textContent || "";
-    if (!text.trim()) return;
-
-    const originalLabel = copyBtn.textContent;
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        copyBtn.textContent = "Copied";
-        setTimeout(() => {
-          copyBtn.textContent = originalLabel;
-        }, 1500);
-      })
-      .catch(() => {
-        copyBtn.textContent = "Copy failed";
-        setTimeout(() => {
-          copyBtn.textContent = originalLabel;
-        }, 1500);
-      });
-  }
-
-  function handleRegenerate() {
-    if (!lastPayload) return;
-    runRequest(lastPayload);
-  }
-
-  function handleClear() {
-    const form = $("social-form");
-    const resultBox = $("result-box");
-    const resultText = $("result-text");
-
-    if (form) form.reset();
-    setFormError("");
-    if (resultBox) resultBox.hidden = true;
-    if (resultText) resultText.textContent = "";
-    lastPayload = null;
+    const txt = $("result-text"), btn = $("copy-btn");
+    if (!txt || !btn || !txt.textContent.trim()) return;
+    const orig = btn.textContent;
+    navigator.clipboard.writeText(txt.textContent).then(() => {
+      btn.textContent = "Copied"; setTimeout(() => btn.textContent = orig, 1500);
+    });
   }
 
   function wireFavoriteToggle() {
-    const favBtn = document.querySelector("[data-favorite-toggle]");
-    if (!favBtn || !config) return;
-
-    const slug = config.tool;
-    const title = favBtn.getAttribute("data-tool-title") || document.title;
-    const url = favBtn.getAttribute("data-tool-url") || "";
-
+    const btn = document.querySelector("[data-favorite-toggle]");
+    if (!btn || !config) return;
     function render() {
-      const isFav = window.GM_IS_FAVORITE ? window.GM_IS_FAVORITE(slug) : false;
-      favBtn.classList.toggle("is-active", isFav);
-      favBtn.setAttribute("aria-label", isFav ? "Remove to favorites" : "Add to favorites");
-      favBtn.setAttribute("aria-pressed", isFav ? "true" : "false");
+      const isFav = window.GM_IS_FAVORITE ? window.GM_IS_FAVORITE(config.tool) : false;
+      btn.classList.toggle("is-active", isFav);
     }
-
-    favBtn.addEventListener("click", () => {
-      if (window.GM_TOGGLE_FAVORITE) window.GM_TOGGLE_FAVORITE(slug, title, url);
+    btn.addEventListener("click", () => {
+      if (window.GM_TOGGLE_FAVORITE) window.GM_TOGGLE_FAVORITE(config.tool, btn.getAttribute("data-tool-title") || document.title, btn.getAttribute("data-tool-url") || "");
       render();
     });
-
     render();
   }
 
-  window.GM_INIT_SOCIAL_TOOL = function GM_INIT_SOCIAL_TOOL(cfg) {
+  window.GM_INIT_SOCIAL_TOOL = function (cfg) {
     config = cfg || {};
-
-    const form = $("social-form");
-    const copyBtn = $("copy-btn");
-    const regenerateBtn = $("regenerate-btn");
-    const clearBtn = $("clear-btn");
-
-    if (form) form.addEventListener("submit", handleSubmit);
-    if (copyBtn) copyBtn.addEventListener("click", handleCopy);
-    if (regenerateBtn) regenerateBtn.addEventListener("click", handleRegenerate);
-    if (clearBtn) clearBtn.addEventListener("click", handleClear);
-
+    if ($("social-form")) $("social-form").addEventListener("submit", handleSubmit);
+    if ($("copy-btn")) $("copy-btn").addEventListener("click", handleCopy);
+    if ($("regenerate-btn")) $("regenerate-btn").addEventListener("click", () => { if (lastPayload) runRequest(lastPayload); });
+    if ($("clear-btn")) $("clear-btn").addEventListener("click", () => {
+      if ($("social-form")) $("social-form").reset(); setFormError("");
+      if ($("result-box")) $("result-box").hidden = true; lastPayload = null;
+    });
     wireFavoriteToggle();
-
     if (window.GM_TRACK_TOOL_USE && config.tool) {
-      const title = document.title.split("—")[0].trim() || config.tool;
-      const url = "social-media/" + config.tool + ".html";
-      window.GM_TRACK_TOOL_USE(config.tool, title, url);
+      window.GM_TRACK_TOOL_USE(config.tool, document.title.split("—")[0].trim() || config.tool, "social-media/" + config.tool + ".html");
     }
   };
 })();
