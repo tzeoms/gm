@@ -1,17 +1,13 @@
 /* ==========================================================================
    Gamermaid — firebase-config.js
-   Replace these placeholder values with your real Firebase project config
-   from the Firebase console (Project Settings > General > Your apps >
-   SDK setup and configuration). Until replaced, auth.js will detect the
-   placeholder values and disable auth features with a clear message
-   (window.GM_AUTH_CONFIGURED will be set to false).
    ========================================================================== */
 
 window.__FIREBASE_CONFIG__ = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyADS_V_yByD6H5KX-cFOJOlpcj6wgwK7es",
+  authDomain: "gamermaid-f205d.firebaseapp.com",
+  projectId: "gamermaid-f205d",
+  storageBucket: "gamermaid-f205d.firebasestorage.app",
+  messagingSenderId: "909544970507",
+  appId: "1:909544970507:web:d471e4f49a4be69e026a0e",
+  measurementId: "G-7YNK47Y92P"
 };
