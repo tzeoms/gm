@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Buyers | Gamermaid</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --success-green: #22c55e;
+            
+            --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            --glass-bg-light: rgba(255, 255, 255, 0.85);
+            --glass-border-light: rgba(226, 232, 240, 0.8);
+            --glass-blur: blur(16px);
+            
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        a { color: inherit; text-decoration: none; }
+        .icon { width: 18px; height: 18px; stroke-width: 2; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+        .glow-ambient { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.1) 40%, rgba(236, 72, 153, 0) 70%); top: -200px; left: 50%; transform: translateX(-50%); z-index: -1; pointer-events: none; }
+
+        /* Header Navigation */
+        .header { position: sticky; top: 0; left: 0; right: 0; z-index: 1000; background: var(--glass-bg-light); backdrop-filter: var(--glass-blur); border-bottom: 1px solid var(--glass-border-light); }
+        .navbar { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.25rem; }
+        .logo-icon { width: 34px; height: 34px; background: var(--gradient-primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: white; }
+        .logo-text { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-links { display: flex; gap: 8px; list-style: none; }
+        .nav-link { padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.925rem; font-weight: 600; color: var(--text-muted); transition: all var(--transition-fast); }
+        .nav-link.active, .nav-link:hover { color: var(--text-primary); background: rgba(15, 23, 42, 0.05); }
+
+        /* Buyers Section */
+        .buyers-section { padding: 60px 0 100px 0; }
+        .buyers-header { text-align: center; margin-bottom: 40px; }
+        .page-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+        
+        .buyers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
+        .buyer-card { background: #ffffff; border: 1px solid var(--glass-border-light); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+        .buyer-card.highlight { border: 2px solid #8b5cf6; background: linear-gradient(180deg, rgba(139, 92, 246, 0.03) 0%, #ffffff 100%); }
+        .buyer-rank { position: absolute; top: 16px; right: 20px; font-weight: 700; font-size: 0.9rem; color: var(--text-light); }
+        .buyer-rank.top-rank { color: #8b5cf6; }
+        .nation-title { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .buyer-list-item { display: flex; align-items: center; justify-content: space-between; background: var(--bg-secondary); padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 10px; font-weight: 600; font-size: 0.95rem; }
+        .badge-verified { font-size: 0.75rem; background: rgba(34, 197, 94, 0.1); color: var(--success-green); padding: 4px 8px; border-radius: var(--radius-full); border: 1px solid rgba(34, 197, 94, 0.3); }
+
+        @media (max-width: 600px) {
+            .buyers-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-ambient"></div>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                    <span class="logo-text">gamermaid</span>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Escrow Services</a></li>
+                    <li><a href="buyers.html" class="nav-link active">Verified Buyers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="buyers-section">
+        <div class="container">
+            <div class="buyers-header">
+                <h1 class="page-title">Verified Regional Buyers</h1>
+                <p style="color: var(--text-muted);">Trusted gaming marketplace buyers and escrow depositors across Asia.</p>
+            </div>
+
+            <div class="buyers-grid">
+                <!-- Japan -->
+                <div class="buyer-card">
+                    <span class="buyer-rank">#1</span>
+                    <div class="nation-title">🇯🇵 Japan</div>
+                    <div class="buyer-list-item"><span>TokyoGamingVault</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>Akihabara_Accounts</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>佐藤ゲーム取引 (Sato Games)</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>大阪アークトレーダー (Osaka Arc)</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>NihonEscrowPro</span><span class="badge-verified">Active Buyer</span></div>
+                </div>
+
+                <!-- China -->
+                <div class="buyer-card">
+                    <span class="buyer-rank">#2</span>
+                    <div class="nation-title">🇨🇳 China</div>
+                    <div class="buyer-list-item"><span>DragonEscrowHub</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>ShanghaiGameMarket</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>极光游戏交易 (Aurora Gaming)</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>星辰中介担保 (Stellar Escrow)</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>BeijingAccDepot</span><span class="badge-verified">Active Buyer</span></div>
+                </div>
+
+                <!-- Myanmar (Burma) - 3rd Place with KingAccMarket & PyaePhyoAung -->
+                <div class="buyer-card highlight">
+                    <span class="buyer-rank top-rank">#3</span>
+                    <div class="nation-title">🇲🇲 Myanmar (Burma)</div>
+                    <div class="buyer-list-item"><span>KingAccMarket</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>PyaePhyoAung</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>YangonDigitalStore</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>MyanmarGamingHub</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>GoldenLandEscrow</span><span class="badge-verified">Active Buyer</span></div>
+                </div>
+
+                <!-- Thailand -->
+                <div class="buyer-card">
+                    <span class="buyer-rank">#4</span>
+                    <div class="nation-title">🇹🇭 Thailand</div>
+                    <div class="buyer-list-item"><span>SiamGamingTrader</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>BangkokAccVault</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>PhuketEscrowStore</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>ThaiDigitalDepot</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>ChiangMaiTrades</span><span class="badge-verified">Active Buyer</span></div>
+                </div>
+
+                <!-- Singapore -->
+                <div class="buyer-card">
+                    <span class="buyer-rank">#5</span>
+                    <div class="nation-title">🇸🇬 Singapore</div>
+                    <div class="buyer-list-item"><span>SG_EscrowHub</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>LionCityTrades</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>MarinaBayVault</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>SG_GameExchange</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>OrchardAccStore</span><span class="badge-verified">Active Buyer</span></div>
+                </div>
+
+                <!-- Malaysia -->
+                <div class="buyer-card">
+                    <span class="buyer-rank">#6</span>
+                    <div class="nation-title">🇲🇾 Malaysia</div>
+                    <div class="buyer-list-item"><span>MY_DigitalMarket</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>KL_GamingDepot</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>PenangEscrowPro</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>JohorAccountHub</span><span class="badge-verified">Active Buyer</span></div>
+                    <div class="buyer-list-item"><span>MalayaTrades</span><span class="badge-verified">Active Buyer</span></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="builder.js"></script>
+</body>
+</html>
