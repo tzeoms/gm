@@ -35,9 +35,9 @@
    Required <script> order on every page (see index.html for the reference
    implementation):
      1. assets/js/main.js
-     2. assets/js/search-index.js   (defines SEARCH_INDEX + initSearchPanel)
-     3. assets/js/dropdown.js       (defines initDropdowns + initMobileNav)
-     4. assets/js/navbar.js         (THIS FILE — injects markup, calls inits)
+     2. assets/js/search-index.js    (defines SEARCH_INDEX + initSearchPanel)
+     3. assets/js/dropdown.js        (defines initDropdowns + initMobileNav)
+     4. assets/js/navbar.js          (THIS FILE — injects markup, calls inits)
      5. assets/js/firebase-config.js
      6. assets/js/auth.js
    ========================================================================== */
@@ -84,6 +84,9 @@
               ], ["View Social Media Studio", base + "social-media/"]) +
 
               '<a class="nav-link" href="' + base + "video-downloader/index.html" + '">Online Video Downloader</a>' +
+
+              // Escrow Services link added here (opens in new tab)
+              '<a class="nav-link" href="https://www.gamermaid.site/escrow/" target="_blank" rel="noopener noreferrer" style="color: #c084fc;">🔒 Escrow</a>' +
 
               buildDesktopDropdown("earn", "Earn", [
                 ["Earn With AI", base + "earn/#earn-with-ai"],
@@ -173,6 +176,7 @@
         ]) +
 
         '<a class="mobile-nav-link" href="' + base + "video-downloader/index.html" + '">Online Video Downloader</a>' +
+        '<a class="mobile-nav-link" href="https://www.gamermaid.site/escrow/" target="_blank" rel="noopener noreferrer" style="color: #c084fc;">🔒 Escrow Services</a>' +
 
         buildMobileAccordion("m-earn", "Earn", [
           ["Earn With AI", base + "earn/#earn-with-ai"],
@@ -241,6 +245,7 @@
               "<h4>Tools</h4>" +
               '<a href="' + base + "image-studio/" + '">Image Studio</a>' +
               '<a href="' + base + "social-media/" + '">Social Media Studio</a>' +
+              '<a href="https://www.gamermaid.site/escrow/" target="_blank" rel="noopener noreferrer" style="color: #c084fc;">Escrow Services</a>' +
               '<a href="' + base + "image-studio/upscaler.html" + '">AI Upscaler</a>' +
               '<a href="' + base + "image-studio/converter.html" + '">Image Converter</a>' +
               '<a href="' + base + "image-studio/resizer.html" + '">Image Resizer</a>' +
@@ -321,17 +326,14 @@
   }
 
   function injectAllAds() {
-    // 1. Popunder Ad (Head)
     const headPop = document.createElement("script");
     headPop.src = "https://pl30604020.profitableratecpmnetwork.com/4f/f4/51/4ff45191ad64afdf198f4e37d001070b.js";
     document.head.appendChild(headPop);
 
-    // 2. Standard Script (Body)
     const bodyScript = document.createElement("script");
     bodyScript.src = "https://pl30604023.profitableratecpmnetwork.com/1d/6a/89/1d6a895528937ff981e3978fd07521fd.js";
     document.body.appendChild(bodyScript);
 
-    // 3. Container-based Native Ad
     const nativeContainer = document.createElement("div");
     nativeContainer.id = "container-b23a9e0c532c073df2550cd5d99d5b89";
     nativeContainer.style.margin = "15px auto";
@@ -344,13 +346,11 @@
     nativeScript.src = "https://pl30604021.profitableratecpmnetwork.com/b23a9e0c532c073df2550cd5d99d5b89/invoke.js";
     document.body.appendChild(nativeScript);
 
-    // 4. Direct CPM Link Ping/Prefetch
     const directLinkPrefetch = document.createElement("link");
     directLinkPrefetch.rel = "prefetch";
     directLinkPrefetch.href = "https://www.profitableratecpmnetwork.com/fh622rqqe3?key=405f78f1412b34dac25bf6a5f3eb084d";
     document.head.appendChild(directLinkPrefetch);
 
-    // 5. HighRevenueFormat Banner Ads (Isolated via IFrames)
     const bannerUnits = [
       { key: "5a4284ad2c68d09782ca0eb3666bb2db", width: 320, height: 50 },
       { key: "0d9859415b8476d5f0faa09f3f0c0cff", width: 728, height: 90 },
@@ -370,10 +370,8 @@
     if (headerMount) headerMount.innerHTML = buildHeader(base);
     if (footerMount) footerMount.innerHTML = buildFooter(base);
 
-    // Inject all ad formats dynamically
     injectAllAds();
 
-    // Post-injection init — see "SCRIPT INIT ORDER CONTRACT" above.
     if (window.initDropdowns) window.initDropdowns();
     if (window.initMobileNav) window.initMobileNav();
     if (window.initSearchPanel) window.initSearchPanel();
