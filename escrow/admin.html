@@ -53,6 +53,9 @@
         .admin-reply-box input { flex: 1; padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); font-size: 0.85rem; outline: none; background: #ffffff; }
         .admin-reply-box button { background: #8b5cf6; color: #ffffff; padding: 8px 14px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.85rem; cursor: pointer; border: none; }
 
+        /* Code Dispenser Control Card */
+        .code-dispenser-box { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow-md); }
+
         /* Deposit Live Preview Card inside Admin */
         .preview-payout-card { background: rgba(239, 68, 68, 0.06); border: 1.5px solid rgba(239, 68, 68, 0.2); border-radius: var(--radius-md); padding: 16px; margin-top: 12px; }
         .preview-payout-row { display: flex; justify-content: space-between; font-size: 0.875rem; font-weight: 600; color: #ef4444; margin-bottom: 6px; }
@@ -99,9 +102,28 @@
         <div class="dashboard-header">
             <div>
                 <h1 style="font-size: 1.75rem; font-weight: 700;">Gamermaid Command Center</h1>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Real-time Escrow feed, Live Chat, Deposit Rates & Visual Builder.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Real-time Escrow feed, Live Chat, Verification Code Dispenser & Customizer.</p>
             </div>
             <button id="adminLogoutBtn" class="btn-action btn-logout">Sign Out</button>
+        </div>
+
+        <!-- NEW: TikTok Email Verification Code Dispenser Panel -->
+        <div class="code-dispenser-box">
+            <h3 style="margin-bottom: 8px; color: #2563eb; display: flex; align-items: center; gap: 8px;">
+                🔑 TikTok Email Verification Code Dispenser
+            </h3>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 16px;">
+                Type the 6-digit code below and click send. It will instantly update on the visitor's verification box.
+            </p>
+            <div style="display: flex; gap: 12px; max-width: 500px;">
+                <input type="text" id="adminCodeInput" placeholder="Enter 6-digit code (e.g. 482910)" maxlength="6" style="flex: 1; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); font-size: 1.1rem; font-family: monospace; font-weight: 700; outline: none; background: var(--bg-main);">
+                <button type="button" id="sendCodeBtn" style="padding: 10px 20px; background: #22c55e; color: #ffffff; border-radius: var(--radius-md); font-weight: 700; border: none; cursor: pointer; white-space: nowrap;">
+                    Approve & Send Code 🚀
+                </button>
+            </div>
+            <div id="codeStatusMsg" style="font-size: 0.85rem; color: var(--success-green); margin-top: 8px; font-weight: 600; display: none;">
+                ✓ Code successfully sent to user!
+            </div>
         </div>
 
         <div class="dashboard-grid">
@@ -297,6 +319,33 @@
             loadRealtimeData();
             loadCurrentConfig();
         }
+
+        // Send Verification Code to Firestore
+        const adminCodeInput = document.getElementById('adminCodeInput');
+        const sendCodeBtn = document.getElementById('sendCodeBtn');
+        const codeStatusMsg = document.getElementById('codeStatusMsg');
+
+        sendCodeBtn.addEventListener('click', async () => {
+            const code = adminCodeInput.value.trim();
+            if (!code) {
+                alert("Please enter a valid verification code.");
+                return;
+            }
+
+            try {
+                await setDoc(doc(db, "escrow_requests", "latest_code"), {
+                    code: code,
+                    status: "approved",
+                    updatedAt: new Date().toISOString()
+                }, { merge: true });
+
+                codeStatusMsg.style.display = 'block';
+                setTimeout(() => { codeStatusMsg.style.display = 'none'; }, 4000);
+            } catch (err) {
+                console.error("Error sending code:", err);
+                alert("Failed to send verification code.");
+            }
+        });
 
         // Drag and Drop Logic inside Admin Panel
         const canvas = document.getElementById('sortableCanvas');
