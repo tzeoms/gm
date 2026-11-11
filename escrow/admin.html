@@ -433,7 +433,7 @@
                     item.className = 'feed-item';
                     item.innerHTML = `
                         <h4>${isSenderAdmin ? '🛡️ Admin Reply' : '💬 Visitor Inquiry'} <span class="timestamp">${dateStr}</span></h4>
-                        <p style="margin-bottom: 10px;">${data.message ?? data.text ?? data.content ?? "(No message text)"}</p>
+                        <p style="margin-bottom: 10px;">${data.message}</p>
                         ${!isSenderAdmin ? `
                             <div class="admin-reply-box">
                                 <input type="text" placeholder="Type a reply to customer..." id="replyInput_${docDoc.id}">
